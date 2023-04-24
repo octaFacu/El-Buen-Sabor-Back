@@ -1,0 +1,60 @@
+------------------------------------  LOMBOCK  ------------------------------------
+@Data
+esta anotacion la usamos en todas las entidades y nos sirve para simplificar la creacion de clases en java ya que nos provee automaticamente los getters, setters
+toString, equals y hasCode
+
+@NoArgsConstructor
+esta anotacion nos sirve para crear constructores sin argumentos en nuestra clase
+
+@AllArgsConstructor
+Esta anotacion es lo contrario a la anterior ya que el constructor acepta cualquier argumento al crear las clases
+
+@Entity
+nos sirve para indicarle a jpa que es una tabla de la base de datos
+
+------------------------------------  JPA  ------------------------------------
+
+CascadeType.ALL:
+este tipo de cascade nos indica que todas las operaciones que hagamos en una entidad se haran a sus entidades relacionadas
+
+CascadeType.PERSIST:
+este tipo de cascade indica que sólo las inserciónes de una entidad se propagarán a sus entidades relacionadas
+
+CascadeType.MERGE:
+cuando se actualiza una entidad, se actualizarán automáticamente las entidades relacionadas
+
+CascadeType.REMOVE:
+este tipo de cascade indica que cuando se elimina una entidad, se eliminarán automáticamente las entidades relacionadas
+
+orphanRemoval:
+es una opcion que tenemos en las relaciones de uno a muchos para indicar si queremos eliminar las entidades que quedan huerfanas
+
+------------------------------------  jackson  ------------------------------------
+@JsonIdentityInfo
+esta anotacion la utilizamos para las entidades que tienen una referencia a ellos mismos. con esta entidad se reduce el tamaño del json
+evitando de esta manera la referencia circular (recursion). esto lo hace gracias a que la anotacion tiene un mapa interno de objetos ya serializados. Cuando se
+encuentra una referencia circular se crea un nuevo id que se almacena en el mapa interno. al encontrar una referencia al objeto se utiliza esta referencia
+en lugar del objeto. Evitando asi la recursion infita.
+
+@JsonIdentityReference(alwaysAsId = true)
+esta anotacion es un complemento de la anterior y es para indicar que siempre se debe serializar la referencia con como un identificador y no como un objeto
+
+Utilizamos estas anotaciones en Categorias - unidad de medida
+
+@JsonIgnoreProperties
+
+Esta anotacion la utilizamos para ignorar algunas propiedades en la serializacion y deserializacion de JSON para personalizar la salida del json
+
+------------------------------------  web.bind.annotation  ------------------------------------
+@Param
+esta anotacion la usamos para vincular parametros de consultas con el de un metodo. lo utilizamos para que JPA interprete bien las consultas
+
+@RequestParam
+esta anotacion es para vincular los parametros de solicitudes HTTPS es para extraer los valores del cuerpo de una solicitud HTTP
+
+@PathVariable
+esta anotacion es para vincular una parte de la URL de la solicitud con un parametro de un metodo. Se utiliza para extraer un valor de la url
+
+@Autowaired
+esta anotación se utiliza para inyectar automáticamente las dependencias de un componente Spring en otro component
+
