@@ -39,12 +39,15 @@ en lugar del objeto. Evitando asi la recursion infita.
 @JsonIdentityReference(alwaysAsId = true)
 esta anotacion es un complemento de la anterior y es para indicar que siempre se debe serializar la referencia con como un identificador y no como un objeto
 
-Utilizamos estas anotaciones en Categorias - unidad de medida
-
 @JsonIgnoreProperties
 
-Esta anotacion la utilizamos para ignorar algunas propiedades en la serializacion y deserializacion de JSON para personalizar la salida del json
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
+esto nos dice que no se deben incluir ciertas propiedades en la serializacion del json
+
+Utilizamos estas anotaciones en Categorias - unidad de medida
+
+Esta anotacion la utilizamos para ignorar algunas propiedades en la serializacion y deserializacion de JSON para personalizar la salida del json
 ------------------------------------  web.bind.annotation  ------------------------------------
 @Param
 esta anotacion la usamos para vincular parametros de consultas con el de un metodo. lo utilizamos para que JPA interprete bien las consultas

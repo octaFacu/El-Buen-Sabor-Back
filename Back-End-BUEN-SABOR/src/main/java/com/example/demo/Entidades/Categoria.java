@@ -1,24 +1,22 @@
 package com.example.demo.Entidades;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Entity
 @Table(name = "categoria")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private String denominacion;
@@ -26,12 +24,8 @@ public class Categoria {
     @Column(nullable = false)
     private boolean activo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "categoria_padre_id")
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer"})
     private Categoria categoriaPadre;
-
-    @OneToMany(mappedBy = "categoriaPadre", cascade = CascadeType.ALL)
-    @JsonIdentityReference(alwaysAsId = true)
-    private List<Categoria> subcategorias;
 }

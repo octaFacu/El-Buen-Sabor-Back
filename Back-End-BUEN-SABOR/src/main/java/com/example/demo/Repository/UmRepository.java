@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface UmRepository extends GenericRepository<UnidadDeMedida,Long> {
 
-    @Query("SELECT u.denominacion FROM UnidadDeMedida u WHERE u.padre.id = :idPadre")
+    @Query("SELECT u FROM UnidadDeMedida u WHERE u.padre.id = :idPadre")
     List<UnidadDeMedida> findByPadreId(@Param("idPadre") Long idPadre);
 
 }
