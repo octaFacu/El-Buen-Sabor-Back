@@ -27,10 +27,10 @@ public class Ingrediente {
 
     private Boolean activo;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unidad_de_medida_id", referencedColumnName = "id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private UnidadDeMedida unidadDeMedida;
+    private UnidadDeMedida unidadmedida;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id", referencedColumnName = "id")
