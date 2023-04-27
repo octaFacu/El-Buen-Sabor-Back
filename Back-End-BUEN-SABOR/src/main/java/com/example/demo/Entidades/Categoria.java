@@ -24,7 +24,7 @@ public class Categoria {
     @Column(nullable = false)
     private boolean activo;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "categoria_padre_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer"})
     private Categoria categoriaPadre;
