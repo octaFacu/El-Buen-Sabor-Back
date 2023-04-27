@@ -9,4 +9,6 @@ public interface CategoriaService extends GenericService<Categoria,Long> {
 
     public List<Categoria> findSubCategorias(Long idCategoriaPadre) throws Exception;
 
+    public List<Categoria> findCategoriaPadres() throws Exception;
+
 }

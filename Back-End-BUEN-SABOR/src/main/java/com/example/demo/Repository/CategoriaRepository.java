@@ -14,4 +14,8 @@ public interface CategoriaRepository extends GenericRepository<Categoria, Long> 
     @Query(value = "SELECT c FROM Categoria c WHERE c.categoriaPadre.id = :idCategoriaPadre")
     List<Categoria> findByCategoriaPadreId(@Param("idCategoriaPadre") Long idCategoriaPadre);
 
+    //Trae todas las categorias de ingrediente que NO tengan padre
+    @Query(value = "SELECT c FROM Categoria c WHERE c.categoriaPadre IS NULL")
+    List<Categoria> findPadres();
+
 }

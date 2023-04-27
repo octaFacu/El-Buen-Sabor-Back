@@ -23,4 +23,15 @@ public class ImpCategoriaService extends GenericServiceImpl<Categoria,Long> impl
             throw new Exception(e.getMessage());
         }
     }
+
+    @Override
+    public List<Categoria> findCategoriaPadres() throws Exception {
+        try {
+            List<Categoria> categoriasPadres = repository.findPadres();
+            return categoriasPadres;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
 }
