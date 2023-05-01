@@ -1,6 +1,5 @@
 package com.example.demo.Entidades;
 
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,6 +24,8 @@ public class Ingrediente {
 
     private Double stockMinimo;
 
+    private Double stockMaximo;
+
     private Boolean activo;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -33,8 +34,8 @@ public class Ingrediente {
     private UnidadDeMedida unidadmedida;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoria_id", referencedColumnName = "id")
+    @JoinColumn(name = "categoria_ingrediente_id", referencedColumnName = "id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Categoria categoria;
+    private CategoriaIngrediente categoriaIngrediente;
 
 }

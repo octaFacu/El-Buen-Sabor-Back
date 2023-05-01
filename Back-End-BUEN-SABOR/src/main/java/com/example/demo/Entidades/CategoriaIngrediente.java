@@ -8,12 +8,11 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
-@Table(name = "unidadmedida")
+@Table(name = "categoriaIngrediente")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class UnidadDeMedida {
+public class CategoriaIngrediente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +22,10 @@ public class UnidadDeMedida {
     private String denominacion;
 
     @Column(nullable = false)
-    private Integer unidadesParaPadre;
+    private boolean activo;
 
-    @ManyToOne
-    @JoinColumn(name = "padre_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private UnidadDeMedida padre;
-
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "categoria_padre_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer"})
+    private CategoriaIngrediente categoriaIngredientePadre;
 }

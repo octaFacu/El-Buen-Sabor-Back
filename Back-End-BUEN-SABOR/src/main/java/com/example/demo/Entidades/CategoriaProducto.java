@@ -1,18 +1,16 @@
 package com.example.demo.Entidades;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
-@Table(name = "categoria")
+@Table(name = "categoriaProducto")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Categoria {
+public class CategoriaProducto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +21,4 @@ public class Categoria {
 
     @Column(nullable = false)
     private boolean activo;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "categoria_padre_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer"})
-    private Categoria categoriaPadre;
 }

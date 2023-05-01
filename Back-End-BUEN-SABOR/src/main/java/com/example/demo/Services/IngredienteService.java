@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface IngredienteService extends GenericService<Ingrediente,Long> {
 
-    List<Ingrediente> findByCategoria(Long idCategoria) throws Exception;
+    List<Ingrediente> findByCategoriaIngrediente(Long idCategoria) throws Exception;
 
 }

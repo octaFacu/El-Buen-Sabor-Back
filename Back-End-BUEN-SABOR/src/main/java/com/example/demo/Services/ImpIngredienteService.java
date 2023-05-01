@@ -15,9 +15,9 @@ public class ImpIngredienteService extends GenericServiceImpl<Ingrediente,Long> 
      private IngredienteRepository repositorio;
 
     @Override
-    public List<Ingrediente> findByCategoria(Long idCategoria) throws Exception {
+    public List<Ingrediente> findByCategoriaIngrediente(Long idCategoriaIngrediente) throws Exception {
         try{
-            List<Ingrediente> ingredientesPorCategoria = repositorio.findByCategoria(idCategoria);
+            List<Ingrediente> ingredientesPorCategoria = repositorio.findByCategoriaIngrediente(idCategoriaIngrediente);
             return  ingredientesPorCategoria;
         }catch (Exception e){
             throw new Exception(e.getMessage());

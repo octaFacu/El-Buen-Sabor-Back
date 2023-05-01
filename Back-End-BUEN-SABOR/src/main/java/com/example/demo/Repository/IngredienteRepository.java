@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface IngredienteRepository extends GenericRepository<Ingrediente,Long> {
 
-    @Query("SELECT i FROM Ingrediente i WHERE i.categoria.id = :idCategoria")
-    List<Ingrediente> findByCategoria(@Param("idCategoria") Long idCategoria);
+    @Query("SELECT i FROM Ingrediente i WHERE i.categoriaIngrediente.id = :idCategoriaIngrediente")
+    List<Ingrediente> findByCategoriaIngrediente(@Param("idCategoria") Long idCategoria);
 
 }

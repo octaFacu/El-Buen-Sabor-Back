@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class IngredienteController extends GenericControllerImpl<Ingrediente, ImpIngredienteService> {
 
     @GetMapping("/porCategoria/{idCategoria}")
-    public ResponseEntity<?> buscarPorCategoria(@PathVariable Long idCategoria) throws Exception{
+    public ResponseEntity<?> buscarPorCategoria(@PathVariable Long idCategoriaIngrediente) throws Exception{
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(service.findByCategoria(idCategoria));
+            return ResponseEntity.status(HttpStatus.OK).body(service.findByCategoriaIngrediente(idCategoriaIngrediente));
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
