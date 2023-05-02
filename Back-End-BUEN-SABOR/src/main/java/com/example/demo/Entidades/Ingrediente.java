@@ -15,17 +15,17 @@ public class Ingrediente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(nullable = false, length = 50)
     private String nombre;
-
+    @Column(nullable = false)
     private Double precioCompra;
-
+    @Column(nullable = false)
     private Double stockActual;
-
+    @Column(nullable = false)
     private Double stockMinimo;
-
+    @Column(nullable = false)
     private Double stockMaximo;
-
+    @Column(nullable = false)
     private Boolean activo;
 
     @OneToOne(fetch = FetchType.LAZY)

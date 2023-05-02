@@ -200,7 +200,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"calle\": \"Av. Siempreviva\",\r\n  \"nroCasa\": \"742\",\r\n  \"pisoDpto\": \"2A\",\r\n  \"usuario\": {\r\n    \"id\": 2\r\n  }\r\n}",
+							"raw": " {\r\n        \"calle\": \"av. siempre viva\",\r\n        \"nroCasa\": \"891\",\r\n        \"pisoDpto\": \"A2\",\r\n        \"usuario\": {\r\n            \"id\": 1\r\n        }\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -273,13 +273,24 @@
 			]
 		},
 		{
-			"name": "Categoria",
+			"name": "CategoriaIngrediente",
 			"item": [
 				{
 					"name": "GetAll",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/categoriaIngrediente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categoriaIngrediente"
+							]
+						}
 					},
 					"response": []
 				},
@@ -289,14 +300,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/direccion/1",
+							"raw": "http://localhost:8080/categoriaIngrediente/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"direccion",
+								"categoriaIngrediente",
 								"1"
 							]
 						}
@@ -307,7 +318,10 @@
 					"name": "GetSubCategorias",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -318,7 +332,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"calle\": \"Av. Siempreviva\",\r\n  \"nroCasa\": \"742\",\r\n  \"pisoDpto\": \"2A\",\r\n  \"usuario\": {\r\n    \"id\": 2\r\n  }\r\n}",
+							"raw": " {\r\n        \"denominacion\": \"Pescado\",\r\n        \"activo\": true,\r\n        \"categoriaPadre\": {\"id\": 4,\r\n        \"denominacion\": \"Pollo\",\r\n        \"activo\": true}\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -326,14 +340,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/direccion",
+							"raw": "http://localhost:8080/categoriaIngrediente",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"direccion"
+								"categoriaIngrediente"
 							]
 						}
 					},
@@ -346,7 +360,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n        \"idDireccion\": 2,\r\n        \"calle\": \"Av. moneti\",\r\n        \"nroCasa\": \"992\",\r\n        \"piso_dpto\": null,\r\n        \"usuario\": {\r\n            \"id\": 2,\r\n            \"nombre\": \"Juan\",\r\n            \"apellido\": \"Pérez\",\r\n            \"telefono\": 2612813549,\r\n            \"activo\": true\r\n        }\r\n    }",
+							"raw": "{\r\n    \"id\": 3,\r\n        \"denominacion\": \"harinas\",\r\n        \"activo\": true,\r\n        \"categoriaPadre\": null\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -354,15 +368,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/direccion/2",
+							"raw": "http://localhost:8080/categoriaIngrediente/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"direccion",
-								"2"
+								"categoriaIngrediente",
+								"1"
 							]
 						}
 					},
@@ -383,6 +397,106 @@
 							"path": [
 								"direccion",
 								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CategoriaProducto",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/categoriaProducto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categoriaProducto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/categoriaProducto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categoriaProducto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"denominacion\": \"Pescado\",\r\n        \"activo\": true,\r\n        \"categoriaPadre\": {\"id\": 4,\r\n        \"denominacion\": \"Pollo\",\r\n        \"activo\": true}\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/categoriaProducto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categoriaProducto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 3,\r\n        \"denominacion\": \"harinas\",\r\n        \"activo\": true,\r\n        \"categoriaPadre\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/categoriaProducto/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categoriaProducto",
+								"10"
 							]
 						}
 					},
@@ -397,7 +511,18 @@
 					"name": "GetAll",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/unidadDeMedida",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidadDeMedida"
+							]
+						}
 					},
 					"response": []
 				},
@@ -407,14 +532,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/direccion/1",
+							"raw": "http://localhost:8080/unidadDeMedida/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"direccion",
+								"unidadDeMedida",
 								"1"
 							]
 						}
@@ -436,7 +561,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"calle\": \"Av. Siempreviva\",\r\n  \"nroCasa\": \"742\",\r\n  \"pisoDpto\": \"2A\",\r\n  \"usuario\": {\r\n    \"id\": 2\r\n  }\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -444,14 +569,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/direccion",
+							"raw": "http://localhost:8080/unidadDeMedida",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"direccion"
+								"unidadDeMedida"
 							]
 						}
 					},
@@ -472,15 +597,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/direccion/2",
+							"raw": "http://localhost:8080/unidadDeMedida/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"direccion",
-								"2"
+								"unidadDeMedida",
+								"1"
 							]
 						}
 					},
@@ -515,7 +640,18 @@
 					"name": "GetAll",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ingrediente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ingrediente"
+							]
+						}
 					},
 					"response": []
 				},
@@ -525,14 +661,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/direccion/1",
+							"raw": "http://localhost:8080/ingrediente/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"direccion",
+								"ingrediente",
 								"1"
 							]
 						}
@@ -554,7 +690,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"calle\": \"Av. Siempreviva\",\r\n  \"nroCasa\": \"742\",\r\n  \"pisoDpto\": \"2A\",\r\n  \"usuario\": {\r\n    \"id\": 2\r\n  }\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -562,14 +698,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/direccion",
+							"raw": "http://localhost:8080/ingrediente",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"direccion"
+								"ingrediente"
 							]
 						}
 					},
@@ -582,7 +718,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1,\r\n    \"nombre\": \"bondiola\",\r\n    \"precioCompra\": 23.0,\r\n    \"stockActual\": 90.0,\r\n    \"stockMinimo\": 10.0,\r\n    \"activo\": true,\r\n    \"unidadDeMedida\": {\r\n        \"id\": 2\r\n    },\r\n    \"categoria\": {\r\n        \"id\": 3\r\n    }\r\n}",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nombre\": \"bondiola\",\r\n    \"precioCompra\": 23.0,\r\n    \"stockActual\": 90.0,\r\n    \"stockMinimo\": 10.0,\r\n    \"activo\": true,\r\n    \"unidadDeMedida\": {\r\n        \"id\": 2\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -619,6 +755,483 @@
 							"path": [
 								"direccion",
 								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cliente",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cliente/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nombre\": \"bondiola\",\r\n    \"precioCompra\": 23.0,\r\n    \"stockActual\": 90.0,\r\n    \"stockMinimo\": 10.0,\r\n    \"activo\": true,\r\n    \"unidadDeMedida\": {\r\n        \"id\": 2\r\n    },\r\n    \"categoria\": {\r\n        \"id\": 3\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cliente/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/direccion/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"direccion",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MetodoDePago",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/metodoDePago",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"metodoDePago"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/metodoDePago/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"metodoDePago",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pedido",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pedido",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedido"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pedido/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedido",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"precioTotal\": 972.0,\r\n    \"esEnvio\": true,\r\n    \"horaEstimada\": \"01:21:21\",\r\n    \"cliente\": {\r\n        \"id\": 1\r\n    },\r\n    \"direccion\": {\r\n        \"idDireccion\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pedido",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedido"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 4,\r\n    \"precioTotal\": 999.0,\r\n    \"esEnvio\": true,\r\n    \"horaEstimada\": \"01:21:21\",\r\n    \"fechaPedido\": \"2021-01-02 23:01:43\",\r\n    \"numeroPedidoDia\": 2,\r\n    \"cliente\": {\r\n        \"id\": 1\r\n    },\r\n    \"direccion\": {\r\n        \"idDireccion\": 2\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pedido/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedido",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Factura",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/factura",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"factura"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/factura/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"factura",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipo\": \"A\",\r\n    \"montoDescuento\": 0.0,\r\n    \"numeroFactura\": 2328,\r\n    \"pedido\": {\r\n        \"id\": 4\r\n        },\r\n    \"metodoDePago\": {\r\n        \"id\": 2\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/factura/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"factura",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"tipo\": \"A\",\r\n    \"montoDescuento\": 0.0,\r\n    \"numeroFactura\": 2328,\r\n    \"pedido\": {\r\n        \"id\": 4\r\n        },\r\n    \"metodoDePago\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/factura/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"factura",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Producto",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/producto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/producto/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"denominacion\": \"Pizza con piña\",\r\n    \"esManufacturado\": true,\r\n    \"tiempoCocina\": \"01:00:22\",\r\n    \"descripcion\": \"una pizza tropical que nadie quiere comer\",\r\n    \"receta\": \", extendemos bien la masa de esta pizza hawaiana, de forma que nos quede con un grosor uniforme. Hecho esto, untamos la masa con tomate frito y cubrimos después con el queso rallado.\",\r\n    \"costoTotal\": 1800.0,\r\n    \"imagen\": null,\r\n    \"precioTotal\": 2700.0,\r\n    \"activo\": true,\r\n    \"categoriaProducto\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/producto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/producto/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto",
+								"1"
 							]
 						}
 					},

@@ -29,8 +29,4 @@ public class Usuario {
     @Column(nullable = false)
     private boolean activo;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("usuario") // Ignorar la propiedad "usuario" en la lista de direcciones
-    private List<Direccion> direcciones = new ArrayList<>();
-
 }

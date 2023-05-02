@@ -31,6 +31,7 @@ public class Producto {
     @Column(nullable = false)
     private String descripcion;
 
+    @Column(length = 1000)
     private String receta;
 
     @Column(nullable = false)
