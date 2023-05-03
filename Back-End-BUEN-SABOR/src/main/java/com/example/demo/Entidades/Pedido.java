@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Collection;
 
 @Data
 @Entity
@@ -48,4 +49,12 @@ public class Pedido {
     @JoinColumn(name = "direccion_id", nullable = false)
     @JsonIgnoreProperties({"usuario","hibernateLazyInitializer", "handler"})
     private Direccion direccion;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "pedido_has_producto",
+            joinColumns = @JoinColumn(name = "pedido_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "producto_id",referencedColumnName = "id")
+    )
+    private Collection<Producto> productos;
 }
