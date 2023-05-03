@@ -32,4 +32,13 @@ public class CategoriaIngredienteController extends GenericControllerImpl<Catego
         }
     }
 
+    @GetMapping("/padresConHijos")
+    public ResponseEntity<?> buscarCategoriaPadresConHijos() throws Exception {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.findCategoriaPadresConHijos());
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
 }

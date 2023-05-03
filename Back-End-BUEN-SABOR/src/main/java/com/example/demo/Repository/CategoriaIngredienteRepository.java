@@ -18,4 +18,12 @@ public interface CategoriaIngredienteRepository extends GenericRepository<Catego
     @Query(value = "SELECT c FROM CategoriaIngrediente c WHERE c.categoriaIngredientePadre IS NULL")
     List<CategoriaIngrediente> findPadres();
 
+    //Trae todas las categorias que no tienen padre y si tienen hijos
+    @Query(value = "SELECT c FROM CategoriaIngrediente c WHERE c.categoriaIngredientePadre IS NULL AND EXISTS (\n" +
+            "  SELECT 1\n" +
+            "  FROM CategoriaIngrediente c1\n" +
+            "  WHERE c1.categoriaIngredientePadre = c.id\n" +
+            ")")
+    List<CategoriaIngrediente> findPadresConHijos();
+
 }

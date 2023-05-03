@@ -11,4 +11,6 @@ public interface CategoriaIngredienteService extends GenericService<CategoriaIng
 
     public List<CategoriaIngrediente> findCategoriaPadres() throws Exception;
 
+    public List<CategoriaIngrediente> findCategoriaPadresConHijos() throws Exception;
+
 }

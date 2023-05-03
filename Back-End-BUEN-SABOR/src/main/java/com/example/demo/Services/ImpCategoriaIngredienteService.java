@@ -17,8 +17,8 @@ public class ImpCategoriaIngredienteService extends GenericServiceImpl<Categoria
     @Override
     public List<CategoriaIngrediente> findSubCategorias(Long idCategoriaPadre) throws Exception {
         try {
-            List<CategoriaIngrediente> subcategorioas = repository.findByCategoriaIngredientePadreId(idCategoriaPadre);
-            return subcategorioas;
+            List<CategoriaIngrediente> subcategorias = repository.findByCategoriaIngredientePadreId(idCategoriaPadre);
+            return subcategorias;
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
@@ -28,6 +28,16 @@ public class ImpCategoriaIngredienteService extends GenericServiceImpl<Categoria
     public List<CategoriaIngrediente> findCategoriaPadres() throws Exception {
         try {
             List<CategoriaIngrediente> categoriasPadres = repository.findPadres();
+            return categoriasPadres;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<CategoriaIngrediente> findCategoriaPadresConHijos() throws Exception {
+        try {
+            List<CategoriaIngrediente> categoriasPadres = repository.findPadresConHijos();
             return categoriasPadres;
         }catch (Exception e){
             throw new Exception(e.getMessage());
