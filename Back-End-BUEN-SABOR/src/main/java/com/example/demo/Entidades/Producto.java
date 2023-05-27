@@ -51,11 +51,4 @@ public class Producto {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private CategoriaProducto categoriaProducto;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "producto_has_ingredientes",
-            joinColumns = @JoinColumn(name = "producto_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "ingrediente_id",referencedColumnName = "id")
-    )
-    private Collection<Ingrediente> ingredientes;
 }
