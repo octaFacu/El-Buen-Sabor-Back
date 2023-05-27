@@ -1,6 +1,7 @@
 package com.example.demo.Entidades;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,11 +26,13 @@ public class IngredientesDeProductos {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ingrediente_id", referencedColumnName = "id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonProperty("ingrediente_id")
     private Ingrediente ingrediente;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "producto_id", referencedColumnName = "id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonProperty("producto_id")
     private Producto producto;
 
     @OneToOne(fetch = FetchType.LAZY)

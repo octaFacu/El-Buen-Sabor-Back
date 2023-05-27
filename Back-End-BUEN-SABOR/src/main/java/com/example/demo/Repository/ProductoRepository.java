@@ -16,17 +16,10 @@ public interface ProductoRepository extends GenericRepository<Producto, Long> {
     List<IngredientesDeProductos> findByIdProducto(@Param("idProducto") Long idProducto);
 
     //It must be called before doing the update
-    @Query("DELETE ing FROM IngredientesDeProductos ing WHERE ing.producto.id = :idProducto")
+    @Query("DELETE FROM IngredientesDeProductos ing WHERE ing.producto.id = :idProducto")
     void deleteByIdProducto (@Param("idProducto") Long idProducto);
 
 
-
-    /*@Query("INSERT INTO IngredientesDeProductos (cantidad, unidad_de_medida_id, ingrediente_id, producto_id) " +
-            "VALUES (:cantidad, :unidadMedidaId, :ingredienteId, :productoId)")
-    void insertIngrediente(@Param("cantidad") Double cant,
-                            @Param("unidadMedidaId") Long medidaId,
-                            @Param("ingredienteId") Long ingredienteId,
-                            @Param("productoId") Long productoId);*/
 
     @Query("INSERT INTO IngredientesDeProductos (cantidad, unidadmedida, ingrediente, producto) " +
             "VALUES (:cantidad, :unidadMedidaId, :ingredienteId, :productoId)")

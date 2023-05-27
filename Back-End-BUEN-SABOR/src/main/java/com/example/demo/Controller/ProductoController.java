@@ -27,8 +27,8 @@ public class ProductoController extends GenericControllerImpl<Producto, ImpProdu
     }
 
 
-    @PostMapping("")
-    public ResponseEntity<?> save(@RequestBody RequestWrapper request) {
+    @PutMapping("/{idProducto}")
+    public ResponseEntity<?> updateProducto(@PathVariable Long idProducto, @RequestBody RequestWrapper request) {
         try {
             //Estamos buscando los ingredientes que ya estan vinculados en la tabla intermedia con
             //el producto que le estamos pasando
@@ -40,7 +40,7 @@ public class ProductoController extends GenericControllerImpl<Producto, ImpProdu
                 service.saveIngredientes(request.getIngredientes());
             }
 
-            service.save(request.getProducto());
+            service.update(request.getProducto().getId(), request.getProducto());
 
 
             return ResponseEntity.status(HttpStatus.OK).body("Producto creado!");
