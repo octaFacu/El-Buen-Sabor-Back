@@ -9,4 +9,8 @@ import java.util.List;
 public interface ProductoService extends GenericService<Producto, Long> {
 
     public List<IngredientesDeProductos> findIngredientes(Long idProducto) throws Exception;
+
+    public void saveIngredientes(List<IngredientesDeProductos> ingredientes) throws Exception;
+
+    public void deleteIngredientes(Long idProducto) throws Exception;
 }
