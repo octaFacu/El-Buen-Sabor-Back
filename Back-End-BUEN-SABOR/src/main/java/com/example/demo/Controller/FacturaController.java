@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/factura")
-public class FacturaController extends GenericControllerImpl<Factura, ImpFacturaService> {
+public class FacturaController extends GenericControllerImpl<Factura,Long, ImpFacturaService> {
 }

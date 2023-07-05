@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/unidadDeMedida")
-public class UmController extends GenericControllerImpl<UnidadDeMedida, ImpUmService> {
+public class UmController extends GenericControllerImpl<UnidadDeMedida,Long, ImpUmService> {
 
     @GetMapping("/subcategorias/{idPadre}")
     public ResponseEntity<?> buscarSubcategoriasPorPadreId(@PathVariable Long idPadre) throws Exception {

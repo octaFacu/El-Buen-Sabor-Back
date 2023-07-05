@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/direccion")
-public class DireccionController extends GenericControllerImpl<Direccion, ImpDireccionService> {
+public class DireccionController extends GenericControllerImpl<Direccion,Long, ImpDireccionService> {
 }

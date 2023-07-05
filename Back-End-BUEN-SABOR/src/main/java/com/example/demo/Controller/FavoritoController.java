@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/favorito")
-public class FavoritoController  extends GenericControllerImpl<Favorito, ImpFavoritoService> {
+public class FavoritoController  extends GenericControllerImpl<Favorito,Long, ImpFavoritoService> {
 }

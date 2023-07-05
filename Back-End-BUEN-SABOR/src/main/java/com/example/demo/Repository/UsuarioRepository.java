@@ -5,5 +5,5 @@ import com.example.genericos.genericos.repositories.GenericRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UsuarioRepository extends GenericRepository<Usuario, Long> {
+public interface UsuarioRepository extends GenericRepository<Usuario, String> {
 }

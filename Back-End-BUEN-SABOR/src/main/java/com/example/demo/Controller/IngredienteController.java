@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/ingrediente")
-public class IngredienteController extends GenericControllerImpl<Ingrediente, ImpIngredienteService> {
+public class IngredienteController extends GenericControllerImpl<Ingrediente,Long, ImpIngredienteService> {
 
     @GetMapping("/porCategoria/{idCategoria}")
     public ResponseEntity<?> buscarPorCategoria(@PathVariable Long idCategoriaIngrediente) throws Exception{

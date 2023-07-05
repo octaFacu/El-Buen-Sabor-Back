@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/producto")
-public class ProductoController extends GenericControllerImpl<Producto, ImpProductoService> {
+public class ProductoController extends GenericControllerImpl<Producto,Long, ImpProductoService> {
 
     @GetMapping("/ingredientes/{idProducto}")
     public ResponseEntity<?> buscarIngredientes(@PathVariable Long idProducto) throws Exception {
