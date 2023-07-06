@@ -6,6 +6,7 @@ import com.example.demo.Entidades.Producto;
 import com.example.demo.Entidades.Wrapper.RequestWrapper;
 import com.example.demo.Services.ImpProductoService;
 import com.example.genericos.genericos.controllers.GenericControllerImpl;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,23 +28,19 @@ public class ProductoController extends GenericControllerImpl<Producto, ImpProdu
     }
 
 
-    @PutMapping("/{idProducto}")
+    @PutMapping("/update/{idProducto}")
+    @Transactional
     public ResponseEntity<?> updateProducto(@PathVariable Long idProducto, @RequestBody RequestWrapper request) {
         try {
-            //Estamos buscando los ingredientes que ya estan vinculados en la tabla intermedia con
-            //el producto que le estamos pasando
-            List<IngredientesDeProductos> ingredientes = service.findIngredientes(request.getProducto().getId());
-            if(ingredientes.size() != 0){
-                service.deleteIngredientes(request.getProducto().getId());
-            }
-            if(request.getIngredientes().size() != 0){
+
+            if(!request.getIngredientes().isEmpty()){
                 service.saveIngredientes(request.getIngredientes());
             }
 
-            service.update(request.getProducto().getId(), request.getProducto());
+            service.update(idProducto, request.getProducto());
 
 
-            return ResponseEntity.status(HttpStatus.OK).body("Producto creado!");
+            return ResponseEntity.status(HttpStatus.OK).body("Producto editado!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }

@@ -27,6 +27,7 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j:8.0.32'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.0.5'
     implementation files('src/main/resources/library/genericos.jar')
+    implementation 'ch.qos.logback:logback-classic:1.2.6'
 }
 
 tasks.jar{

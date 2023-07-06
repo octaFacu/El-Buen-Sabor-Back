@@ -10,8 +10,10 @@ import com.example.demo.Repository.ProductoRepository;
 import com.example.genericos.genericos.services.GenericServiceImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,6 +26,12 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
     public List<IngredientesDeProductos> findIngredientes(Long idProducto) throws Exception {
         try {
             List<IngredientesDeProductos> ingredientes = repository.findByIdProducto(idProducto);
+
+            if (ingredientes == null) {
+                // Inicializar ingredientes como una lista vacia para devolverlo
+                ingredientes = new ArrayList<>();
+            }
+
             return ingredientes;
         }catch (Exception e){
             throw new Exception(e.getMessage());
@@ -43,12 +51,13 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
         }
     }
 
-    @Override
+    /*@Override
+    @Modifying
     public void deleteIngredientes(Long idProducto) throws Exception {
         try {
             repository.deleteByIdProducto(idProducto);
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
-    }
+    }*/
 }

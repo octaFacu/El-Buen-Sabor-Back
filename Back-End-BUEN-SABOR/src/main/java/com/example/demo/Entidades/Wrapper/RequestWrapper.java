@@ -6,6 +6,7 @@ import com.example.demo.Entidades.Producto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RequestWrapper {
@@ -15,4 +16,8 @@ public class RequestWrapper {
 
     @Getter @Setter
     private List<IngredientesDeProductos> ingredientes;
+
+    public RequestWrapper() {
+        ingredientes = new ArrayList<>();
+    }
 }
