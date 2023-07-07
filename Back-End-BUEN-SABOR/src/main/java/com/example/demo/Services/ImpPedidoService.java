@@ -2,7 +2,6 @@ package com.example.demo.Services;
 
 import com.example.demo.Entidades.Pedido;
 import com.example.demo.Repository.PedidoRepository;
-import com.example.genericos.genericos.services.GenericServiceImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

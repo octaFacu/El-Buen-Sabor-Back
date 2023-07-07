@@ -4,7 +4,6 @@ import com.example.demo.Entidades.Ingrediente;
 import com.example.demo.Entidades.IngredientesDeProductos;
 import com.example.demo.Entidades.Producto;
 import com.example.demo.Entidades.UnidadDeMedida;
-import com.example.genericos.genericos.repositories.GenericRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

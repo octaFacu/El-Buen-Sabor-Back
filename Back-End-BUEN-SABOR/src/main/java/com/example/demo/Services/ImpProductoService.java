@@ -7,7 +7,6 @@ import com.example.demo.Entidades.IngredientesDeProductos;
 import com.example.demo.Entidades.Producto;
 import com.example.demo.Repository.CategoriaIngredienteRepository;
 import com.example.demo.Repository.ProductoRepository;
-import com.example.genericos.genericos.services.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

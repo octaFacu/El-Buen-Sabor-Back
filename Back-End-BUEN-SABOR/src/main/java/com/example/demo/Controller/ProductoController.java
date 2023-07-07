@@ -3,7 +3,6 @@ package com.example.demo.Controller;
 
 import com.example.demo.Entidades.Producto;
 import com.example.demo.Services.ImpProductoService;
-import com.example.genericos.genericos.controllers.GenericControllerImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,4 +20,6 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
             throw new Exception(e.getMessage());
         }
     }
+
+
 }

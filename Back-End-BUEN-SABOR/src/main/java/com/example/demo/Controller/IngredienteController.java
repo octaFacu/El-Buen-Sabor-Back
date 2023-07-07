@@ -2,7 +2,6 @@ package com.example.demo.Controller;
 
 import com.example.demo.Entidades.Ingrediente;
 import com.example.demo.Services.ImpIngredienteService;
-import com.example.genericos.genericos.controllers.GenericControllerImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

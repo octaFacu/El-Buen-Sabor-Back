@@ -1,7 +1,6 @@
 package com.example.demo.Services;
 
 import com.example.demo.Entidades.Ingrediente;
-import com.example.genericos.genericos.services.GenericService;
 
 import java.util.List;
 

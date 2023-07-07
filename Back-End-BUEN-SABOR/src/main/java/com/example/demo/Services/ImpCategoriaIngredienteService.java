@@ -2,7 +2,6 @@ package com.example.demo.Services;
 
 import com.example.demo.Entidades.CategoriaIngrediente;
 import com.example.demo.Repository.CategoriaIngredienteRepository;
-import com.example.genericos.genericos.services.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
