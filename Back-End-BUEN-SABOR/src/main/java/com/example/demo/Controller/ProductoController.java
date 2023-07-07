@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -43,6 +45,45 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
 
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("{\"error\":\"Error, por favor intente mas tarde\"}");
+        }
+    }
+
+    //Filtro paginado por CATEGORIA de producto
+    @GetMapping("/filtroCategoriaPaginado")
+    public ResponseEntity<?> filtroCategoriaPaginado(
+            @RequestParam(required = false) Long filter,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "5") Integer size
+    ){
+
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<Producto> productos = service.filtroCategoriaPaginado(pageable, filter);
+            if(productos.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("{\"error\":\"Error, no hay nada que mostrar\"}");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(productos);
+
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, por favor intente mas tarde\"}");
+        }
+    }
+
+    //Filtro por CATEGORIA de producto
+    @GetMapping("/filtroCategoria")
+    public ResponseEntity<?> filtroCategoria(
+            @RequestParam(required = false) Long filter
+    ){
+
+        try {
+            List<Producto> productos = service.filtroCategoria(filter);
+            if(productos.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("{\"error\":\"Error, no hay nada que mostrar\"}");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(productos);
+
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, por favor intente mas tarde\"}");
         }
     }
 

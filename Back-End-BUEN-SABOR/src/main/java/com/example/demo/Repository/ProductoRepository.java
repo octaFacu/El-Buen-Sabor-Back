@@ -19,4 +19,13 @@ public interface ProductoRepository extends GenericRepository<Producto, Long> {
     @Query("SELECT l FROM Producto l WHERE l.denominacion LIKE %:filter%")
     Page<Producto> filtroPaginado(Pageable peageable, @Param("filter") String filter);
 
+    //Filtro paginado por CATEGORIA de producto
+    @Query("SELECT l FROM Producto l INNER JOIN l.categoriaProducto c WHERE c.id = :filter")
+    Page<Producto> filtroCategoriaPaginado(Pageable peageable, @Param("filter") Long filter);
+
+    //Filtro por CATEGORIA de producto
+    @Query("SELECT l FROM Producto l INNER JOIN l.categoriaProducto c WHERE c.id = :filter")
+    List<Producto> filtroCategoria(@Param("filter") Long filter);
+
+
 }

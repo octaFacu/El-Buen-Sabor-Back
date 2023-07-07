@@ -12,4 +12,8 @@ public interface ProductoService extends GenericService<Producto, Long> {
     public List<IngredientesDeProductos> findIngredientes(Long idProducto) throws Exception;
     Page<Producto> filtroPaginado(Pageable pageable, String filtro) throws Exception;
 
+    Page<Producto> filtroCategoriaPaginado(Pageable pageable, Long filter) throws Exception;
+
+    List<Producto> filtroCategoria(Long filter) throws Exception;
+
 }
