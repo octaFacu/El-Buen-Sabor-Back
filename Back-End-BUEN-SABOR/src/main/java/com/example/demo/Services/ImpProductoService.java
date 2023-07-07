@@ -8,6 +8,8 @@ import com.example.demo.Entidades.Producto;
 import com.example.demo.Repository.CategoriaIngredienteRepository;
 import com.example.demo.Repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,4 +29,17 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
             throw new Exception(e.getMessage());
         }
     }
+
+    //Filtro paginado por nombre de producto
+    @Override
+    public Page<Producto> filtroPaginado(Pageable pageable, String filter) throws Exception {
+        try{
+            Page<Producto> entities = repository.filtroPaginado(pageable, filter);
+            return entities;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+
 }
