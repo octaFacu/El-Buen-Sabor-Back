@@ -38,7 +38,7 @@ public class Producto {
     @Column(nullable = false)
     private Double costoTotal;
 
-    private Blob imagen;
+    private String imagen;
 
     @Column(nullable = false)
     private Double precioTotal;
