@@ -21,10 +21,4 @@ public interface ProductoRepository extends GenericRepository<Producto, Long> {
     void deleteByIdProducto (@Param("idProducto") Long idProducto);*/
 
 
-    @Transactional
-    @Query(value = "CALL insertarIngredientesProducto(:productoId, :ingredienteId, :unidadMedidaId, :cantidad)", nativeQuery = true)
-    void insertIngrediente(@Param("cantidad") Double cant,
-                           @Param("unidadMedidaId") Long medidaId,
-                           @Param("ingredienteId") Long ingredienteId,
-                           @Param("productoId") Long productoId);
 }

@@ -39,7 +39,7 @@ public class IngredientesDeProductos {
     private UnidadDeMedida unidadmedida;
 
 
-    @JsonProperty("ingrediente_id")
+    /*@JsonProperty("ingrediente_id")
     public Long getIngredienteId() {
         return ingrediente != null ? ingrediente.getId() : null;
     }
@@ -47,5 +47,5 @@ public class IngredientesDeProductos {
     @JsonProperty("producto_id")
     public Long getProductoId() {
         return producto != null ? producto.getId() : null;
-    }
+    }*/
 }

@@ -10,6 +10,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import java.util.List;
 
@@ -17,6 +20,9 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/producto")
 public class ProductoController extends GenericControllerImpl<Producto, ImpProductoService> {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductoController.class);
+
 
     @GetMapping("/ingredientes/{idProducto}")
     public ResponseEntity<?> buscarIngredientes(@PathVariable Long idProducto) throws Exception {
@@ -27,22 +33,4 @@ public class ProductoController extends GenericControllerImpl<Producto, ImpProdu
         }
     }
 
-
-    @PutMapping("/update/{idProducto}")
-    @Transactional
-    public ResponseEntity<?> updateProducto(@PathVariable Long idProducto, @RequestBody RequestWrapper request) {
-        try {
-
-            if(!request.getIngredientes().isEmpty()){
-                service.saveIngredientes(request.getIngredientes());
-            }
-
-            service.update(idProducto, request.getProducto());
-
-
-            return ResponseEntity.status(HttpStatus.OK).body("Producto editado!");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
-    }
 }
