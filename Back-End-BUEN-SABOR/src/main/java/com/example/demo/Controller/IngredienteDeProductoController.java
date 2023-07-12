@@ -25,7 +25,7 @@ public class IngredienteDeProductoController extends GenericControllerImpl<Ingre
                 service.saveIngredientes(request);
 
 
-            return ResponseEntity.status(HttpStatus.OK).body("Producto editado!");
+            return ResponseEntity.status(HttpStatus.OK).body("Ingrediente agregado!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
