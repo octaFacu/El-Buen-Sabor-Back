@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface FavoritoRepository extends GenericRepository<Favorito, Long> {
 
-    @Query(value = "SELECT favorito.id, producto.denominacion, producto.imagen FROM producto INNER JOIN favorito ON producto.id = favorito.id WHERE favorito.id_cliente = :id_cliente",nativeQuery = true)
+    @Query(value = "SELECT favorito.id, producto.denominacion, producto.imagen FROM favorito LEFT JOIN producto ON producto.id = favorito.id_producto WHERE favorito.id_cliente = :id_cliente",nativeQuery = true)
     List<ProyeccionProductoFavorito> findbyId_cliente(@Param("id_cliente") long id_cliente);
 
 }
