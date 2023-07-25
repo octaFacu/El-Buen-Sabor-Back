@@ -1,9 +1,10 @@
 package com.example.demo.Controller;
 
 
-import com.example.demo.Entidades.IngredientesDeProductos;
+import com.example.demo.Helpers.CustomTimeDeserializer;
 import com.example.demo.Entidades.Producto;
 import com.example.demo.Entidades.Wrapper.RequestWrapper;
+import com.example.demo.Helpers.TimeDeserializerUtil;
 import com.example.demo.Services.ImpProductoService;
 import com.example.genericos.genericos.controllers.GenericControllerImpl;
 import jakarta.transaction.Transactional;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+import java.sql.Time;
 import java.util.List;
 
 @RestController
@@ -31,6 +33,30 @@ public class ProductoController extends GenericControllerImpl<Producto, ImpProdu
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
+    }
+
+
+    @PostMapping("/saveTime")
+    public ResponseEntity<?> saveEntityWithTime(@RequestBody Producto producto) throws Exception {
+
+        try {
+            System.out.println("Entrando al deserializador de tiempo");
+            Time time = TimeDeserializerUtil.deserializeTime(producto.getTiempoCocina().toString());
+            System.out.println("Tiempo deserializado: "+time);
+
+            if (time != null) {
+                System.out.println("Time no es nulo");
+                producto.setTiempoCocina(time);
+                System.out.println("El tiempo seteado en producto es: "+producto.getTiempoCocina());
+                System.out.println("Producto antes de guardarlo: "+producto.toString());
+
+                return ResponseEntity.status(HttpStatus.OK).body(service.saveProducto(producto));
+
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+        return null;
     }
 
 }

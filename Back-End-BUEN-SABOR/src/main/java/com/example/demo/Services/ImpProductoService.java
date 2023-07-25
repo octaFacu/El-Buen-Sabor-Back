@@ -38,6 +38,17 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
         }
     }
 
+    @Override
+    public Producto saveProducto(Producto producto) throws Exception {
+        try {
+            Producto prod = repository.save(producto);
+            return prod;
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
 
 
 }

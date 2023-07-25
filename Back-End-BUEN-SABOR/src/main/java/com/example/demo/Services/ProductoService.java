@@ -10,7 +10,5 @@ public interface ProductoService extends GenericService<Producto, Long> {
 
     public List<IngredientesDeProductos> findIngredientes(Long idProducto) throws Exception;
 
-
-
-    //public void deleteIngredientes(Long idProducto) throws Exception;
+    public Producto saveProducto(Producto producto) throws Exception;
 }
