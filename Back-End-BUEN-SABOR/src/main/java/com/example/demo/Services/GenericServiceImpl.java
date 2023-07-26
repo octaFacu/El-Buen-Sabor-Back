@@ -85,4 +85,15 @@ public abstract class GenericServiceImpl<T, ID extends Serializable> implements 
         }
     }
 
+    @Override
+    @Transactional
+    public void softDeleteById(ID id) throws Exception {
+        Optional<T> entity = repository.findById(id);
+        if (entity.isPresent()) {
+            repository.softDeleteById(id);
+        } else {
+            throw new Exception("No se encontró el registro con ID: " + id);
+        }
+    }
+
 }

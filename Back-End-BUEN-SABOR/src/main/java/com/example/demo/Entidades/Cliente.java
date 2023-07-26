@@ -13,5 +13,7 @@ public class Cliente {
     @OneToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
+    private boolean activo;
+
 }
 

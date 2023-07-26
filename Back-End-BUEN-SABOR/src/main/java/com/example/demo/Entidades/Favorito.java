@@ -26,4 +26,5 @@ public class Favorito {
     @JsonIgnoreProperties("favoritos") // Ignorar la propiedad "favoritos" en la entidad Producto
     private Producto producto;
 
+    private boolean activo;
 }
