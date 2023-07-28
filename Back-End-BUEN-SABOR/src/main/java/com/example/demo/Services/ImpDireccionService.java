@@ -32,6 +32,32 @@ public class ImpDireccionService extends GenericServiceImpl<Direccion,Long> impl
 
     @Override
     @Transactional
+    public Direccion update(Long id, Direccion direccion, String usuarioId) throws Exception {
+        // obtenemos la entidad
+    try {
+
+        Optional<Direccion> entidad = repository.findById(id);
+        System.out.println("paso por aca");
+
+        Direccion entidadActualizar = entidad.get();
+        // comprobamos si la entidad ya existe en ese usuario y esta activa.
+        byte direccionExisteActiva = repository.segundaVerificacionDireccion(direccion, usuarioId);
+
+        if(direccionExisteActiva == 1){
+            // si es verdadera la comprobacion lanzamos la excepcion
+            throw new DireccionUsuarioExisteException("La dirección ya existe");
+        }else {
+            // si no actualizamos nuestra direccion
+            entidadActualizar = repository.save(direccion);
+            return entidadActualizar;
+        }
+    }catch (Exception e){
+        throw new Exception(e.getMessage());
+    }
+    }
+
+    @Override
+    @Transactional
     public void verificadorDirUsuario(String usuarioId, Direccion direccion) {
         // Lo primero que hacemos es buscar si existe una dirección idéntica
         Optional<Direccion> direccionExistente = repository.findByDireccionAndUsuarioId(direccion, usuarioId);
@@ -51,7 +77,6 @@ public class ImpDireccionService extends GenericServiceImpl<Direccion,Long> impl
             }
         } else {
             // Si la dirección no existe, creamos una nueva dirección y la asociamos al usuario
-            System.out.println("paso por aca no existo");
             Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
             direccion.setUsuario(usuario);
             direccion.setActivo(true);
