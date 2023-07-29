@@ -1,10 +1,8 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Entidades.Ingrediente;
 import com.example.demo.Entidades.IngredientesDeProductos;
 import com.example.demo.Entidades.Wrapper.RequestWrapper;
 import com.example.demo.Services.ImpIngredienteDeProductoService;
-import com.example.demo.Services.ImpIngredienteService;
 import com.example.genericos.genericos.controllers.GenericControllerImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
@@ -23,7 +21,6 @@ public class IngredienteDeProductoController extends GenericControllerImpl<Ingre
 
 
                 service.saveIngredientes(request);
-
 
             return ResponseEntity.status(HttpStatus.OK).body("Ingrediente agregado!");
         } catch (Exception e) {

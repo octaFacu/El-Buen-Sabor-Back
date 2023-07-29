@@ -36,27 +36,30 @@ public class ProductoController extends GenericControllerImpl<Producto, ImpProdu
     }
 
 
-    @PostMapping("/saveTime")
+    /*@PostMapping("/saveTime")
     public ResponseEntity<?> saveEntityWithTime(@RequestBody Producto producto) throws Exception {
-
+        System.out.println("Producto antes de guardarlo: "+producto.toString());
+        logger.error("ESTOY PASANDO POR EL SAVE TIME");
+        Time tiempoCocina;
         try {
-            System.out.println("Entrando al deserializador de tiempo");
-            Time time = TimeDeserializerUtil.deserializeTime(producto.getTiempoCocina().toString());
-            System.out.println("Tiempo deserializado: "+time);
+            if (producto.getEsManufacturado() == true) {
+                //Time time = TimeDeserializerUtil.deserializeTime(producto.getTiempoCocina().toString());
+                tiempoCocina = Time.valueOf(producto.getTiempoCocina().toString());
+                System.out.println("Tiempo deserializado: " + tiempoCocina);
+                producto.setTiempoCocina(tiempoCocina);
 
-            if (time != null) {
-                System.out.println("Time no es nulo");
-                producto.setTiempoCocina(time);
-                System.out.println("El tiempo seteado en producto es: "+producto.getTiempoCocina());
-                System.out.println("Producto antes de guardarlo: "+producto.toString());
-
-                return ResponseEntity.status(HttpStatus.OK).body(service.saveProducto(producto));
-
+            }else{
+                producto.setTiempoCocina(null);
             }
+
+
+            return ResponseEntity.status(HttpStatus.OK).body(service.saveProducto(producto));
+
+
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
-        return null;
-    }
+
+    }*/
 
 }
