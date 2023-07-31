@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClienteRepository extends GenericRepository<Cliente,Long> {
-    @Query(value = "SELECT id FROM cliente WHERE usuario_id LIKE :id_usuario",nativeQuery = true)
+    @Query(value = "SELECT id_cliente FROM cliente WHERE usuario_id LIKE :id_usuario",nativeQuery = true)
     Long findbyId_usuario(@Param("id_usuario") String id_usuario);
 }

@@ -86,5 +86,16 @@ public abstract class GenericControllerImpl<T, ID extends Serializable,S extends
         }
     }
 
+    @Override
+    @PatchMapping("/soft/{id}")
+    public ResponseEntity<?> softDelete(@PathVariable ID id) {
+        try {
+            service.softDeleteById(id);
+            return ResponseEntity.ok("Registro Activado/Desactivado exitosamente");
+        }catch(Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }

@@ -36,4 +36,6 @@ public class IngredientesDeProductos {
     @JoinColumn(name = "unidad_de_medida_id", referencedColumnName = "id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private UnidadDeMedida unidadmedida;
+
+    private boolean activo;
 }

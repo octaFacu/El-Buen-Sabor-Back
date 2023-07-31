@@ -13,7 +13,7 @@ public interface GenericService<T, ID extends Serializable> {
     T save(T entity) throws Exception;
     T update(ID id, T entity) throws Exception;
     void deleteById(ID id) throws Exception;
-
+    void softDeleteById(ID id) throws Exception;
     Page<T> findAllPaged(Pageable pageable) throws Exception;
 
 }

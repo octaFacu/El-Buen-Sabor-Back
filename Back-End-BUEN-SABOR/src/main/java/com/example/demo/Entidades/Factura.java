@@ -27,4 +27,6 @@ public class Factura {
     @OneToOne
     @JoinColumn(name = "metodo_pago_id", nullable = false)
     private MetodoDePago MetodoDePago;
+
+    private boolean activo;
 }

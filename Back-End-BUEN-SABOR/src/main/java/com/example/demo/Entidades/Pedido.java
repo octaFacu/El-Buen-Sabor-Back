@@ -57,4 +57,5 @@ public class Pedido {
             inverseJoinColumns = @JoinColumn(name = "producto_id",referencedColumnName = "id")
     )
     private Collection<Producto> productos;
+    private boolean activo;
 }

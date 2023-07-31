@@ -1,6 +1,8 @@
 package com.example.demo.Services;
 
 import com.example.demo.Entidades.Pedido;
+import com.example.demo.Entidades.Proyecciones.ProyeccionPedidoUsuario;
+import com.example.demo.Entidades.Proyecciones.ProyeccionProductosDePedido;
 import com.example.demo.Repository.PedidoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -32,6 +35,23 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
         return repository.save(pedido);
     }
 
+    @Override
+    public List<ProyeccionPedidoUsuario> getPedidoUsuario(long id) throws Exception {
+        try{
+            return repository.getPedidoUsuario(id);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<ProyeccionProductosDePedido> getProductosDePedido(long idPedido) throws Exception {
+        try{
+            return repository.getProductosDePedido(idPedido);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 
 
 }

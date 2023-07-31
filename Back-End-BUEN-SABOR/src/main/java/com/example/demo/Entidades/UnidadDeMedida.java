@@ -29,5 +29,5 @@ public class UnidadDeMedida {
     @JoinColumn(name = "padre_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private UnidadDeMedida padre;
-
+    private boolean activo;
 }

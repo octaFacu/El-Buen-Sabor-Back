@@ -14,7 +14,7 @@ public interface GenericController<T, ID extends Serializable> {
     public ResponseEntity<?> save(@RequestBody T entity);
     public ResponseEntity<?> update(@PathVariable ID id, @RequestBody T entity);
     public ResponseEntity<?> delete(@PathVariable ID id);
-
+    public ResponseEntity<?> softDelete(@PathVariable ID id);
     public ResponseEntity<?> getAllPaged(@RequestParam Integer page, @RequestParam Integer size);
 
 }
