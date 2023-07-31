@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -35,14 +36,13 @@ public class ImpDireccionService extends GenericServiceImpl<Direccion,Long> impl
     public Direccion update(Long id, Direccion direccion, String usuarioId) throws Exception {
         // obtenemos la entidad
     try {
-
         Optional<Direccion> entidad = repository.findById(id);
-        System.out.println("paso por aca");
-
+        if(!entidad.isPresent()){
+            throw new NoSuchElementException("No se ah encontrado una direccion con ese id");
+        }
         Direccion entidadActualizar = entidad.get();
         // comprobamos si la entidad ya existe en ese usuario y esta activa.
         byte direccionExisteActiva = repository.segundaVerificacionDireccion(direccion, usuarioId);
-
         if(direccionExisteActiva == 1){
             // si es verdadera la comprobacion lanzamos la excepcion
             throw new DireccionUsuarioExisteException("La dirección ya existe");
@@ -51,8 +51,12 @@ public class ImpDireccionService extends GenericServiceImpl<Direccion,Long> impl
             entidadActualizar = repository.save(direccion);
             return entidadActualizar;
         }
-    }catch (Exception e){
-        throw new Exception(e.getMessage());
+    } catch (NoSuchElementException e) {
+        throw e;
+    } catch (DireccionUsuarioExisteException e){
+        throw e;
+    } catch (Exception e) {
+        throw new Exception("Error al verificar y crear dirección", e);
     }
     }
 

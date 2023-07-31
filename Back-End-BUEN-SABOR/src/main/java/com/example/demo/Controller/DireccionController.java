@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -40,6 +41,7 @@ public class DireccionController extends GenericControllerImpl<Direccion,Long, I
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.update(id, entity,idUsuario));
         } catch (DireccionUsuarioExisteException e) {
+            // si la direccion ya existe nos devuelve un error 400
             Map<String, Object> respuestaDelError = new HashMap<>();
             respuestaDelError.put("errorStatus", 400);
             respuestaDelError.put("msj", "La dirección ya existe y se encuentra activa.");
@@ -47,6 +49,11 @@ public class DireccionController extends GenericControllerImpl<Direccion,Long, I
         }catch (EntityNotFoundException e) {
         // Si no encontramos al usuario. nos devuelve un no encontrado
         return ResponseEntity.notFound().build();
+        }catch (NoSuchElementException e){
+            Map<String, Object> respuestaDelError = new HashMap<>();
+            respuestaDelError.put("errorStatus", 404);
+            respuestaDelError.put("msj", "No se ah encontrado ninguna direccion con ese id");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuestaDelError);
         } catch (Exception e) {
         // Para los demas errores nos devuelve un mensaje generico
             Map<String, Object> respuestaDelError = new HashMap<>();
