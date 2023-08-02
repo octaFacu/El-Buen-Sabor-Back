@@ -2,12 +2,25 @@ package com.example.demo.Controller;
 
 import com.example.demo.Entidades.CategoriaProducto;
 import com.example.demo.Services.ImpCategoriaProductoService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/categoriaProducto")
 public class CategoriaProductoController extends GenericControllerImpl<CategoriaProducto,Long, ImpCategoriaProductoService> {
+
+    //Traigo todas las categorias de los productos que esten activas
+    @GetMapping("/getAllActivo")
+    public ResponseEntity<?> getAllActivo() throws Exception {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.getAllActivo());
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
 }
