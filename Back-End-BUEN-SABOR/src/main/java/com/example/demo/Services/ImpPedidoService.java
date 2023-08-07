@@ -35,14 +35,7 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
         return repository.save(pedido);
     }
 
-    @Override
-    public List<ProyeccionPedidoUsuario> getPedidoUsuario(long id) throws Exception {
-        try{
-            return repository.getPedidoUsuario(id);
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
-    }
+
 
     @Override
     public List<ProyeccionProductosDePedido> getProductosDePedido(long idPedido) throws Exception {

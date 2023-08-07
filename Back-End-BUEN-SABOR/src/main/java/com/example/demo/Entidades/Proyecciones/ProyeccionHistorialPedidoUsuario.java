@@ -6,6 +6,6 @@ import java.util.Date;
 
 public interface ProyeccionHistorialPedidoUsuario extends ProyeccionPedidoUsuario{
 
-    boolean es_envio();
 
+    boolean getEs_envio();
 }

@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface PedidoService extends GenericService<Pedido, Long> {
     public Pedido save(Pedido pedido);
-    List<ProyeccionPedidoUsuario> getPedidoUsuario(long id) throws Exception;
 
     List<ProyeccionProductosDePedido> getProductosDePedido(long idPedido) throws Exception;
 }
