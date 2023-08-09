@@ -27,6 +27,24 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
         }
     }
 
+    //Filtro por nombre de producto
+    @GetMapping("/filtro")
+    public ResponseEntity<?> filtro(
+            @RequestParam(required = false) String filter
+    ){
+
+        try {
+            List<Producto> productos = service.filtro(filter);
+            if(productos.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("{\"error\":\"Error, no hay nada que mostrar\"}");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(productos);
+
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("{\"error\":\"Error, por favor intente mas tarde\"}");
+        }
+    }
+
     //Filtro paginado por nombre de producto
     @GetMapping("/filtroPaginado")
     public ResponseEntity<?> filtroPaginado(

@@ -15,6 +15,10 @@ public interface ProductoRepository extends GenericRepository<Producto, Long> {
     @Query("SELECT ing FROM IngredientesDeProductos ing WHERE ing.producto.id = :idProducto")
     List<IngredientesDeProductos> findByIdProducto(@Param("idProducto") Long idProducto);
 
+    //Filtro por nombre de producto
+    @Query("SELECT l FROM Producto l WHERE l.denominacion LIKE %:filter%")
+    List<Producto> filtro(@Param("filter") String filter);
+
     //Filtro paginado por nombre de producto
     @Query("SELECT l FROM Producto l WHERE l.denominacion LIKE %:filter%")
     Page<Producto> filtroPaginado(Pageable peageable, @Param("filter") String filter);

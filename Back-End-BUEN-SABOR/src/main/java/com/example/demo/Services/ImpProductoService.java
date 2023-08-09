@@ -30,6 +30,17 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
         }
     }
 
+    //Filtro por nombre de producto
+    @Override
+    public List<Producto> filtro(String filter) throws Exception {
+        try{
+            List<Producto> entities = repository.filtro(filter);
+            return entities;
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
     //Filtro paginado por nombre de producto
     @Override
     public Page<Producto> filtroPaginado(Pageable pageable, String filter) throws Exception {
