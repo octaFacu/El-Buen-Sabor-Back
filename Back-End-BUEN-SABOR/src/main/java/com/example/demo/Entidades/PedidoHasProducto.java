@@ -18,7 +18,7 @@ public class PedidoHasProducto {
     private Long id;
 
     @Column(nullable = false)
-    private Double cantidad;
+    private int cantidad;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pedido_id", referencedColumnName = "id")
