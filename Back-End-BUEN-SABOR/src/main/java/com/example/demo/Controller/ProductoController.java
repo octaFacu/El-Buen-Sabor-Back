@@ -57,12 +57,12 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
             Pageable pageable = PageRequest.of(page, size);
             Page<Producto> productos = service.filtroPaginado(pageable, filter);
             if(productos.isEmpty()){
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("{\"error\":\"Error, no hay nada que mostrar\"}");
+                return ResponseEntity.status(HttpStatus.OK).body("{\"error\": \"Error, no hay nada que mostrar\"}");
             }
             return ResponseEntity.status(HttpStatus.OK).body(productos);
 
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("{\"error\":\"Error, por favor intente mas tarde\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, por favor intente mas tarde\"}");
         }
     }
 
