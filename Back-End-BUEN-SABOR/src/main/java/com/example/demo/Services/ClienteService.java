@@ -10,6 +10,14 @@ import java.util.List;
 
 public interface ClienteService extends GenericService<Cliente,Long> {
     Long findbyId_cliente(String id_usuario) throws Exception;
-    Page<ProyeccionEstadisticaClienteTotalPedidos> ProyeccionEstadisticaClienteTotalPedidos(Pageable pageable) throws Exception;
+
+    List<ProyeccionEstadisticaClienteTotalPedidos> ProyeccionEstadisticaClienteTotalPedidosSinPages() throws Exception;
+
     Page<ProyeccionHistorialPedidoUsuario> historialPedidoCliente(Long idCliente, Pageable pageable) throws Exception;
+
+    List<ProyeccionHistorialPedidoUsuario> historialPedidoClienteSinPage(Long idCliente) throws Exception;
+
+
+
+
 }

@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,21 +32,6 @@ public class ClienteController extends GenericControllerImpl<Cliente,Long, ImpCl
             return ResponseEntity.ok(proyeccion);
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al obtener los datos de proyección.", e);
-        }
-    }
-
-    @GetMapping("/totalPedidos")
-    public ResponseEntity<?> ProyeccionEstadisticaClienteTotalPedidos
-            (@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "2") Integer size) throws Exception {
-        try {
-            Pageable pageable = PageRequest.of(page, size);
-            Page<ProyeccionEstadisticaClienteTotalPedidos> proyeccion = service.ProyeccionEstadisticaClienteTotalPedidos(pageable);
-            return ResponseEntity.ok(proyeccion);
-        }  catch (Exception e) {
-            Map<String, Object> respuestaDelError = new HashMap<>();
-            respuestaDelError.put("errorStatus", 500);
-            respuestaDelError.put("msj", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(respuestaDelError);
         }
     }
 
@@ -67,4 +53,26 @@ public class ClienteController extends GenericControllerImpl<Cliente,Long, ImpCl
     }
 
 
+    @GetMapping("/obtener-estadisticas-pedido")
+    public ResponseEntity<?> obtenerEstadisticasPedido(
+            @RequestParam(required = false) Date fechaInicio,
+            @RequestParam(required = false) Date fechaFin,
+            @RequestParam(required = false) String campoOrden,
+            @RequestParam(required = false) String direccionOrden,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "3") Integer size
+    ) {
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<ProyeccionEstadisticaClienteTotalPedidos> estadisticas = service.obtenerEstadisticasPedido(
+                    fechaInicio, fechaFin, campoOrden, direccionOrden, pageable
+            );
+            return ResponseEntity.ok(estadisticas);
+        } catch (Exception e) {
+            Map<String, Object> respuestaDelError = new HashMap<>();
+            respuestaDelError.put("errorStatus", 500);
+            respuestaDelError.put("msj", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(respuestaDelError);
+        }
+    }
 }
