@@ -1,7 +1,11 @@
 package com.example.demo.Services;
 
 import com.example.demo.Entidades.Pedido;
+import com.example.demo.Entidades.PedidoHasProducto;
+import com.example.demo.Entidades.Producto;
+import com.example.demo.Entidades.Wrapper.ProdPedWrapper;
 import com.example.demo.Repository.PedidoRepository;
+import com.example.demo.Repository.ProductoRepository;
 import com.example.genericos.genericos.services.GenericServiceImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +14,28 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 
 @Service
 public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements PedidoService {
 
+    private static final Logger logger = Logger.getLogger(ImpPedidoService.class.getName());
+
     @Autowired
     PedidoRepository repository;
+
+    @Autowired
+    ProductoRepository productoRepository;
+
+    private final WebSocketService notificationService;
+
+    public ImpPedidoService(WebSocketService notificationService) {
+        this.notificationService = notificationService;
+    }
 
     @Override
     @Transactional
@@ -31,6 +49,10 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
         } else {
             pedido.setNumeroPedidoDia(1); // si es un nuevo pedido dia se setea en 1
         }
+        String attributeValue = pedido.getEstado(); // Replace with the actual attribute value
+        logger.severe("I'm about to send a message. "+ attributeValue);
+        notificationService.sendNotification("/topic/pedidos", attributeValue);
+        logger.severe("I sent the message and now i'm saving the pedido.");
         return repository.save(pedido);
     }
 
@@ -42,8 +64,17 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
         }catch (Exception e) {
             throw new Exception(e.getMessage());
         }
+    }
 
+    public List<PedidoHasProducto> buscarPedidoProductos(Long idPedido) throws Exception{
 
+        try{
+            List<PedidoHasProducto> productosPedido = repository.buscarPedidoProductos(idPedido);
+
+            return productosPedido;
+        }catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
 }

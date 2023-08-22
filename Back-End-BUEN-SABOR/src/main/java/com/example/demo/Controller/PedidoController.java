@@ -20,4 +20,26 @@ public class PedidoController extends GenericControllerImpl<Pedido, ImpPedidoSer
             throw new Exception(e.getMessage());
         }
     }
+
+
+    @PostMapping("/create")
+    public ResponseEntity<?> createEntity(@RequestBody Pedido pedido) throws Exception{
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(service.save(pedido));
+
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @GetMapping("/productos/{idProducto}")
+    public ResponseEntity<?> buscarPedidoProducto(@PathVariable Long idProducto) throws Exception {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarPedidoProductos(idProducto));
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 }
