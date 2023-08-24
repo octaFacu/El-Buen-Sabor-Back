@@ -41,9 +41,9 @@ public class ImpClienteService extends GenericServiceImpl<Cliente, Long> impleme
     }
 
     @Override
-    public Page<ProyeccionHistorialPedidoUsuario> historialPedidoCliente(Long idCliente, Pageable pageable) throws Exception {
+    public Page<ProyeccionHistorialPedidoUsuario> historialPedidoCliente(Long idCliente, Pageable pageable, Date fechaInicio, Date fechaFin) throws Exception {
         try {
-            Page<ProyeccionHistorialPedidoUsuario> historialPedido = repositorio.historialPedidoUsuario(idCliente, pageable);
+            Page<ProyeccionHistorialPedidoUsuario> historialPedido = repositorio.historialPedidoUsuario(idCliente, pageable, fechaInicio, fechaFin);
             return historialPedido;
         }catch (Exception e){
             throw new Exception("Error al traer los datos de la proyeccion ",e);

@@ -6,6 +6,7 @@ import com.example.demo.Entidades.Proyecciones.ProyeccionHistorialPedidoUsuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ClienteService extends GenericService<Cliente,Long> {
@@ -13,7 +14,7 @@ public interface ClienteService extends GenericService<Cliente,Long> {
 
     List<ProyeccionEstadisticaClienteTotalPedidos> ProyeccionEstadisticaClienteTotalPedidosSinPages() throws Exception;
 
-    Page<ProyeccionHistorialPedidoUsuario> historialPedidoCliente(Long idCliente, Pageable pageable) throws Exception;
+    Page<ProyeccionHistorialPedidoUsuario> historialPedidoCliente(Long idCliente, Pageable pageable, Date fechaInicio, Date fechaFin) throws Exception;
 
     List<ProyeccionHistorialPedidoUsuario> historialPedidoClienteSinPage(Long idCliente) throws Exception;
 

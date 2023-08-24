@@ -5,13 +5,16 @@ import com.example.demo.Entidades.CategoriaIngrediente;
 import com.example.demo.Entidades.Ingrediente;
 import com.example.demo.Entidades.IngredientesDeProductos;
 import com.example.demo.Entidades.Producto;
+import com.example.demo.Entidades.Proyecciones.ProyeccionRankingProductos;
 import com.example.demo.Repository.CategoriaIngredienteRepository;
 import com.example.demo.Repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -63,5 +66,26 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
         }
     }
 
+    public Page<ProyeccionRankingProductos> rankingProductosComida(Date fechaInicio, Date fechaFin, String campoDireccion,  Pageable pageable) throws Exception{
+        List<ProyeccionRankingProductos> resultados = repository.rankingProductosComida(fechaInicio, fechaFin, campoDireccion);
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), resultados.size());
 
+        Page<ProyeccionRankingProductos> page = new PageImpl<>(resultados.subList(start, end), pageable, resultados.size());
+
+        return page;
+    }
+
+    public Page<ProyeccionRankingProductos> rankingProductosBebida(Date fechaInicio, Date fechaFin, String campoDireccion,  Pageable pageable) throws Exception{
+        List<ProyeccionRankingProductos> resultados = repository.rankingProductosBebidas(fechaInicio, fechaFin, campoDireccion);
+        int start = (int) pageable.getOffset();
+        int resultadoTotal = resultados.size();
+
+
+        int end = Math.min((start + pageable.getPageSize()), resultados.size());
+
+        Page<ProyeccionRankingProductos> page = new PageImpl<>(resultados.subList(start, end), pageable, resultados.size());
+
+        return page;
+    }
 }

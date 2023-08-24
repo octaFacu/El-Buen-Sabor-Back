@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 
 import com.example.demo.Entidades.Producto;
+import com.example.demo.Entidades.Proyecciones.ProyeccionRankingProductos;
 import com.example.demo.Services.ImpProductoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -88,4 +90,37 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
     }
 
 
+    @GetMapping("/rankingProductos/comida")
+    public ResponseEntity<?> rankingProductosComida(
+            @RequestParam(required = false) Date fechaInicio,
+            @RequestParam(required = false) Date fechaFin,
+            @RequestParam(required = false) String direccionOrden,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "5") Integer size
+    ){
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<ProyeccionRankingProductos> productos = service.rankingProductosComida(fechaInicio,fechaFin,direccionOrden, pageable);
+            return ResponseEntity.status(HttpStatus.OK).body(productos);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, por favor intente mas tarde\"}");
+        }
+    }
+
+    @GetMapping("/rankingProductos/bebida")
+    public ResponseEntity<?> rankingProductosBebidas(
+            @RequestParam(required = false) Date fechaInicio,
+            @RequestParam(required = false) Date fechaFin,
+            @RequestParam(required = false) String direccionOrden,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "5") Integer size
+    ){
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<ProyeccionRankingProductos> productos = service.rankingProductosBebida(fechaInicio,fechaFin,direccionOrden, pageable);
+            return ResponseEntity.status(HttpStatus.OK).body(productos);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, por favor intente mas tarde\"}");
+        }
+    }
 }

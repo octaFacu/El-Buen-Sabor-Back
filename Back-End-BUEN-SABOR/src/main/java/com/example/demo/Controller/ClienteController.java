@@ -38,11 +38,15 @@ public class ClienteController extends GenericControllerImpl<Cliente,Long, ImpCl
 
     @GetMapping("/historialPedidos/{idCliente}")
     public ResponseEntity<?>
-    ProyeccionHistorialPedidos(@PathVariable Long idCliente, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "2") Integer size)
-            throws Exception {
+    ProyeccionHistorialPedidos(@PathVariable Long idCliente,
+                               @RequestParam(defaultValue = "0") Integer page,
+                               @RequestParam(defaultValue = "2") Integer size,
+                               @RequestParam(required = false) Date fechaInicio,
+                               @RequestParam(required = false) Date fechaFin)
+                               throws Exception {
         try{
             Pageable pageable = PageRequest.of(page, size);
-            Page<ProyeccionHistorialPedidoUsuario> proyeccion = service.historialPedidoCliente(idCliente, pageable);
+            Page<ProyeccionHistorialPedidoUsuario> proyeccion = service.historialPedidoCliente(idCliente, pageable, fechaInicio, fechaFin);
             return ResponseEntity.ok(proyeccion);
         } catch (Exception e) {
             Map<String, Object> respuestaDelError = new HashMap<>();

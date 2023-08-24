@@ -12,8 +12,6 @@ import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -30,7 +28,7 @@ public class ReporteExcelServiceImpl implements PosicionesCeldasExcel {
     EstilosRankingClientes estilos = new EstilosRankingClientes();
 
     // este metodo es el que se encarga de crear el libro y cerrarlo una ves creado
-    public XSSFWorkbook  generateExcelReport() throws Exception {
+    public XSSFWorkbook  generarReporteDeExcel() throws Exception {
         XSSFWorkbook workbook = new XSSFWorkbook(); // crea el libro
         XSSFSheet hoja = workbook.createSheet("Ranking de clientes"); // crea la hoja principal
 
