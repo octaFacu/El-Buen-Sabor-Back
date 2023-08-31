@@ -38,14 +38,6 @@ public class IngredientesDeProductos {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private UnidadDeMedida unidadmedida;
 
+    private boolean activo;
 
-    /*@JsonProperty("ingrediente_id")
-    public Long getIngredienteId() {
-        return ingrediente != null ? ingrediente.getId() : null;
-    }
-
-    @JsonProperty("producto_id")
-    public Long getProductoId() {
-        return producto != null ? producto.getId() : null;
-    }*/
 }

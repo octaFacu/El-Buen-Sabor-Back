@@ -1,12 +1,15 @@
 package com.example.demo.Services;
 
 import com.example.demo.Entidades.Pedido;
+
 import com.example.demo.Entidades.PedidoHasProducto;
 import com.example.demo.Entidades.Producto;
 import com.example.demo.Entidades.Wrapper.ProdPedWrapper;
 import com.example.demo.Repository.PedidoRepository;
 import com.example.demo.Repository.ProductoRepository;
 import com.example.genericos.genericos.services.GenericServiceImpl;
+import com.example.demo.Entidades.Proyecciones.ProyeccionPedidoUsuario;
+import com.example.demo.Entidades.Proyecciones.ProyeccionProductosDePedido;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
+
 
 
 @Service
@@ -76,5 +80,15 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
             throw new Exception(e.getMessage());
         }
     }
+
+    @Override
+    public List<ProyeccionProductosDePedido> getProductosDePedido(long idPedido) throws Exception {
+        try{
+            return repository.getProductosDePedido(idPedido);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
 
 }

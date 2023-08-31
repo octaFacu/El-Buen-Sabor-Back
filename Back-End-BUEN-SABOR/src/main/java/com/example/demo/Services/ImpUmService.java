@@ -2,7 +2,6 @@ package com.example.demo.Services;
 
 import com.example.demo.Entidades.UnidadDeMedida;
 import com.example.demo.Repository.UmRepository;
-import com.example.genericos.genericos.services.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

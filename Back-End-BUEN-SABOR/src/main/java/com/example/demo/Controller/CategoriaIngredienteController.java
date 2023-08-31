@@ -2,7 +2,6 @@ package com.example.demo.Controller;
 
 import com.example.demo.Entidades.CategoriaIngrediente;
 import com.example.demo.Services.ImpCategoriaIngredienteService;
-import com.example.genericos.genericos.controllers.GenericControllerImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = {"http://localhost:5173"})
 //@CrossOrigin(origins = "*")
 @RequestMapping(path = "/categoriaIngrediente")
-public class CategoriaIngredienteController extends GenericControllerImpl<CategoriaIngrediente, ImpCategoriaIngredienteService> {
+public class CategoriaIngredienteController extends GenericControllerImpl<CategoriaIngrediente,Long, ImpCategoriaIngredienteService> {
 
 
     @GetMapping("/subcategoria/{idCategoriaPadre}")

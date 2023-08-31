@@ -1,0 +1,28 @@
+package com.example.demo.EstadisticasExcel.ReporteGanancias;
+
+public interface PosicionesExcelGananciasParteDiaMesAnio {
+    int COLUMNA_GANANCIA_POR_DIA = 0;
+    int COLUMNA_MEJOR_PEOR_DIA = 3;
+    int COLUMNA_GANANCIA_POR_MES = 7;
+    int COLUMNA_MEJOR_PEOR_MES = 10;
+    int COLUMNA_GANANCIA_POR_ANIO = 14;
+    int COLUMNA_MEJOR_PEOR_ANIO = 17;
+    int FILA_CABECERA = 0;
+    int FILA_FECHA_GANANCIA = 1;
+    int FILA_TITULO_MEJOR = 1;
+    int FILA_TITULO_PEOR = 2;
+    int FILA_COMIENZO_DATOS = 2;
+    int FILA_COMIENZO_MEJOR_PEOR = 1;
+    int CELDA_FECHAS_DIA = 0;
+    int CELDA_GANANCIAS_DIA = 1;
+    int CELDA_FECHAS_MES = 7;
+    int CELDA_GANANCIAS_MES = 8;
+    int CELDA_FECHAS_ANIO = 14;
+    int CELDA_GANANCIAS_ANIO = 15;
+    int CELDA_MEJOR_PEOR_FECHA_DIA = 4;
+    int CELDA_MEJOR_PEOR_GANANCIA_DIA = 5;
+    int CELDA_MEJOR_PEOR_FECHA_MES = 11;
+    int CELDA_MEJOR_PEOR_GANANCIA_MES = 12;
+    int CELDA_MEJOR_PEOR_FECHA_ANIO = 18;
+    int CELDA_MEJOR_PEOR_GANANCIA_ANIO = 19;
+}

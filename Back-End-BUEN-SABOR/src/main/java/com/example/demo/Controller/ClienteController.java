@@ -1,14 +1,82 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Entidades.Cliente;
+import com.example.demo.Entidades.Excepciones.PaginaVaciaException;
+import com.example.demo.Entidades.Proyecciones.ProyeccionEstadisticaClienteTotalPedidos;
+import com.example.demo.Entidades.Proyecciones.ProyeccionHistorialPedidoUsuario;
+import com.example.demo.Entidades.Proyecciones.ProyeccionProductoFavorito;
 import com.example.demo.Services.ImpClienteService;
-import com.example.genericos.genericos.controllers.GenericControllerImpl;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/cliente")
-public class ClienteController extends GenericControllerImpl<Cliente, ImpClienteService> {
+public class ClienteController extends GenericControllerImpl<Cliente,Long, ImpClienteService> {
+
+
+    @GetMapping("/v1/{id_usuario}")
+    public ResponseEntity<Long> buscarFavoritoPorUsuario(@PathVariable String id_usuario) throws Exception {
+        try {
+            Long proyeccion = service.findbyId_cliente(id_usuario);
+            return ResponseEntity.ok(proyeccion);
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al obtener los datos de proyección.", e);
+        }
+    }
+
+
+    @GetMapping("/historialPedidos/{idCliente}")
+    public ResponseEntity<?>
+    ProyeccionHistorialPedidos(@PathVariable Long idCliente,
+                               @RequestParam(defaultValue = "0") Integer page,
+                               @RequestParam(defaultValue = "2") Integer size,
+                               @RequestParam(required = false) Date fechaInicio,
+                               @RequestParam(required = false) Date fechaFin)
+                               throws Exception {
+        try{
+            Pageable pageable = PageRequest.of(page, size);
+            Page<ProyeccionHistorialPedidoUsuario> proyeccion = service.historialPedidoCliente(idCliente, pageable, fechaInicio, fechaFin);
+            return ResponseEntity.ok(proyeccion);
+        } catch (Exception e) {
+            Map<String, Object> respuestaDelError = new HashMap<>();
+            respuestaDelError.put("errorStatus", 500);
+            respuestaDelError.put("msj", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(respuestaDelError);
+        }
+    }
+
+
+    @GetMapping("/obtener-estadisticas-pedido")
+    public ResponseEntity<?> obtenerEstadisticasPedido(
+            @RequestParam(required = false) Date fechaInicio,
+            @RequestParam(required = false) Date fechaFin,
+            @RequestParam(required = false) String campoOrden,
+            @RequestParam(required = false) String direccionOrden,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "3") Integer size
+    ) {
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<ProyeccionEstadisticaClienteTotalPedidos> estadisticas = service.obtenerEstadisticasPedido(
+                    fechaInicio, fechaFin, campoOrden, direccionOrden, pageable
+            );
+            return ResponseEntity.ok(estadisticas);
+        } catch (Exception e) {
+            Map<String, Object> respuestaDelError = new HashMap<>();
+            respuestaDelError.put("errorStatus", 500);
+            respuestaDelError.put("msj", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(respuestaDelError);
+        }
+    }
 }

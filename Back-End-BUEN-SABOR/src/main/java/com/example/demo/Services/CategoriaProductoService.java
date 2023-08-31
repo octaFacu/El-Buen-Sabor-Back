@@ -2,7 +2,10 @@ package com.example.demo.Services;
 
 import com.example.demo.Entidades.CategoriaProducto;
 
-import com.example.genericos.genericos.services.GenericService;
+import java.util.List;
 
 public interface CategoriaProductoService  extends GenericService<CategoriaProducto, Long> {
+
+    List<CategoriaProducto> getAllActivo() throws Exception;
+
 }

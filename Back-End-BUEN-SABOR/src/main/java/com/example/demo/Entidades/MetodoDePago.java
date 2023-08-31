@@ -14,5 +14,5 @@ public class MetodoDePago {
 
     @Column(nullable = false, length = 13)
     private String tipo;
-
+    private boolean activo;
 }
