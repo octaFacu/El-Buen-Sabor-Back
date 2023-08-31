@@ -15,9 +15,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class ImpProductoService extends GenericServiceImpl<Producto,Long> implements ProductoService{
+
+    private static final Logger logger = Logger.getLogger(ImpProductoService.class.getName());
 
     @Autowired
     private ProductoRepository repository;
@@ -27,10 +30,13 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
         try {
             List<IngredientesDeProductos> ingredientes = repository.findByIdProducto(idProducto);
 
+
             if (ingredientes == null) {
                 // Inicializar ingredientes como una lista vacia para devolverlo
                 ingredientes = new ArrayList<>();
             }
+
+            logger.severe("Ingredientes length: "+ingredientes.size());
 
             return ingredientes;
         }catch (Exception e){
