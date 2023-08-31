@@ -1,19 +1,16 @@
 package com.example.demo.Controller;
 
-import com.example.demo.EstadisticasExcel.ReporteExcelRankingProductos;
-import com.example.demo.EstadisticasExcel.ReporteExcelServiceImpl;
+import com.example.demo.EstadisticasExcel.ReporteGanancias.ReporteExcelInformeGanancias;
+import com.example.demo.EstadisticasExcel.ReporteProductos.ReporteExcelRankingProductos;
+import com.example.demo.EstadisticasExcel.ReporteUsuario.ReporteExcelServiceImpl;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -21,10 +18,13 @@ import java.nio.file.Paths;
 public class EstadisticasController {
 
     @Autowired
-    ReporteExcelServiceImpl service;
+    private ReporteExcelServiceImpl service;
 
     @Autowired
-    ReporteExcelRankingProductos serviceProducto;
+   private ReporteExcelRankingProductos serviceProducto;
+
+    @Autowired
+    private ReporteExcelInformeGanancias servicioPrueba;
 
     @GetMapping("/generar-informeClientes")
     public ResponseEntity<byte[]> generarInformeExcel() throws Exception {
@@ -43,9 +43,6 @@ public class EstadisticasController {
         return new ResponseEntity<>(bytes, headers, org.springframework.http.HttpStatus.OK);
     }
 
-    @Autowired
-    private ReporteExcelRankingProductos servicee;
-
     @GetMapping("/generar-informeProductos")
     public ResponseEntity<byte[]> generarInformeExcelProducto() throws Exception {
 
@@ -61,6 +58,27 @@ public class EstadisticasController {
         headers.setContentDispositionFormData("attachment", "informeProducto.xlsx");
 
         return new ResponseEntity<>(bytes, headers, org.springframework.http.HttpStatus.OK);
+    }
+
+    @GetMapping("/generar-informeGanancias")
+    public ResponseEntity<?> generarExcelInformeGanancias() throws Exception {
+
+      try {
+          XSSFWorkbook workbook = servicioPrueba.crearLibro();
+
+          ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+          workbook.write(outputStream);
+
+          byte[] bytes = outputStream.toByteArray();
+
+          HttpHeaders headers = new HttpHeaders();
+          headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+          headers.setContentDispositionFormData("attachment", "informeProducto.xlsx");
+
+          return new ResponseEntity<>(bytes, headers, org.springframework.http.HttpStatus.OK);
+      }catch (Exception e){
+          throw new Exception(e.getMessage());
+      }
     }
 
 }

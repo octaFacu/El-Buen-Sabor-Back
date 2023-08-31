@@ -1,4 +1,4 @@
-package com.example.demo.EstadisticasExcel;
+package com.example.demo.EstadisticasExcel.ReporteUsuario;
 
 public interface PosicionesCeldasExcel {
     int ID_CLIENTE = 0;

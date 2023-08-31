@@ -41,3 +41,62 @@ BEGIN
 END //
 
 DELIMITER ;
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE generarRankingProductos(
+    IN fecha_inicio DATE,
+    IN fecha_fin DATE,
+    IN direccion_orden VARCHAR(4),
+    IN bebidas BOOLEAN
+)
+BEGIN
+    DECLARE filtro_fechas VARCHAR(255);
+    DECLARE orden VARCHAR(255);
+    DECLARE esBebida VARCHAR(255);
+
+    SET filtro_fechas = '';
+
+    IF fecha_inicio IS NOT NULL AND fecha_fin IS NOT NULL THEN
+        SET filtro_fechas = CONCAT('IFNULL(COUNT(CASE WHEN DATE(pedido.fecha_pedido) BETWEEN "', fecha_inicio, '" AND "', fecha_fin, '" THEN pedido_has_producto.producto_id END), 0) AS cantidad');
+    ELSE
+        SET filtro_fechas = 'IFNULL(COUNT(pedido_has_producto.producto_id), 0) AS cantidad';
+    END IF;
+
+    SET orden = '';
+
+    IF direccion_orden IS NOT NULL THEN
+        SET orden = CONCAT('ORDER BY cantidad ', direccion_orden);
+    END IF;
+
+    SET esBebida = '';
+
+    IF bebidas IS TRUE THEN
+        SET esBebida = 'AND categoria_producto.denominacion IN ("Bebidas", "Refrescos", "Bebidas alcohólicas")';
+    ELSE
+        SET esBebida = 'AND categoria_producto.denominacion NOT IN ("Bebidas", "Refrescos", "Bebidas alcohólicas")';
+    END IF;
+
+    SET @sql = CONCAT('
+        SELECT
+            producto.id,
+            producto.activo,
+            producto.denominacion,
+            producto.imagen,
+            categoria_producto.denominacion AS denominacion_categoria,
+            ', filtro_fechas, '
+        FROM producto
+        LEFT JOIN pedido_has_producto ON producto.id = pedido_has_producto.producto_id
+        LEFT JOIN pedido ON pedido.id = pedido_has_producto.pedido_id
+        INNER JOIN categoria_producto ON producto.categoria_producto_id = categoria_producto.id
+        WHERE 1=1 ', esBebida, '
+        GROUP BY producto.id, producto.activo, producto.denominacion, producto.imagen, producto.categoria_producto_id ', orden, ';');
+
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END //
+
+DELIMITER ;

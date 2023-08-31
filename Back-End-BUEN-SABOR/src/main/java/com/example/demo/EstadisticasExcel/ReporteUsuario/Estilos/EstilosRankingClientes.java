@@ -1,6 +1,6 @@
-package com.example.demo.EstadisticasExcel.Estilos;
+package com.example.demo.EstadisticasExcel.ReporteUsuario.Estilos;
 
-import com.example.demo.EstadisticasExcel.PosicionesCeldasExcel;
+import com.example.demo.EstadisticasExcel.ReporteUsuario.PosicionesCeldasExcel;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;

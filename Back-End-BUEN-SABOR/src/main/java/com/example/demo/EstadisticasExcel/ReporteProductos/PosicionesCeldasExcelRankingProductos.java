@@ -1,4 +1,4 @@
-package com.example.demo.EstadisticasExcel;
+package com.example.demo.EstadisticasExcel.ReporteProductos;
 
 public interface PosicionesCeldasExcelRankingProductos {
     int COMIDA_PRODUCTO = 0;
