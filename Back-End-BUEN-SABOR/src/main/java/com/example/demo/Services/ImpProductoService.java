@@ -8,6 +8,15 @@ import com.example.demo.Entidades.Producto;
 import com.example.demo.Entidades.Proyecciones.*;
 import com.example.demo.Repository.CategoriaIngredienteRepository;
 import com.example.demo.Repository.ProductoRepository;
+
+import com.example.genericos.genericos.services.GenericServiceImpl;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -17,10 +26,14 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class ImpProductoService extends GenericServiceImpl<Producto,Long> implements ProductoService{
+
+    private static final Logger logger = Logger.getLogger(ImpProductoService.class.getName());
 
     @Autowired
     private ProductoRepository repository;
@@ -29,11 +42,27 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
     public List<IngredientesDeProductos> findIngredientes(Long idProducto) throws Exception {
         try {
             List<IngredientesDeProductos> ingredientes = repository.findByIdProducto(idProducto);
+
+
+            if (ingredientes == null) {
+                // Inicializar ingredientes como una lista vacia para devolverlo
+                ingredientes = new ArrayList<>();
+            }
+
+            logger.severe("Ingredientes length: "+ingredientes.size());
+
             return ingredientes;
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }
+
+
+    @Override
+    public Producto saveProducto(Producto producto) throws Exception {
+        try {
+            Producto prod = repository.save(producto);
+            return prod;
 
     //Filtro por nombre de producto
     @Override
@@ -63,10 +92,12 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
         try{
             Page<Producto> entities = repository.filtroCategoriaPaginado(pageable, filter);
             return entities;
+
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }
+
 
     //Filtro por CATEGORIA de producto
     @Override
@@ -142,4 +173,5 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
             throw new Exception(e.getMessage());
         }
     }
+
 }

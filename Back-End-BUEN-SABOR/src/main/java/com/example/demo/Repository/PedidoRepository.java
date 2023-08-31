@@ -1,8 +1,15 @@
 package com.example.demo.Repository;
 
+import com.example.demo.Entidades.IngredientesDeProductos;
 import com.example.demo.Entidades.Pedido;
+
+import com.example.demo.Entidades.PedidoHasProducto;
+import com.example.demo.Entidades.Wrapper.ProdPedWrapper;
+import com.example.genericos.genericos.repositories.GenericRepository;
+
 import com.example.demo.Entidades.Proyecciones.ProyeccionPedidoUsuario;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductosDePedido;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,6 +24,11 @@ public interface PedidoRepository extends GenericRepository<Pedido, Long> {
     Integer getMaxNumeroPedidoDiaByFechaPedido(@Param("fechaPedido") Timestamp fechaPedido);
 
 
+    @Query(value = "SELECT * FROM pedido WHERE estado LIKE :estado", nativeQuery = true)
+    List<Pedido> buscarPedidoPorEstado(@Param("estado") String estadoProducto);
+
+    @Query(value = "SELECT ped FROM PedidoHasProducto ped WHERE ped.pedido.id = :id")
+    List<PedidoHasProducto> buscarPedidoProductos(@Param("id") Long idPedido);
 
 
     @Query(value = "SELECT pedido_has_producto.pedido_id, " +

@@ -30,6 +30,9 @@ public class Pedido {
     private Boolean esEnvio;
 
     @Column(nullable = false)
+    private String estado;
+
+    @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Time horaEstimada;
 
@@ -46,16 +49,11 @@ public class Pedido {
     private Cliente cliente;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "direccion_id", nullable = false)
+    @JoinColumn(name = "direccion_id", nullable = true)
     @JsonIgnoreProperties({"usuario","hibernateLazyInitializer", "handler"})
     private Direccion direccion;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "pedido_has_producto",
-            joinColumns = @JoinColumn(name = "pedido_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "producto_id",referencedColumnName = "id")
-    )
-    private Collection<Producto> productos;
+
     private boolean activo;
+
 }

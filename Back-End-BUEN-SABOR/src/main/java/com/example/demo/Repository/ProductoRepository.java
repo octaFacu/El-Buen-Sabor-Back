@@ -3,6 +3,7 @@ package com.example.demo.Repository;
 import com.example.demo.Entidades.Ingrediente;
 import com.example.demo.Entidades.IngredientesDeProductos;
 import com.example.demo.Entidades.Producto;
+import com.example.genericos.genericos.repositories.GenericRepository;
 import com.example.demo.Entidades.Proyecciones.*;
 import com.example.demo.Entidades.UnidadDeMedida;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import java.util.List;
 public interface ProductoRepository extends GenericRepository<Producto, Long> {
     @Query("SELECT ing FROM IngredientesDeProductos ing WHERE ing.producto.id = :idProducto")
     List<IngredientesDeProductos> findByIdProducto(@Param("idProducto") Long idProducto);
+
 
     //Filtro por NOMBRE de producto y por ACTIVO para LANDING
     @Query("SELECT l FROM Producto l WHERE l.denominacion LIKE %:filter% AND l.activo = true")
@@ -84,5 +86,6 @@ public interface ProductoRepository extends GenericRepository<Producto, Long> {
             " INNER JOIN pedido ON pedido.id = pedido_has_producto.pedido_id " +
             " GROUP BY fecha ORDER BY fecha;", nativeQuery = true)
     List<ProyeccionGananciaMes> graficoGananciasAnio();
+
 
 }

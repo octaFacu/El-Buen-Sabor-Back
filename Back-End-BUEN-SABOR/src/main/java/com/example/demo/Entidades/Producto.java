@@ -27,12 +27,13 @@ public class Producto {
     @Column(nullable = false)
     private Boolean esManufacturado;
 
-    private Time tiempoCocina;
+    @Column(nullable = true)
+    private String tiempoCocina;
 
     @Column(nullable = false)
     private String descripcion;
 
-    @Column(length = 1000)
+    @Column(length = 1000, nullable = true)
     private String receta;
 
     @Column(nullable = false)

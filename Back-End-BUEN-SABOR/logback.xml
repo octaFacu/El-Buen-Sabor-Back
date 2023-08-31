@@ -1,0 +1,25 @@
+<configuration>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <timeZone>UTC</timeZone>
+        </encoder>
+    </appender>
+    <logger name="com.yourcompany.packagename" level="INFO" additivity="false">
+        <appender-ref ref="consoleAppender" />
+    </logger>
+    <root level="ERROR">
+        <appender-ref ref="consoleAppender" />
+    </root>
+
+</configuration>
+

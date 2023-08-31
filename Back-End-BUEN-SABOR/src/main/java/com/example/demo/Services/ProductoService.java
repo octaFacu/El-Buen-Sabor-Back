@@ -14,6 +14,8 @@ public interface ProductoService extends GenericService<Producto, Long> {
 
     public List<IngredientesDeProductos> findIngredientes(Long idProducto) throws Exception;
 
+
+    public Producto saveProducto(Producto producto) throws Exception;
     List<Producto> filtro(String filtro) throws Exception;
     Page<Producto> filtroPaginado(Pageable pageable, String filtro) throws Exception;
 
@@ -25,4 +27,5 @@ public interface ProductoService extends GenericService<Producto, Long> {
     List<ProyeccionInformeConPorcentaje> graficicoInfomeGanancia(Date fechaInicio, Date fechaFin) throws Exception;
     List<ProyeccionInformeRentabilidad> graficoRentabilidad(Date fechaInicio, Date fechaFin) throws Exception;
     List<ProyeccionGananciaMes> graficoGananciasMes() throws Exception;
+
 }

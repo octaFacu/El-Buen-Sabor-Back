@@ -1,7 +1,14 @@
 package com.example.demo.Controller;
 
 
+import com.example.demo.Helpers.CustomTimeDeserializer;
 import com.example.demo.Entidades.Producto;
+
+import com.example.demo.Entidades.Wrapper.RequestWrapper;
+import com.example.demo.Helpers.TimeDeserializerUtil;
+import com.example.demo.Services.ImpProductoService;
+import com.example.genericos.genericos.controllers.GenericControllerImpl;
+import jakarta.transaction.Transactional;
 import com.example.demo.Entidades.Proyecciones.*;
 import com.example.demo.Services.ImpProductoService;
 import org.springframework.data.domain.Page;
@@ -10,6 +17,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+import java.sql.Time;
+import java.util.List;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -21,6 +34,9 @@ import java.util.List;
 @RequestMapping(path = "/producto")
 public class ProductoController extends GenericControllerImpl<Producto,Long, ImpProductoService> {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProductoController.class);
+
+
     @GetMapping("/ingredientes/{idProducto}")
     public ResponseEntity<?> buscarIngredientes(@PathVariable Long idProducto) throws Exception {
         try {
@@ -29,6 +45,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
             throw new Exception(e.getMessage());
         }
     }
+
 
     //Filtro por nombre de producto
     @GetMapping("/filtro")
@@ -175,6 +192,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
             throw new Exception(e.getMessage());
         }
     }
+
 
 
 }
