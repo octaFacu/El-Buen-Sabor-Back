@@ -7,7 +7,6 @@ import com.example.demo.Entidades.Producto;
 import com.example.demo.Entidades.Wrapper.ProdPedWrapper;
 import com.example.demo.Repository.PedidoRepository;
 import com.example.demo.Repository.ProductoRepository;
-import com.example.genericos.genericos.services.GenericServiceImpl;
 import com.example.demo.Entidades.Proyecciones.ProyeccionPedidoUsuario;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductosDePedido;
 import jakarta.transaction.Transactional;

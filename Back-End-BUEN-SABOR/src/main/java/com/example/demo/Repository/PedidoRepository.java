@@ -5,7 +5,6 @@ import com.example.demo.Entidades.Pedido;
 
 import com.example.demo.Entidades.PedidoHasProducto;
 import com.example.demo.Entidades.Wrapper.ProdPedWrapper;
-import com.example.genericos.genericos.repositories.GenericRepository;
 
 import com.example.demo.Entidades.Proyecciones.ProyeccionPedidoUsuario;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductosDePedido;

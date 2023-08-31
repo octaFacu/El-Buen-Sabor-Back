@@ -7,7 +7,7 @@ import com.example.demo.Entidades.Producto;
 import com.example.demo.Entidades.Wrapper.RequestWrapper;
 import com.example.demo.Helpers.TimeDeserializerUtil;
 import com.example.demo.Services.ImpProductoService;
-import com.example.genericos.genericos.controllers.GenericControllerImpl;
+
 import jakarta.transaction.Transactional;
 import com.example.demo.Entidades.Proyecciones.*;
 import com.example.demo.Services.ImpProductoService;

@@ -4,17 +4,19 @@ import com.example.demo.Entidades.Pedido;
 import com.example.demo.Entidades.Proyecciones.ProyeccionPedidoUsuario;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductosDePedido;
 import com.example.demo.Services.ImpPedidoService;
-import com.example.genericos.genericos.controllers.GenericControllerImpl;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/pedido")
 
-public class PedidoController extends GenericControllerImpl<Pedido, ImpPedidoService> {
+public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPedidoService> {
 
     @GetMapping("/estado/{estadoProducto}")
     public ResponseEntity<?> buscarPedidoEstado(@PathVariable String estadoProducto) throws Exception {
@@ -42,7 +44,10 @@ public class PedidoController extends GenericControllerImpl<Pedido, ImpPedidoSer
     public ResponseEntity<?> buscarPedidoProducto(@PathVariable Long idProducto) throws Exception {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarPedidoProductos(idProducto));
-
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 
     @GetMapping("producto/{idPedido}")
     public ResponseEntity<List<ProyeccionProductosDePedido>> traerProductosDePedido(@PathVariable("idPedido") long idPedido) throws Exception {

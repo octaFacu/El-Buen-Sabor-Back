@@ -9,7 +9,6 @@ import com.example.demo.Entidades.Proyecciones.*;
 import com.example.demo.Repository.CategoriaIngredienteRepository;
 import com.example.demo.Repository.ProductoRepository;
 
-import com.example.genericos.genericos.services.GenericServiceImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -63,6 +62,10 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
         try {
             Producto prod = repository.save(producto);
             return prod;
+        }  catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 
     //Filtro por nombre de producto
     @Override

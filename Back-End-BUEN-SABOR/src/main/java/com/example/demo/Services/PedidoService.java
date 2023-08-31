@@ -4,7 +4,6 @@ import com.example.demo.Entidades.IngredientesDeProductos;
 import com.example.demo.Entidades.Pedido;
 
 import com.example.demo.Entidades.PedidoHasProducto;
-import com.example.genericos.genericos.services.GenericService;
 
 import com.example.demo.Entidades.Proyecciones.ProyeccionPedidoUsuario;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductosDePedido;

@@ -5,7 +5,6 @@ import com.example.demo.Entidades.IngredientesDeProductos;
 import com.example.demo.Entidades.Wrapper.RequestWrapper;
 import com.example.demo.Repository.IngredienteDeProductoRepository;
 import com.example.demo.Repository.ProductoRepository;
-import com.example.genericos.genericos.services.GenericServiceImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
