@@ -2,9 +2,12 @@ package com.example.demo.Services;
 
 import com.example.demo.Entidades.IngredientesDeProductos;
 import com.example.demo.Entidades.Producto;
+import com.example.demo.Entidades.Proyecciones.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public interface ProductoService extends GenericService<Producto, Long> {
@@ -17,5 +20,9 @@ public interface ProductoService extends GenericService<Producto, Long> {
     Page<Producto> filtroCategoriaPaginado(Pageable pageable, Long filter) throws Exception;
 
     List<Producto> filtroCategoria(Long filter) throws Exception;
-
+    Page<ProyeccionRankingProductos> rankingProductosComida(Date fechaInicio, Date fechaFin, String campoDireccion, Pageable pageable) throws Exception;
+    Page<ProyeccionRankingProductos> rankingProductosBebida(Date fechaInicio, Date fechaFin, String campoDireccion,  Pageable pageable) throws Exception;
+    List<ProyeccionInformeConPorcentaje> graficicoInfomeGanancia(Date fechaInicio, Date fechaFin) throws Exception;
+    List<ProyeccionInformeRentabilidad> graficoRentabilidad(Date fechaInicio, Date fechaFin) throws Exception;
+    List<ProyeccionGananciaMes> graficoGananciasMes() throws Exception;
 }

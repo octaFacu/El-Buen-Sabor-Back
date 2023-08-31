@@ -27,6 +27,7 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j:8.0.32'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.0.5'
     implementation files('src/main/resources/library/genericos.jar')
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.3'
 }
 
 tasks.jar{

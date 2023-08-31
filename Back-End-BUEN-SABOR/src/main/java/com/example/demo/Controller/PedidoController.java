@@ -14,15 +14,6 @@ import java.util.List;
 @RequestMapping(path = "/pedido")
 public class PedidoController extends GenericControllerImpl<Pedido,Long, ImpPedidoService> {
 
-    @GetMapping("usuario/{id}")
-    public ResponseEntity<List<ProyeccionPedidoUsuario>> traerPedidosUsuario(@PathVariable("id") long id) throws Exception {
-        try {
-            List<ProyeccionPedidoUsuario> pedido = service.getPedidoUsuario(id);
-            return ResponseEntity.ok(pedido);
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
-    }
 
     @GetMapping("producto/{idPedido}")
     public ResponseEntity<List<ProyeccionProductosDePedido>> traerProductosDePedido(@PathVariable("idPedido") long idPedido) throws Exception {

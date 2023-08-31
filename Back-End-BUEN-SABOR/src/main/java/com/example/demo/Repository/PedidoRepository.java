@@ -17,10 +17,7 @@ public interface PedidoRepository extends GenericRepository<Pedido, Long> {
     Integer getMaxNumeroPedidoDiaByFechaPedido(@Param("fechaPedido") Timestamp fechaPedido);
 
 
-    @Query(value = "SELECT pedido_has_producto.pedido_id, COUNT(*) AS total_pedidos, pedido.fecha_pedido, pedido.precio_total FROM pedido_has_producto " +
-            "INNER JOIN pedido ON pedido_has_producto.pedido_id = pedido.id WHERE pedido.cliente_id = :id " +
-            "GROUP BY pedido_has_producto.pedido_id, pedido.fecha_pedido, pedido.precio_total", nativeQuery = true)
-    List<ProyeccionPedidoUsuario> getPedidoUsuario(@Param("id") long id);
+
 
     @Query(value = "SELECT pedido_has_producto.pedido_id, " +
             "producto.id AS producto_id, producto.denominacion, " +
