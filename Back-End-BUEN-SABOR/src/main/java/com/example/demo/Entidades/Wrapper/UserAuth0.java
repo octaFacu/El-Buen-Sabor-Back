@@ -1,0 +1,16 @@
+package com.example.demo.Entidades.Wrapper;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class UserAuth0 {
+
+    private String nombre;
+
+    private String apellido;
+
+    private String email;
+
+}
