@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 // SDK de Mercado Pago
 import com.example.demo.Entidades.Producto;
 import com.example.demo.Entidades.Wrapper.ProductoParaPedido;
+import com.example.demo.Entidades.Wrapper.RequestDataMP;
 import com.example.demo.Entidades.Wrapper.UserAuth0;
 import com.mercadopago.MercadoPagoConfig;
 import com.mercadopago.client.preference.*;
@@ -29,34 +30,48 @@ public class MercadoPagoController {
     @Value("${MP_ACCESS_TOKEN}")
     private String accessToken;
 
+    //Credencial de testeo
+    //@Value("${MP_TEST_ACCESS_TOKEN}")
+    //private String accessToken;
+
     @PostMapping("/checkout")
-    public ResponseEntity<?> crearCheckout(@RequestBody UserAuth0 usuario, @RequestBody ProductoParaPedido[] productos) {
+    public ResponseEntity<?> crearCheckout(@RequestBody RequestDataMP requestData) {
         System.out.println("Entro al controlador");
         try{
 
             // Agrega credenciales
             MercadoPagoConfig.setAccessToken(accessToken);
-            //System.out.println("token: " + MercadoPagoConfig.getAccessToken());
+
+            //Datos del RequestBody
+            UserAuth0 usuario = requestData.getUsuario();
+            List<ProductoParaPedido> productos = requestData.getProductos();
+
+            //System.out.println("USUARIO: " + usuario.getNombre());
 
             //Lista de items cargados acá
             List<PreferenceItemRequest> items = new ArrayList<>();
 
             System.out.println("Entro al bucle");
-            for (int i = 0; i < productos.length; i++){
+            for (int i = 0; i < productos.size(); i++){
+
                 System.out.println("Ejecuto: " + i);
-                Producto prod = productos[i].getProducto();
+
+                Producto prod = productos.get(i).getProducto();
+
+                System.out.println(prod.getDenominacion());
 
                 PreferenceItemRequest itemRequest = PreferenceItemRequest.builder()
-                                .id(prod.getId().toString())
-                                .title(prod.getDenominacion())
-                                .description(prod.getDescripcion())
-                                .pictureUrl(prod.getImagen())
-                                .categoryId(prod.getCategoriaProducto().getId().toString())
-                                .quantity(productos[i].getCantidad())
-                                .currencyId("ARS")
-                                .unitPrice(new BigDecimal(prod.getPrecioTotal().toString()))
-                                .build();
+                        .id(prod.getId().toString())
+                        .title(prod.getDenominacion())
+                        .description(prod.getDescripcion())
+                        .pictureUrl(prod.getImagen())
+                        .categoryId(prod.getCategoriaProducto().getId().toString())
+                        .quantity(productos.get(i).getCantidad())
+                        .currencyId("ARS")
+                        .unitPrice(new BigDecimal(prod.getPrecioTotal().toString()))
+                        .build();
 
+                //Agrego el item ya creado a la lista final
                 items.add(itemRequest);
             }
 
@@ -88,7 +103,8 @@ public class MercadoPagoController {
 
             //return preference.getId();
             System.out.println("PreferenceId: " + preference.getId());
-            return ResponseEntity.status(HttpStatus.OK).body(preference.getId());
+            //return ResponseEntity.status(HttpStatus.OK).body(preference.getId());
+            return ResponseEntity.status(HttpStatus.OK).body("{\"preferenceId\":\"" + preference.getId() + "\"}");
 
         }catch(MPException e){
             e.printStackTrace();
@@ -99,52 +115,6 @@ public class MercadoPagoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
 
-    }
-
-    //SI ANDAAAAAAAAA
-    @PostMapping("/checkoutTEST")
-    public ResponseEntity<?> crearCheckout() {
-        System.out.println("Entro al controlador TEST");
-
-        try{
-
-            // Agrega credenciales
-            MercadoPagoConfig.setAccessToken(accessToken);
-
-            List<PreferenceItemRequest> items = new ArrayList<>();
-
-            PreferenceItemRequest itemRequest = PreferenceItemRequest.builder()
-                    .id("123")
-                    .title("titulo")
-                    .description("Descripcion")
-                    .pictureUrl("http://imagen/img")
-                    .categoryId("876")
-                    .quantity(3)
-                    .currencyId("ARS")
-                    .unitPrice(new BigDecimal("4000"))
-                    .build();
-
-            items.add(itemRequest);
-
-
-            PreferenceRequest preferenceRequest = PreferenceRequest.builder()
-                    .items(items)
-                    .build();
-
-            PreferenceClient client = new PreferenceClient();
-            Preference preference = client.create(preferenceRequest);
-
-            System.out.println("Preference id: " + preference.getId());
-            return ResponseEntity.status(HttpStatus.OK).body(preference.getId());
-
-        }catch(MPException e){
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-
-        }catch(MPApiException e){
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
     }
 
 }
