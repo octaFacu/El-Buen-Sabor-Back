@@ -18,7 +18,7 @@ public class Factura {
     private Double montoDescuento;
 
     @Column(nullable = false)
-    private Integer numeroFactura;
+    private String numeroFactura;
 
     @OneToOne
     @JoinColumn(name = "pedido_id", nullable = false)
