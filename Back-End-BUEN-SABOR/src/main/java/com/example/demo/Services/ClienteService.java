@@ -18,6 +18,8 @@ public interface ClienteService extends GenericService<Cliente,Long> {
 
     List<ProyeccionHistorialPedidoUsuario> historialPedidoClienteSinPage(Long idCliente) throws Exception;
 
+    Cliente getClienteXUsuarioId(String id_usuario) throws Exception;
+
 
 
 

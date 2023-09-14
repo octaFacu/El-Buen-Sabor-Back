@@ -52,5 +52,7 @@ public interface ClienteRepository extends GenericRepository<Cliente,Long>, JpaS
             @Param("direccionOrden") String direccionOrden
     );
 
+    @Query(value = "SELECT * FROM cliente WHERE usuario_id LIKE :id_usuario",nativeQuery = true)
+    Cliente findClienteXUsuarioId(@Param("id_usuario") String id_usuario);
 
 }

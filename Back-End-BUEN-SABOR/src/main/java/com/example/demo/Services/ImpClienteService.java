@@ -74,4 +74,15 @@ public class ImpClienteService extends GenericServiceImpl<Cliente, Long> impleme
 
         return page;
     }
+
+    @Override
+    public Cliente getClienteXUsuarioId(String id_usuario) throws Exception {
+        try {
+            Cliente cliente = repositorio.findClienteXUsuarioId(id_usuario);
+            return cliente;
+        }catch (Exception e){
+            throw new Exception("Error al traer los datos de la proyeccion ",e);
+        }
+    }
+
 }

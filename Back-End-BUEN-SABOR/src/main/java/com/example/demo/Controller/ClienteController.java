@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Entidades.Cliente;
+import com.example.demo.Entidades.Direccion;
 import com.example.demo.Entidades.Excepciones.PaginaVaciaException;
 import com.example.demo.Entidades.Proyecciones.ProyeccionEstadisticaClienteTotalPedidos;
 import com.example.demo.Entidades.Proyecciones.ProyeccionHistorialPedidoUsuario;
@@ -79,4 +80,19 @@ public class ClienteController extends GenericControllerImpl<Cliente,Long, ImpCl
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(respuestaDelError);
         }
     }
+
+    //El id del usuario es el id de Auth0
+    @GetMapping("/clienteXUsuarioId/{id_usuario}")
+    public ResponseEntity<?> getClienteXUsuarioId(@PathVariable String id_usuario) throws Exception{
+
+        try{
+            Cliente cliente = service.getClienteXUsuarioId(id_usuario);
+            return ResponseEntity.status(HttpStatus.OK).body(cliente);
+
+        } catch (Exception e) {
+            // Manejar excepciones
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ocurrió un error al procesar la solicitud.");
+        }
+    }
+
 }
