@@ -9,8 +9,8 @@ import java.util.List;
 @Setter
 public class RequestDataMP {
 
-    private UserAuth0 usuario;
+    private UserAuth0MP usuario;
 
-    private List<ProductoParaPedido> productos;
+    private List<ProductoParaPedidoMP> productos;
 
 }

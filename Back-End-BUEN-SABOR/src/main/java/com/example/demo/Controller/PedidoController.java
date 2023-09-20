@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 import com.example.demo.Entidades.Pedido;
 import com.example.demo.Entidades.Proyecciones.ProyeccionPedidoUsuario;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductosDePedido;
+import com.example.demo.Entidades.Wrapper.RequestPedido;
 import com.example.demo.Services.ImpPedidoService;
 
 import org.springframework.http.HttpStatus;
@@ -59,5 +60,16 @@ public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPed
             throw new Exception(e.getMessage());
         }
     }
+
+    @PostMapping("/createPedidoAndProducto")
+    public ResponseEntity<?> createPedidoAndPedidoHasProdcuto(@RequestBody RequestPedido pedido) throws Exception{
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(service.savePedidoAndPedidoHasProdcuto(pedido));
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
 
 }

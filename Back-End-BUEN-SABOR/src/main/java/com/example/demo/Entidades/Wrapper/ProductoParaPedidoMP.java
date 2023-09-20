@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProductoParaPedido {
+public class ProductoParaPedidoMP {
 
     private Producto producto;
 

@@ -2,9 +2,9 @@ package com.example.demo.Controller;
 
 // SDK de Mercado Pago
 import com.example.demo.Entidades.Producto;
-import com.example.demo.Entidades.Wrapper.ProductoParaPedido;
+import com.example.demo.Entidades.Wrapper.ProductoParaPedidoMP;
 import com.example.demo.Entidades.Wrapper.RequestDataMP;
-import com.example.demo.Entidades.Wrapper.UserAuth0;
+import com.example.demo.Entidades.Wrapper.UserAuth0MP;
 import com.mercadopago.MercadoPagoConfig;
 import com.mercadopago.client.preference.*;
 import com.mercadopago.resources.preference.Preference;
@@ -36,29 +36,29 @@ public class MercadoPagoController {
 
     @PostMapping("/checkout")
     public ResponseEntity<?> crearCheckout(@RequestBody RequestDataMP requestData) {
-        System.out.println("Entro al controlador");
+        //System.out.println("Entro al controlador");
         try{
 
             // Agrega credenciales
             MercadoPagoConfig.setAccessToken(accessToken);
 
             //Datos del RequestBody
-            UserAuth0 usuario = requestData.getUsuario();
-            List<ProductoParaPedido> productos = requestData.getProductos();
+            UserAuth0MP usuario = requestData.getUsuario();
+            List<ProductoParaPedidoMP> productos = requestData.getProductos();
 
             //System.out.println("USUARIO: " + usuario.getNombre());
 
             //Lista de items cargados acá
             List<PreferenceItemRequest> items = new ArrayList<>();
 
-            System.out.println("Entro al bucle");
+            //System.out.println("Entro al bucle");
             for (int i = 0; i < productos.size(); i++){
 
-                System.out.println("Ejecuto: " + i);
+                //System.out.println("Ejecuto: " + i);
 
                 Producto prod = productos.get(i).getProducto();
 
-                System.out.println(prod.getDenominacion());
+                //System.out.println(prod.getDenominacion());
 
                 PreferenceItemRequest itemRequest = PreferenceItemRequest.builder()
                         .id(prod.getId().toString())
@@ -102,8 +102,7 @@ public class MercadoPagoController {
             Preference preference = client.create(preferenceRequest);
 
             //return preference.getId();
-            System.out.println("PreferenceId: " + preference.getId());
-            //return ResponseEntity.status(HttpStatus.OK).body(preference.getId());
+            ///System.out.println("PreferenceId: " + preference.getId());
             return ResponseEntity.status(HttpStatus.OK).body("{\"preferenceId\":\"" + preference.getId() + "\"}");
 
         }catch(MPException e){
