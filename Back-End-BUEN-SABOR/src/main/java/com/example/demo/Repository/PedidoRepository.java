@@ -4,6 +4,7 @@ import com.example.demo.Entidades.IngredientesDeProductos;
 import com.example.demo.Entidades.Pedido;
 
 import com.example.demo.Entidades.PedidoHasProducto;
+import com.example.demo.Entidades.Proyecciones.ProyeccionDatosFactura;
 import com.example.demo.Entidades.Wrapper.ProdPedWrapper;
 
 import com.example.demo.Entidades.Proyecciones.ProyeccionPedidoUsuario;
@@ -37,5 +38,10 @@ public interface PedidoRepository extends GenericRepository<Pedido, Long> {
             "WHERE pedido_id = :idPedido GROUP BY pedido_has_producto.pedido_id, producto.id, " +
             "producto.denominacion, producto.precio_total, producto.imagen;", nativeQuery = true)
     List<ProyeccionProductosDePedido> getProductosDePedido(@Param("idPedido") long idPedido);
+
+    @Query(value ="SELECT factura.id,factura.numero_factura, pedido.es_envio, pedido.numero_pedido_dia, pedido.precio_total, factura.tipo, " +
+            "pedido.fecha_pedido, usuario.nombre, usuario.apellido FROM factura INNER JOIN pedido ON pedido.id = :idPedido " +
+            "INNER JOIN cliente ON pedido.cliente_id = cliente.id_cliente INNER JOIN usuario ON cliente.usuario_id = usuario.id" ,nativeQuery = true)
+    ProyeccionDatosFactura getDatosFactura(@Param("idPedido") long idPedido);
 
 }
