@@ -4,6 +4,7 @@ import com.example.demo.Entidades.Pedido;
 
 import com.example.demo.Entidades.PedidoHasProducto;
 import com.example.demo.Entidades.Producto;
+import com.example.demo.Entidades.Proyecciones.ProyeccionDatosFactura;
 import com.example.demo.Entidades.Wrapper.ProdPedWrapper;
 import com.example.demo.Entidades.Wrapper.RequestPedido;
 import com.example.demo.Repository.PedidoHasProductoRepository;
@@ -169,6 +170,15 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
 
             return pedidoTerminado;
 
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public ProyeccionDatosFactura getDatosFactura(long idPedido) throws Exception {
+        try {
+            return repository.getDatosFactura(idPedido);
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

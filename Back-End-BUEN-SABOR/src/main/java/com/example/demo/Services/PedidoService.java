@@ -5,6 +5,7 @@ import com.example.demo.Entidades.Pedido;
 
 import com.example.demo.Entidades.PedidoHasProducto;
 
+import com.example.demo.Entidades.Proyecciones.ProyeccionDatosFactura;
 import com.example.demo.Entidades.Proyecciones.ProyeccionPedidoUsuario;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductosDePedido;
 import com.example.demo.Entidades.Wrapper.RequestPedido;
@@ -25,4 +26,5 @@ public interface PedidoService extends GenericService<Pedido, Long> {
 
     RequestPedido savePedidoAndPedidoHasProdcuto(RequestPedido pedido) throws Exception;
 
+    ProyeccionDatosFactura getDatosFactura(long idPedido) throws Exception;
 }
