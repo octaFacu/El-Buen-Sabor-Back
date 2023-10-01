@@ -13,4 +13,6 @@ public class RequestDataMP {
 
     private List<ProductoParaPedidoMP> productos;
 
+    private Boolean esEnvio;
+
 }
