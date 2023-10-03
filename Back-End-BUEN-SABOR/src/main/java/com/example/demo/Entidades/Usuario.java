@@ -27,5 +27,5 @@ public class Usuario {
     private long telefono;
     @Column(nullable = false)
     private boolean activo;
-
+    private String email;
 }
