@@ -10,4 +10,5 @@ import java.util.List;
 public interface IngredienteDeProductoService extends GenericService<IngredientesDeProductos,Long> {
 
     public void saveIngredientes(RequestWrapper request) throws Exception;
+    public List<IngredientesDeProductos> getByIngredientes(Long idIngrediente) throws Exception;
 }

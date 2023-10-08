@@ -47,6 +47,8 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
     }
 
 
+
+
     //Filtro por nombre de producto
     @GetMapping("/filtro")
     public ResponseEntity<?> filtro(
