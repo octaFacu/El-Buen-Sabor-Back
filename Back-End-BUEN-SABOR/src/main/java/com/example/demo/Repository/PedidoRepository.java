@@ -44,4 +44,8 @@ public interface PedidoRepository extends GenericRepository<Pedido, Long> {
             "INNER JOIN cliente ON pedido.cliente_id = cliente.id_cliente INNER JOIN usuario ON cliente.usuario_id = usuario.id" ,nativeQuery = true)
     ProyeccionDatosFactura getDatosFactura(@Param("idPedido") long idPedido);
 
+    //@Query(value = "SELECT p FROM Pedido p WHERE p.cliente = :idCliente ORDER BY p.id DESC LIMIT 1")
+    @Query(value = "SELECT * FROM pedido WHERE pedido.cliente_id = :idCliente ORDER BY id DESC LIMIT 1", nativeQuery = true)
+    Pedido findUltimoPedidoByClienteId(@Param("idCliente") long idCliente);
+
 }

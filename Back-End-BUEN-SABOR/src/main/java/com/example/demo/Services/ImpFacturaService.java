@@ -1,8 +1,10 @@
 package com.example.demo.Services;
 import com.example.demo.Entidades.Factura;
 import com.example.demo.Entidades.MetodoDePago;
+import com.example.demo.Entidades.Pedido;
 import com.example.demo.Repository.FacturaRepository;
 import com.example.demo.Repository.MetodoDePagoRepository;
+import com.example.demo.Repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +19,20 @@ public class ImpFacturaService extends GenericServiceImpl<Factura,Long> implemen
     @Autowired
     FacturaRepository facturaRepository;
 
+    @Autowired
+    PedidoRepository pedidoRepository;
+
     @Override
-    public Factura saveFacturaMP(Factura factura) throws Exception {
+    public Factura saveFacturaMP(Pedido pedido) throws Exception {
 
         try{
 
-            Factura facturaEntrante = factura;
+            Factura factura = new Factura();
+
+            //Asigno el tipo de factura
+            factura.setTipo("C");
+            //Asigno el activo de factura
+            factura.setActivo(true);
 
             List<MetodoDePago> metdodosDePago = metodoDePagoRepository.findAll();
 
@@ -30,24 +40,33 @@ public class ImpFacturaService extends GenericServiceImpl<Factura,Long> implemen
             for (int i = 0; i < metdodosDePago.size(); i++){
                 if(metdodosDePago.get(i).getTipo().toLowerCase().equals("mercado pago")){
                     System.out.println("Si es mercado pago");
-                    facturaEntrante.setMetodoDePago(metdodosDePago.get(i));
+                    factura.setMetodoDePago(metdodosDePago.get(i));
                     break;
                 }
             }
 
             //Genero el numero de factura a la misma
-
             long numeroFactura;
             Factura ultimaFactura = facturaRepository.findUltimaFactura();
 
             if(ultimaFactura != null){
                 numeroFactura = Long.parseLong(ultimaFactura.getNumeroFactura()) + 1;
-                facturaEntrante.setNumeroFactura(String.valueOf(numeroFactura));
+                factura.setNumeroFactura(String.valueOf(numeroFactura));
             }else{
-                facturaEntrante.setNumeroFactura("000000000001");
+                factura.setNumeroFactura("000000000001");
             }
 
-            Factura facturaTerminada = facturaRepository.save(facturaEntrante);
+            //Asigno el pedido a la factura
+            factura.setPedido(pedido);
+
+            //Asigno si es que hay monto de descuento
+            if (!pedido.getEsEnvio()){
+                factura.setMontoDescuento((pedido.getPrecioTotal() * 10) / 90);
+            }else{
+                factura.setMontoDescuento(0.0);
+            }
+
+            Factura facturaTerminada = facturaRepository.save(factura);
 
             return facturaTerminada;
 

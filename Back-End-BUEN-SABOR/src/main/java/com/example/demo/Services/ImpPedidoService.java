@@ -96,6 +96,15 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
         }
     }
 
+    /*@Override
+    public Pedido getUltimoPedidoByClienteId(long idCliente) throws Exception {
+        try{
+            return repository.findUltimoPedidoByClienteId(idCliente);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }*/
+
     @Override
     public RequestPedido savePedidoAndPedidoHasProdcuto(RequestPedido pedido) throws Exception {
 

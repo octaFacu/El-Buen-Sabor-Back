@@ -81,4 +81,14 @@ public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPed
         }
     }
 
+    /*@GetMapping("/findUltimoPedidoByClienteId/{idCliente}")
+    public ResponseEntity<?> getUltimoPedidoByClienteId(@PathVariable("idCliente") long idCliente) throws Exception {
+        try {
+            Pedido pedido = service.getUltimoPedidoByClienteId(idCliente);
+            return ResponseEntity.ok(pedido);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }*/
+
 }

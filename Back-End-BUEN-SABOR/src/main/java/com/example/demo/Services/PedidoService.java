@@ -27,4 +27,6 @@ public interface PedidoService extends GenericService<Pedido, Long> {
     RequestPedido savePedidoAndPedidoHasProdcuto(RequestPedido pedido) throws Exception;
 
     ProyeccionDatosFactura getDatosFactura(long idPedido) throws Exception;
+
+    //Pedido getUltimoPedidoByClienteId(long idCliente) throws Exception;
 }

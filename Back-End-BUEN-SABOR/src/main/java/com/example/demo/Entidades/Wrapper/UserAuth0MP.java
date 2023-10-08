@@ -13,4 +13,6 @@ public class UserAuth0MP {
 
     private String email;
 
+    private Long idCliente;
+
 }

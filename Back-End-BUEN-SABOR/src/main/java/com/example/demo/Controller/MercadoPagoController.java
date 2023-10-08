@@ -1,11 +1,16 @@
 package com.example.demo.Controller;
 
 // SDK de Mercado Pago
+import com.example.demo.Entidades.Factura;
+import com.example.demo.Entidades.Pedido;
 import com.example.demo.Entidades.Producto;
 import com.example.demo.Entidades.Wrapper.NotificacionMP;
 import com.example.demo.Entidades.Wrapper.ProductoParaPedidoMP;
 import com.example.demo.Entidades.Wrapper.RequestDataMP;
 import com.example.demo.Entidades.Wrapper.UserAuth0MP;
+import com.example.demo.Repository.FacturaRepository;
+import com.example.demo.Repository.PedidoRepository;
+import com.example.demo.Services.ImpFacturaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
@@ -20,6 +25,7 @@ import com.mercadopago.resources.preference.Preference;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +40,16 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/mp")
 public class MercadoPagoController {
+
+    @Autowired
+    ImpFacturaService impFacturaService;
+
+    @Autowired
+    PedidoRepository pedidoRepository;
+
+    @Autowired
+    FacturaRepository facturaRepository;
+
 
     // Configura tu token de acceso de Mercado Pago en application.properties o application.yml
     @Value("${MP_ACCESS_TOKEN}")
@@ -105,15 +121,12 @@ public class MercadoPagoController {
                     .backUrls(backUrls)
                     .autoReturn("approved")
                     .marketplace("El Buen Sabor")
-                    .notificationUrl("https://5085-2803-9800-9846-68b-659a-e7cc-5977-3ba5.ngrok-free.app/mp/notificacionPago")
+                    .notificationUrl("https://2576-2803-9800-9846-68b-a5a3-8edf-bd79-c489.ngrok-free.app/mp/notificacionPago/"+requestData.getUsuario().getIdCliente())
                     .build();
 
             PreferenceClient client = new PreferenceClient();
             Preference preference = client.create(preferenceRequest);
 
-
-            //return preference.getId();
-            ///System.out.println("PreferenceId: " + preference.getId());
             return ResponseEntity.status(HttpStatus.OK).body("{\"preferenceId\":\"" + preference.getId() + "\"}");
 
         }catch(MPException e){
@@ -127,105 +140,110 @@ public class MercadoPagoController {
 
     }
 
-    //HACER PERSISITENCIA DEL PEDIDO DESDE CONTROLADOR MERADO PAGO, PASANDO EL ID DEL PEDIDO POR LE PATH DE notificationUrl
+    //Estre controlador siempre devuelver ResponseEntity.status(HttpStatus.OK).body("ok"); porque mercado pago a esta notificacion solo pide una respuesta status 200
+    @PostMapping("/notificacionPago/{idCliente}")
+    public ResponseEntity<?> notificacionDelPago(@PathVariable Long idCliente, @RequestBody String notificationData) {
 
-    @PostMapping("/notificacionPago")
-    public ResponseEntity<?> notificacionDelPago(@RequestBody String notificationData) {
-
-        System.out.println("Notificaciooooooooooon");
+        System.out.println("Notificacion");
         System.out.println(notificationData);
 
-        try{
-            // Agrega credenciales
-            MercadoPagoConfig.setAccessToken(accessToken);
+        Pedido pedido = pedidoRepository.findUltimoPedidoByClienteId(idCliente);
 
-            NotificacionMP notification = null;
-            ObjectMapper objectMapper = new ObjectMapper();
-            String topic = null;
-            Long idRequest = null;
+        Factura factura = facturaRepository.findFacturaByPedidoId(pedido.getId());
+
+        if (factura == null) {
+            System.out.println("No existe factura, la creo");
 
             try {
-                // Convierte la cadena JSON en un objeto Java
-                notification = objectMapper.readValue(notificationData, NotificacionMP.class);
-                topic = notification.getTopic();
+                // Agrega credenciales
+                MercadoPagoConfig.setAccessToken(accessToken);
 
-                String[] partes = notification.getResource().split("/");
-                idRequest = Long.parseLong(partes[partes.length - 1]);
+                NotificacionMP notification = null;
+                ObjectMapper objectMapper = new ObjectMapper();
+                String topic = null;
+                Long idRequest = null;
 
-                //System.out.println("Resource: " + notification.getResource());
-                //System.out.println("Topic: " + notification.getTopic());
-            } catch (UnrecognizedPropertyException e) {
-                System.out.println("Ignoro el objeto que no tiene el formato deseado");
-            } catch (JsonProcessingException e) {
-                System.out.println("Ignoro el objeto que no tiene el formato deseado");
+                try {
+                    // Convierte la cadena JSON en un objeto Java
+                    notification = objectMapper.readValue(notificationData, NotificacionMP.class);
+                    topic = notification.getTopic();
+
+                    String[] partes = notification.getResource().split("/");
+                    idRequest = Long.parseLong(partes[partes.length - 1]);
+
+                } catch (UnrecognizedPropertyException e) {
+                    System.out.println("Ignoro el objeto que no tiene el formato deseado");
+                } catch (JsonProcessingException e) {
+                    System.out.println("Ignoro el objeto que no tiene el formato deseado");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if (topic != null) {
+
+                    MerchantOrderClient moc = null;
+                    MerchantOrder mo = null;
+
+                    //Consigo la merchant order sin importar el caso
+                    switch (topic) {
+                        case "merchant_order":
+                            moc = new MerchantOrderClient();
+                            mo = moc.get(idRequest);
+                            break;
+                        case "payment":
+                            PaymentClient pc = new PaymentClient();
+                            moc = new MerchantOrderClient();
+                            Payment p = pc.get(idRequest);
+                            mo = moc.get(p.getOrder().getId());
+                            break;
+                        default:
+                            break;
+                    }
+
+                    BigDecimal paidAmount = new BigDecimal(0);
+
+                    //Traigo la lista de los pagos
+                    List<MerchantOrderPayment> mop = mo.getPayments();
+                    //Por cada pago lo agrego al pago total
+                    for (MerchantOrderPayment pago : mop) {
+                        if (pago.getStatus().equals("approved")) {
+                            paidAmount = paidAmount.add(pago.getTransactionAmount());
+                        }
+                    }
+
+                    //Si se pago el total del monto a pagar
+                    if (paidAmount.compareTo(mo.getTotalAmount()) == 0 || paidAmount.compareTo(mo.getTotalAmount()) == 1) {
+                        //System.out.println("Total a pagar " + mo.getTotalAmount().toString());
+                        //System.out.println("Total PAGADO " + paidAmount.toString());
+
+                        int cant = facturaRepository.countByPedidoId(pedido.getId());
+
+                        if (cant == 0) {
+                            //TERMINO DE CREAR LA FACTURA PARA EL PEDIDO YA PAGADO
+                            Factura nuevaFactura = impFacturaService.saveFacturaMP(pedido);
+                            //Le cambio el activo al pedido a true
+                            Pedido pedidoFinal = pedido;
+                            pedidoFinal.setActivo(true);
+                            pedidoRepository.save(pedidoFinal);
+                        }
+
+                    } else {
+                        System.out.println("EL PAGO NO SE COMPLETO");
+                    }
+
+                }
+
+                return ResponseEntity.status(HttpStatus.OK).body("ok");
+
             } catch (Exception e) {
                 e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
             }
 
-            MerchantOrderClient moc = null;
-            MerchantOrder mo = null;
-
-            if(topic != null){
-                switch (topic){
-                    case "merchant_order":
-                        moc = new MerchantOrderClient();
-
-                        mo = moc.get(idRequest);
-
-                        System.out.println("merchant order");
-                        System.out.println(mo.getOrderStatus());
-                        break;
-                    case "payment":
-                        PaymentClient pc = new PaymentClient();
-                        moc = new MerchantOrderClient();
-
-                        Payment p = pc.get(idRequest);
-                        System.out.println(p.getStatus());
-                        mo = moc.get(p.getOrder().getId());
-
-                        System.out.println("payment");
-                        System.out.println(mo.getOrderStatus());
-                        break;
-                    default:
-
-                        break;
-                }
-
-                BigDecimal paidAmount = new BigDecimal(0);
-
-                //Traigo la lista de los pagos
-                List<MerchantOrderPayment> mop = mo.getPayments();
-                //Por cada pago lo agrego al pago total
-                for (MerchantOrderPayment pago : mop) {
-                    if(pago.getStatus().equals("approved")){
-                        System.out.println("Es aprobado");
-                        paidAmount = paidAmount.add(pago.getTransactionAmount());
-                    }
-                }
-
-                //Si se pago el total del monto a pagar
-                if(paidAmount.compareTo(mo.getTotalAmount()) == 0 || paidAmount.compareTo(mo.getTotalAmount()) == 1){
-                    System.out.println("Total a pagar " + mo.getTotalAmount().toString());
-                    System.out.println("Total PAGADO " + paidAmount.toString());
-
-                }else{
-                    System.out.println("EL PAGO NO SE COMPLETÓ");
-                }
-
-            }
-
-            //https://www.mercadopago.com.ar/developers/es/docs/checkout-pro/additional-content/your-integrations/notifications/webhooks#editor_2
-            //https://github.com/mercadopago/sdk-java/blob/master/src/main/java/com/mercadopago/client/payment/PaymentClient.java
-            //https://github.com/mercadopago/sdk-java/blob/fdb3724de22f63d6152671c7fa83449691c546a6/src/main/java/com/mercadopago/resources/payment/Payment.java
-
+        } else {
+            System.out.println("Si existe factura, no hago nada!");
             return ResponseEntity.status(HttpStatus.OK).body("ok");
-            //return ResponseEntity.status(HttpStatus.OK).body("{\"preferenceId\":\"" + "asdasdasd" + "\"}");
-
-        } catch(Exception e){
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-
 
     }
 
