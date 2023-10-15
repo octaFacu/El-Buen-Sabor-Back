@@ -1,10 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Entidades.Factura;
-import com.example.demo.Entidades.Pedido;
 import com.example.demo.Services.ImpFacturaService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

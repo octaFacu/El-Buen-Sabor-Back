@@ -1,18 +1,12 @@
 package com.example.demo.Services;
 
-import com.example.demo.Entidades.IngredientesDeProductos;
 import com.example.demo.Entidades.Pedido;
 
 import com.example.demo.Entidades.PedidoHasProducto;
 
 import com.example.demo.Entidades.Proyecciones.ProyeccionDatosFactura;
-import com.example.demo.Entidades.Proyecciones.ProyeccionPedidoUsuario;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductosDePedido;
 import com.example.demo.Entidades.Wrapper.RequestPedido;
-import org.springframework.data.repository.query.Param;
-
-import java.util.List;
-
 
 import java.util.List;
 

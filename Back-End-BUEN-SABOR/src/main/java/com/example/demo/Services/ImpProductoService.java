@@ -1,29 +1,20 @@
 package com.example.demo.Services;
 
 
-import com.example.demo.Entidades.CategoriaIngrediente;
-import com.example.demo.Entidades.Ingrediente;
 import com.example.demo.Entidades.IngredientesDeProductos;
 import com.example.demo.Entidades.Producto;
 import com.example.demo.Entidades.Proyecciones.*;
-import com.example.demo.Repository.CategoriaIngredienteRepository;
 import com.example.demo.Repository.ProductoRepository;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
 
 import java.util.List;
