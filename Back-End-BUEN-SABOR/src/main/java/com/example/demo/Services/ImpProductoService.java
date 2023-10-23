@@ -48,7 +48,7 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
                 ingredientes = new ArrayList<>();
             }
 
-            logger.severe("Ingredientes length: "+ingredientes.size());
+            //logger.severe("Ingredientes length: "+ingredientes.size());
 
             return ingredientes;
         }catch (Exception e){
@@ -60,6 +60,7 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
     @Override
     public Producto saveProducto(Producto producto) throws Exception {
         try {
+            logger.severe("Producto a guardar: "+producto.toString());
             Producto prod = repository.save(producto);
             return prod;
         }  catch (Exception e) {

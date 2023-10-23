@@ -39,7 +39,7 @@ public class ImpIngredienteDeProductoService  extends GenericServiceImpl<Ingredi
         List<IngredientesDeProductos> ingProducto;
         try{
 
-            ingProducto = repository.findByIngredienteId(idIngrediente);
+            ingProducto = repository.findByIngredientePorId(idIngrediente);
 
         }catch(Exception e){
             ingProducto = new ArrayList<IngredientesDeProductos>();
