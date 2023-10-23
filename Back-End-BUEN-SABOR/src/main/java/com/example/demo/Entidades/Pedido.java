@@ -39,7 +39,7 @@ public class Pedido {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp fechaPedido;
-
+    //private String fechaPedido;
 
     private int numeroPedidoDia;
 
