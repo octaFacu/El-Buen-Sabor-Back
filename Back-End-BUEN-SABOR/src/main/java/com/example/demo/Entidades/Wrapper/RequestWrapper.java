@@ -1,15 +1,13 @@
 package com.example.demo.Entidades.Wrapper;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-
+@AllArgsConstructor
 public class RequestWrapper {
 
-
-    /*@Getter @Setter
-    private List<IngredientesDeProductos> ingredientes;*/
 
     @Getter @Setter
     private Long idProducto;
@@ -22,6 +20,8 @@ public class RequestWrapper {
 
     @Getter @Setter
     private double cantidad;
+
+
 
 
 }

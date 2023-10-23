@@ -7,6 +7,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ImpIngredienteDeProductoService  extends GenericServiceImpl<IngredientesDeProductos,Long> implements IngredienteDeProductoService{
 
@@ -27,6 +30,20 @@ public class ImpIngredienteDeProductoService  extends GenericServiceImpl<Ingredi
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
+    }
+
+    public List<IngredientesDeProductos> getByIngredientes(Long idIngrediente) throws Exception{
+
+        List<IngredientesDeProductos> ingProducto;
+        try{
+
+            ingProducto = repository.findByIngredientePorId(idIngrediente);
+
+        }catch(Exception e){
+            ingProducto = new ArrayList<IngredientesDeProductos>();
+        }
+
+        return ingProducto;
     }
 
 
