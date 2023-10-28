@@ -28,4 +28,5 @@ public class Usuario {
     @Column(nullable = false)
     private boolean activo;
     private String email;
+    private String NombreRol;
 }
