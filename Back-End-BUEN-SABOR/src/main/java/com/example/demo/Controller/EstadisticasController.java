@@ -3,6 +3,8 @@ package com.example.demo.Controller;
 import com.example.demo.EstadisticasExcel.ReporteGanancias.ReporteExcelInformeGanancias;
 import com.example.demo.EstadisticasExcel.ReporteProductos.ReporteExcelRankingProductos;
 import com.example.demo.EstadisticasExcel.ReporteUsuario.ReporteExcelServiceImpl;
+import com.example.demo.Security.AdminOnly;
+import com.example.demo.Security.PublicEndpoint;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -25,7 +27,7 @@ public class EstadisticasController {
 
     @Autowired
     private ReporteExcelInformeGanancias servicioPrueba;
-
+    @AdminOnly
     @GetMapping("/generar-informeClientes")
     public ResponseEntity<byte[]> generarInformeExcel() throws Exception {
 
@@ -43,6 +45,7 @@ public class EstadisticasController {
         return new ResponseEntity<>(bytes, headers, org.springframework.http.HttpStatus.OK);
     }
 
+    @AdminOnly
     @GetMapping("/generar-informeProductos")
     public ResponseEntity<byte[]> generarInformeExcelProducto() throws Exception {
 
@@ -60,6 +63,7 @@ public class EstadisticasController {
         return new ResponseEntity<>(bytes, headers, org.springframework.http.HttpStatus.OK);
     }
 
+    @AdminOnly
     @GetMapping("/generar-informeGanancias")
     public ResponseEntity<?> generarExcelInformeGanancias() throws Exception {
 

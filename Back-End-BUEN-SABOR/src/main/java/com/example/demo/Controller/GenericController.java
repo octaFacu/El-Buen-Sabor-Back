@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Security.PublicEndpoint;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

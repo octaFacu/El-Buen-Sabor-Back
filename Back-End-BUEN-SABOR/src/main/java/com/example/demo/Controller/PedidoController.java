@@ -4,6 +4,7 @@ import com.example.demo.Entidades.Pedido;
 import com.example.demo.Entidades.Proyecciones.ProyeccionDatosFactura;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductosDePedido;
 import com.example.demo.Entidades.Wrapper.RequestPedido;
+import com.example.demo.Security.PublicEndpoint;
 import com.example.demo.Services.ImpPedidoService;
 
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.List;
 
 public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPedidoService> {
 
+    @PublicEndpoint
     @GetMapping("/estado/{estadoProducto}")
     public ResponseEntity<?> buscarPedidoEstado(@PathVariable String estadoProducto) throws Exception {
         try {
@@ -28,7 +30,7 @@ public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPed
         }
     }
 
-
+    @PublicEndpoint
     @PostMapping("/create")
     public ResponseEntity<?> createEntity(@RequestBody Pedido pedido) throws Exception{
         try{
@@ -41,6 +43,7 @@ public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPed
         }
     }
 
+    @PublicEndpoint
     @GetMapping("/productos/{idProducto}")
     public ResponseEntity<?> buscarPedidoProducto(@PathVariable Long idProducto) throws Exception {
         try {
@@ -50,6 +53,7 @@ public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPed
         }
     }
 
+    @PublicEndpoint
     @GetMapping("producto/{idPedido}")
     public ResponseEntity<List<ProyeccionProductosDePedido>> traerProductosDePedido(@PathVariable("idPedido") long idPedido) throws Exception {
         try {
@@ -61,6 +65,7 @@ public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPed
         }
     }
 
+    @PublicEndpoint
     @PostMapping("/createPedidoAndProducto")
     public ResponseEntity<?> createPedidoAndPedidoHasProdcuto(@RequestBody RequestPedido pedido) throws Exception{
         try{
@@ -70,6 +75,7 @@ public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPed
         }
     }
 
+    @PublicEndpoint
     @GetMapping("getDatoFactura/{idPedido}")
     public ResponseEntity<?> getDatosFactura(@PathVariable("idPedido")long idPedido) throws Exception {
         try {

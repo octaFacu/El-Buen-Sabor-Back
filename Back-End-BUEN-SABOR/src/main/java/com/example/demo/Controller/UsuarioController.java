@@ -2,6 +2,8 @@ package com.example.demo.Controller;
 
 import com.example.demo.Config.ApiAuth0.Auth0Api;
 import com.example.demo.Entidades.Usuario;
+import com.example.demo.Security.AdminOnly;
+import com.example.demo.Security.PublicEndpoint;
 import com.example.demo.Services.ImpUsuarioService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +21,7 @@ import java.util.Map;
 @RequestMapping(path = "/usuario")
 public class UsuarioController extends GenericControllerImpl<Usuario,String, ImpUsuarioService> {
 
+    @AdminOnly
     @GetMapping("/traerEmpleados")
     public ResponseEntity<?> traerEmpleados(  @RequestParam(defaultValue = "0") Integer page,
                                               @RequestParam(defaultValue = "5") Integer size){

@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Security.PublicEndpoint;
 import com.example.demo.Services.GenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ public abstract class GenericControllerImpl<T, ID extends Serializable,S extends
     @Autowired
     protected S service;
 
+    @PublicEndpoint
     @Override
     @GetMapping
     public ResponseEntity<?> getAll() {
@@ -26,6 +28,7 @@ public abstract class GenericControllerImpl<T, ID extends Serializable,S extends
         }
     }
 
+    @PublicEndpoint
     @Override
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable ID id) {
@@ -36,6 +39,7 @@ public abstract class GenericControllerImpl<T, ID extends Serializable,S extends
         }
     }
 
+    @PublicEndpoint
     @Override
     @PostMapping
     public ResponseEntity<?> save(@RequestBody T entity) {
@@ -46,6 +50,7 @@ public abstract class GenericControllerImpl<T, ID extends Serializable,S extends
         }
     }
 
+    @PublicEndpoint
     @Override
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable ID id,@RequestBody T entity) {
@@ -56,6 +61,7 @@ public abstract class GenericControllerImpl<T, ID extends Serializable,S extends
         }
     }
 
+    @PublicEndpoint
     @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable ID id) {
@@ -67,6 +73,7 @@ public abstract class GenericControllerImpl<T, ID extends Serializable,S extends
         }
     }
 
+    @PublicEndpoint
     @Override
     @GetMapping("/paged")
     public ResponseEntity<?> getAllPaged(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
@@ -86,6 +93,7 @@ public abstract class GenericControllerImpl<T, ID extends Serializable,S extends
         }
     }
 
+    @PublicEndpoint
     @Override
     @PatchMapping("/soft/{id}")
     public ResponseEntity<?> softDelete(@PathVariable ID id) {

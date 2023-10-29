@@ -10,6 +10,8 @@ import com.example.demo.Entidades.Wrapper.RequestDataMP;
 import com.example.demo.Entidades.Wrapper.UserAuth0MP;
 import com.example.demo.Repository.FacturaRepository;
 import com.example.demo.Repository.PedidoRepository;
+import com.example.demo.Security.ClienteOnly;
+import com.example.demo.Security.PublicEndpoint;
 import com.example.demo.Services.ImpFacturaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,6 +63,7 @@ public class MercadoPagoController {
     //@Value("${MP_TEST_ACCESS_TOKEN}")
     //private String accessToken;
 
+    @ClienteOnly
     @PostMapping("/checkout")
     public ResponseEntity<?> crearCheckout(@RequestBody RequestDataMP requestData) {
         //System.out.println("Entro al controlador");
