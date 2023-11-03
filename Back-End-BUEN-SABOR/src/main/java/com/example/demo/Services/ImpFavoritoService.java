@@ -4,6 +4,8 @@ import com.example.demo.Entidades.Favorito;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductoFavorito;
 import com.example.demo.Repository.FavoritoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +16,10 @@ public class ImpFavoritoService extends GenericServiceImpl<Favorito,Long> implem
     @Autowired
     FavoritoRepository repository;
     @Override
-    public List<ProyeccionProductoFavorito> findbyId_cliente(long id_cliente) throws Exception {
+    public Page<ProyeccionProductoFavorito> findbyId_cliente(long id_cliente, Pageable pageable) throws Exception {
         try{
-            return repository.findbyId_cliente(id_cliente);
+
+            return repository.findbyId_cliente(id_cliente, pageable);
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
