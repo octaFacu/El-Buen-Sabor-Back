@@ -97,9 +97,11 @@ public class Auth0Api {
             return "Rol Agregado con éxito!";
         } else if (codigo.equals("401") && intentosPermitidos != 0) {
             Token();
+            System.out.println("agrego rol");
             return agregarRol(id, rol, intentosPermitidos - 1);
         } else if (codigo.equals("400") && intentosPermitidos != 0) {
             Token();
+            System.out.println("agrego rol");
             return agregarRol(id, rol, intentosPermitidos - 1);
         } else {
             return "Excepción no controlada. Por favor, comuníquese con el administrador Auth0. Código de error: " + codigo;
@@ -146,10 +148,10 @@ public class Auth0Api {
             return "Rol Agregado con éxito!";
         } else if (codigo.equals("401") && intentosPermitidos != 0) {
             Token();
-            return agregarRol(id, rol, intentosPermitidos - 1);
+            return deleteRol(id, rol, intentosPermitidos - 1);
         } else if (codigo.equals("400") && intentosPermitidos != 0) {
             Token();
-            return agregarRol(id, rol, intentosPermitidos - 1);
+            return deleteRol(id, rol, intentosPermitidos - 1);
         } else {
             return "Excepción no controlada. Por favor, comuníquese con el administrador Auth0. Código de error: " + codigo;
         }
