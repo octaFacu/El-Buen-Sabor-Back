@@ -30,6 +30,9 @@ public interface PedidoRepository extends GenericRepository<Pedido, Long> {
     @Query(value = "SELECT ped FROM PedidoHasProducto ped WHERE ped.pedido.id = :id")
     List<PedidoHasProducto> buscarPedidoProductos(@Param("id") Long idPedido);
 
+    @Query(value = "SELECT * FROM pedido WHERE estado LIKE 'EnDelivery' AND delivery_id LIKE :idDelivery", nativeQuery = true)
+    List<Pedido> buscarPedidoPorDelivery(@Param("idDelivery") String idDelivery);
+
 
     @Query(value = "SELECT pedido_has_producto.pedido_id, " +
             "producto.id AS producto_id, producto.denominacion, " +

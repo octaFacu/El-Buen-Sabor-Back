@@ -31,6 +31,16 @@ public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPed
     }
 
     @PublicEndpoint
+    @GetMapping("/delivery/{idDelivery}")
+    public ResponseEntity<?> buscarPedidoDelivery(@PathVariable String idDelivery) throws Exception {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarPedidoPorDelivery(idDelivery));
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @PublicEndpoint
     @PostMapping("/create")
     public ResponseEntity<?> createEntity(@RequestBody Pedido pedido) throws Exception{
         try{

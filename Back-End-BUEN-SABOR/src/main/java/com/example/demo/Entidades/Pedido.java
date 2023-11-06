@@ -53,6 +53,10 @@ public class Pedido {
     @JsonIgnoreProperties({"usuario","hibernateLazyInitializer", "handler"})
     private Direccion direccion;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "delivery_id", nullable = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Usuario delivery;
 
     private boolean activo;
 

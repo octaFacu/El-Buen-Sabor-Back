@@ -71,6 +71,18 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
         }
     }
 
+
+    public List<Pedido> buscarPedidoPorDelivery(String idDelivery) throws Exception{
+        try{
+            List<Pedido> pedidosEstado = repository.buscarPedidoPorDelivery(idDelivery);
+
+            return pedidosEstado;
+        }catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+
     public List<PedidoHasProducto> buscarPedidoProductos(Long idPedido) throws Exception{
 
         try{
