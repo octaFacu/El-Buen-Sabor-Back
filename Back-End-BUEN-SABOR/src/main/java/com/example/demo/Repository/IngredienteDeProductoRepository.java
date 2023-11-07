@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 
+import java.util.List;
+
 @Repository
 public interface IngredienteDeProductoRepository extends GenericRepository<IngredientesDeProductos,Long> {
 
@@ -19,4 +21,7 @@ public interface IngredienteDeProductoRepository extends GenericRepository<Ingre
                            @Param("unidadMedidaId") Long medidaId,
                            @Param("ingredienteId") Long ingredienteId,
                            @Param("productoId") Long productoId);
+
+    @Query(value = "SELECT * FROM ingredientes_de_productos WHERE ingrediente_id = :idIngrediente", nativeQuery = true)
+    List<IngredientesDeProductos> findByIngredientePorId(@Param("idIngrediente") Long idIngrediente);
 }

@@ -1,10 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Entidades.Factura;
-import com.example.demo.Entidades.Pedido;
 import com.example.demo.Services.ImpFacturaService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/factura")
 public class FacturaController extends GenericControllerImpl<Factura,Long, ImpFacturaService> {
 
+    /*
     @PostMapping("/createFacturaMP")
     public ResponseEntity<?> createFacturaMercadoPago(@RequestBody Factura factura) throws Exception{
         try{
@@ -21,7 +19,7 @@ public class FacturaController extends GenericControllerImpl<Factura,Long, ImpFa
             throw new Exception(e.getMessage());
         }
     }
-
+    */
 
 
 }

@@ -3,14 +3,11 @@ package com.example.demo.Services;
 import com.example.demo.Entidades.Pedido;
 
 import com.example.demo.Entidades.PedidoHasProducto;
-import com.example.demo.Entidades.Producto;
 import com.example.demo.Entidades.Proyecciones.ProyeccionDatosFactura;
-import com.example.demo.Entidades.Wrapper.ProdPedWrapper;
 import com.example.demo.Entidades.Wrapper.RequestPedido;
 import com.example.demo.Repository.PedidoHasProductoRepository;
 import com.example.demo.Repository.PedidoRepository;
 import com.example.demo.Repository.ProductoRepository;
-import com.example.demo.Entidades.Proyecciones.ProyeccionPedidoUsuario;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductosDePedido;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -95,6 +90,15 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
             throw new Exception(e.getMessage());
         }
     }
+
+    /*@Override
+    public Pedido getUltimoPedidoByClienteId(long idCliente) throws Exception {
+        try{
+            return repository.findUltimoPedidoByClienteId(idCliente);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }*/
 
     @Override
     public RequestPedido savePedidoAndPedidoHasProdcuto(RequestPedido pedido) throws Exception {

@@ -1,11 +1,8 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Entidades.Cliente;
-import com.example.demo.Entidades.Direccion;
-import com.example.demo.Entidades.Excepciones.PaginaVaciaException;
 import com.example.demo.Entidades.Proyecciones.ProyeccionEstadisticaClienteTotalPedidos;
 import com.example.demo.Entidades.Proyecciones.ProyeccionHistorialPedidoUsuario;
-import com.example.demo.Entidades.Proyecciones.ProyeccionProductoFavorito;
 import com.example.demo.Services.ImpClienteService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,7 +14,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
