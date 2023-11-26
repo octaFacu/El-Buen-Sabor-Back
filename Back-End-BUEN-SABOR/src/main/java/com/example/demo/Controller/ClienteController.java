@@ -36,7 +36,7 @@ public class ClienteController extends GenericControllerImpl<Cliente,Long, ImpCl
     }
 
 
-    @AdminOnly
+    @PublicEndpoint
     @GetMapping("/historialPedidos/{idCliente}")
     public ResponseEntity<?>
     ProyeccionHistorialPedidos(@PathVariable Long idCliente,

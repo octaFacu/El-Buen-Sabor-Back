@@ -25,5 +25,4 @@ public class UmController extends GenericControllerImpl<UnidadDeMedida,Long, Imp
             throw new Exception(e.getMessage());
         }
     }
-
 }

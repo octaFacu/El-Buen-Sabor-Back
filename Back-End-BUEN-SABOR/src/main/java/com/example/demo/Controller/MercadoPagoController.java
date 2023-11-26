@@ -144,6 +144,7 @@ public class MercadoPagoController {
     }
 
     //Estre controlador siempre devuelver ResponseEntity.status(HttpStatus.OK).body("ok"); porque mercado pago a esta notificacion solo pide una respuesta status 200
+    @ClienteOnly
     @PostMapping("/notificacionPago/{idCliente}")
     public ResponseEntity<?> notificacionDelPago(@PathVariable Long idCliente, @RequestBody String notificationData) {
 

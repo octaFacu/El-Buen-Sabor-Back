@@ -37,6 +37,8 @@ public class UsuarioController extends GenericControllerImpl<Usuario,String, Imp
         }
     }
     Auth0Api api = new Auth0Api();
+
+    @AdminOnly
     @PostMapping("/AgregarRol/{idAuth0}")
     public ResponseEntity<?> prueba(@PathVariable String idAuth0,  @RequestBody Map<String, String> requestBody){
         try {
@@ -57,12 +59,14 @@ public class UsuarioController extends GenericControllerImpl<Usuario,String, Imp
         }
     }
 
-
+    @AdminOnly
     @GetMapping("/ObtenerToken")
     public ResponseEntity<?> ObtenerToken(){
         api.Token();
         return ResponseEntity.status(HttpStatus.OK).body("token");
     }
+
+    @AdminOnly
     @PostMapping("/BorrarRol/{idAuth0}")
     public ResponseEntity<?> borrarRol(@PathVariable String idAuth0,@RequestBody Map<String, String> requestBody){
         try {

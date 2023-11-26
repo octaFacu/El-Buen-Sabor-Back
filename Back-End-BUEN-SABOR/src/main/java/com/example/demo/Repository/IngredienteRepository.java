@@ -14,6 +14,6 @@ public interface IngredienteRepository extends GenericRepository<Ingrediente,Lon
     List<Ingrediente> findByCategoriaIngrediente(@Param("idCategoria") Long idCategoria);
 
     @Query(value = "SELECT precio_compra FROM ingrediente WHERE id = :idIngrediente", nativeQuery = true)
-    float findCosto(@Param("idIngrediente") Long idIngrediente);
+    double findCosto(@Param("idIngrediente") Long idIngrediente);
 
 }
