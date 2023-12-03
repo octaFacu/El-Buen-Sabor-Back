@@ -60,9 +60,9 @@ BEGIN
     SET filtro_fechas = '';
 
     IF fecha_inicio IS NOT NULL AND fecha_fin IS NOT NULL THEN
-        SET filtro_fechas = CONCAT('IFNULL(COUNT(CASE WHEN DATE(pedido.fecha_pedido) BETWEEN "', fecha_inicio, '" AND "', fecha_fin, '" THEN pedido_has_producto.producto_id END), 0) AS cantidad');
+        SET filtro_fechas = CONCAT('IFNULL(SUM(CASE WHEN DATE(pedido.fecha_pedido) BETWEEN "', fecha_inicio, '" AND "', fecha_fin, '" THEN pedido_has_producto.cantidad END), 0) AS cantidad');
     ELSE
-        SET filtro_fechas = 'IFNULL(COUNT(pedido_has_producto.producto_id), 0) AS cantidad';
+        SET filtro_fechas = 'IFNULL(SUM(pedido_has_producto.cantidad), 0) AS cantidad';
     END IF;
 
     SET orden = '';

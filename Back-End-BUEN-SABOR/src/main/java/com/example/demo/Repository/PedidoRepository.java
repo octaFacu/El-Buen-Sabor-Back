@@ -33,7 +33,7 @@ public interface PedidoRepository extends GenericRepository<Pedido, Long> {
 
     @Query(value = "SELECT pedido_has_producto.pedido_id, " +
             "producto.id AS producto_id, producto.denominacion, " +
-            "COUNT(*) AS cantidad, producto.precio_total * COUNT(*) AS precio_total, " +
+            "SUM(pedido_has_producto.cantidad) AS cantidad, producto.precio_total * COUNT(*) AS precio_total, " +
             "producto.imagen FROM pedido_has_producto INNER JOIN producto ON pedido_has_producto.producto_id = producto.id " +
             "WHERE pedido_id = :idPedido GROUP BY pedido_has_producto.pedido_id, producto.id, " +
             "producto.denominacion, producto.precio_total, producto.imagen;", nativeQuery = true)
