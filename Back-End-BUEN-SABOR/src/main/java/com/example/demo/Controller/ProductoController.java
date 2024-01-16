@@ -187,6 +187,15 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
         }
     }
 
-
+    //Retorna los prodcutos mas vendidos, con un maximo de 3
+    @GetMapping("/masVendidos")
+    public ResponseEntity<?> masVendidos() throws Exception {
+        try {
+            List<Producto> productos = service.findMasVendidos();
+            return ResponseEntity.status(HttpStatus.OK).body(productos);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 
 }

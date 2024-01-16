@@ -4,6 +4,7 @@ package com.example.demo.Services;
 import com.example.demo.Entidades.IngredientesDeProductos;
 import com.example.demo.Entidades.Producto;
 import com.example.demo.Entidades.Proyecciones.*;
+import com.example.demo.Repository.PedidoHasProductoRepository;
 import com.example.demo.Repository.ProductoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
 
     @Autowired
     private ProductoRepository repository;
+
+    @Autowired
+    private PedidoHasProductoRepository PHPrepository;
 
     @Override
     public List<IngredientesDeProductos> findIngredientes(Long idProducto) throws Exception {
@@ -164,6 +168,15 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
     public List<ProyeccionGananciaMes> graficoGananciasMes() throws Exception {
         try{
             return repository.graficoGanancias();
+        }  catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Producto> findMasVendidos() throws Exception {
+        try{
+            return repository.buscarMasVendidos();
         }  catch (Exception e) {
             throw new Exception(e.getMessage());
         }
