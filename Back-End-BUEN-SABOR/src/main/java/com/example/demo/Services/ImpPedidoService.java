@@ -41,7 +41,6 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
     public ImpPedidoService(WebSocketService notificationService) {
         this.notificationService = notificationService;
     }
-
     @Override
     @Transactional
     public Pedido save(Pedido pedido){

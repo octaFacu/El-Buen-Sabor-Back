@@ -1,10 +1,13 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Entidades.Factura;
 import com.example.demo.Entidades.Pedido;
 import com.example.demo.Entidades.Proyecciones.ProyeccionDatosFactura;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductosDePedido;
 import com.example.demo.Entidades.Wrapper.RequestPedido;
+import com.example.demo.Helpers.InvoiceGenerator;
 import com.example.demo.Security.PublicEndpoint;
+import com.example.demo.Services.ImpFacturaService;
 import com.example.demo.Services.ImpPedidoService;
 
 import org.springframework.http.HttpStatus;
@@ -95,6 +98,7 @@ public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPed
             throw new Exception(e.getMessage());
         }
     }
+
 
     /*@GetMapping("/findUltimoPedidoByClienteId/{idCliente}")
     public ResponseEntity<?> getUltimoPedidoByClienteId(@PathVariable("idCliente") long idCliente) throws Exception {
