@@ -93,7 +93,7 @@ public interface ProductoRepository extends GenericRepository<Producto, Long> {
             "FROM pedido_has_producto " +
             "GROUP BY producto_id " +
             "ORDER BY repeticiones DESC " +
-            "LIMIT 2) " +
+            "LIMIT 3) " +
             "subconsulta ON p.id = subconsulta.producto_id;"
             , nativeQuery = true)
     List<Producto> buscarMasVendidos();

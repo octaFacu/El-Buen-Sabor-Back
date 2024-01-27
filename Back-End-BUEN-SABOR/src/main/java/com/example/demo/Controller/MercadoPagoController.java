@@ -121,7 +121,7 @@ public class MercadoPagoController {
                     .backUrls(backUrls)
                     .autoReturn("approved")
                     .marketplace("El Buen Sabor")
-                    .notificationUrl("https://2576-2803-9800-9846-68b-a5a3-8edf-bd79-c489.ngrok-free.app/mp/notificacionPago/"+requestData.getUsuario().getIdCliente())
+                    .notificationUrl("https://7f95-2803-9800-9846-3eb-753b-a26a-1258-8f8c.ngrok-free.app/mp/notificacionPago/"+requestData.getUsuario().getIdCliente())
                     .build();
 
             PreferenceClient client = new PreferenceClient();
