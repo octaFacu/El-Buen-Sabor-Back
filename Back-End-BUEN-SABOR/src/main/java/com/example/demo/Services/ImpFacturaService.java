@@ -2,10 +2,12 @@ package com.example.demo.Services;
 import com.example.demo.Entidades.Factura;
 import com.example.demo.Entidades.MetodoDePago;
 import com.example.demo.Entidades.Pedido;
+import com.example.demo.Helpers.InvoiceGenerator;
 import com.example.demo.Repository.FacturaRepository;
 import com.example.demo.Repository.MetodoDePagoRepository;
 import com.example.demo.Repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +23,18 @@ public class ImpFacturaService extends GenericServiceImpl<Factura,Long> implemen
 
     @Autowired
     PedidoRepository pedidoRepository;
+
+    private final ApplicationContext context;
+
+    @Autowired
+    public ImpFacturaService(ApplicationContext context) {
+        this.context = context;
+    }
+
+
+    /*public Factura getByPedido(String pedido_id) throws Exception{
+        findFacturaByPedidoId
+    }*/
 
     @Override
     public Factura saveFacturaMP(Pedido pedido) throws Exception {
@@ -119,6 +133,10 @@ public class ImpFacturaService extends GenericServiceImpl<Factura,Long> implemen
             }
 
             Factura facturaTerminada = facturaRepository.save(factura);
+
+            //Generar el pdf de la factura creada en la carpeta del servidor
+            InvoiceGenerator generadorPDF = context.getBean(InvoiceGenerator.class);
+            generadorPDF.generatePDFInvoice(facturaTerminada);
 
             return facturaTerminada;
 
