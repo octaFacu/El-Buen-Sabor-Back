@@ -166,7 +166,7 @@ public class InvoiceGenerator {
             document.open();
 
 
-            Paragraph title = new Paragraph("Invoice: #" + datosFactura.getTipo() + "-" +
+            Paragraph title = new Paragraph("Nota de Crédito #" +
                     formateoNumeroFactura(Integer.parseInt(datosFactura.getNumeroFactura())) + datosFactura.getId() + "-" +
                     datosFactura.getPedido().getNumeroPedidoDia(), titleFont);
             document.add(title);
