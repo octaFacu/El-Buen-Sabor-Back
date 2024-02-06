@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 import com.example.demo.Entidades.Favorito;
 import com.example.demo.Entidades.Producto;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductoFavorito;
+import com.example.demo.Security.PublicEndpoint;
 import com.example.demo.Services.ImpFavoritoService;
 
 import org.springframework.data.domain.Page;
@@ -21,6 +22,7 @@ import java.util.List;
 @RequestMapping(path = "/favorito")
 public class FavoritoController  extends GenericControllerImpl<Favorito,Long, ImpFavoritoService> {
 
+    @PublicEndpoint
     @GetMapping("/buscar/{id_cliente}")
     public ResponseEntity<Page<ProyeccionProductoFavorito>> buscarFavoritoPorUsuario(@PathVariable long id_cliente, @RequestParam(defaultValue = "0") Integer page,
                                                                                      @RequestParam(defaultValue = "5") Integer size) throws Exception {
@@ -34,6 +36,7 @@ public class FavoritoController  extends GenericControllerImpl<Favorito,Long, Im
     }
 
 
+    @PublicEndpoint
     @GetMapping("/getAllUsuarioId/{id_usuario}")
     public ResponseEntity<List<Favorito>> getAllByUsuarioId(@PathVariable String id_usuario) throws Exception {
         try {
@@ -44,6 +47,7 @@ public class FavoritoController  extends GenericControllerImpl<Favorito,Long, Im
         }
     }
 
+    @PublicEndpoint
     @PostMapping("/saveFavorito/{id_usuario}")
     public ResponseEntity<Favorito> saveFavorito(@PathVariable String id_usuario, @RequestBody Producto producto) throws Exception {
         try {
@@ -54,6 +58,7 @@ public class FavoritoController  extends GenericControllerImpl<Favorito,Long, Im
         }
     }
 
+    @PublicEndpoint
     @DeleteMapping("/deleteFavorito/{id_usuario}/{id_producto}")
     public ResponseEntity<?> deleteFavorito(@PathVariable String id_usuario, @PathVariable long id_producto) throws Exception {
         try {

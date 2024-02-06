@@ -41,7 +41,6 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
     public ImpPedidoService(WebSocketService notificationService) {
         this.notificationService = notificationService;
     }
-
     @Override
     @Transactional
     public Pedido save(Pedido pedido){
@@ -70,6 +69,18 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
             throw new Exception(e.getMessage());
         }
     }
+
+
+    public List<Pedido> buscarPedidoPorDelivery(String idDelivery) throws Exception{
+        try{
+            List<Pedido> pedidosEstado = repository.buscarPedidoPorDelivery(idDelivery);
+
+            return pedidosEstado;
+        }catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
 
     public List<PedidoHasProducto> buscarPedidoProductos(Long idPedido) throws Exception{
 

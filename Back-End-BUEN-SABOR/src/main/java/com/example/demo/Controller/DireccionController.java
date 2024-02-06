@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Entidades.Direccion;
 import com.example.demo.Entidades.Excepciones.DireccionUsuarioExisteException;
+import com.example.demo.Security.PublicEndpoint;
 import com.example.demo.Services.DireccionService;
 import com.example.demo.Services.ImpDireccionService;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,8 +24,11 @@ import java.util.NoSuchElementException;
 @RequestMapping(path = "/direccion")
 public class DireccionController extends GenericControllerImpl<Direccion,Long, ImpDireccionService> {
 
+
     @Autowired
     private DireccionService direccionService;
+
+    @PublicEndpoint
     @GetMapping("/porUsuario")
     public ResponseEntity<?> findDireccionesByUsuarioId(@RequestParam("idUsuario") String idUsuario) {
         try {
@@ -36,6 +40,7 @@ public class DireccionController extends GenericControllerImpl<Direccion,Long, I
         }
     }
 
+    @PublicEndpoint
     @PutMapping("/actualizar/direccion/{id}")
     public ResponseEntity<?> update(@PathVariable Long id,@RequestBody Direccion entity,@RequestParam("idUsuario") String idUsuario) {
         try {
@@ -63,6 +68,7 @@ public class DireccionController extends GenericControllerImpl<Direccion,Long, I
         }
     }
 
+    @PublicEndpoint
     @PatchMapping("/verificar-crear-direccion/{usuarioId}")
     public ResponseEntity<?> verificarYCrearDireccion(@PathVariable String usuarioId, @RequestBody Direccion direccion) {
         try {

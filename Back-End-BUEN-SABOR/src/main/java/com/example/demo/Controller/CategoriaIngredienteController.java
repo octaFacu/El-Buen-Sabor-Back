@@ -1,6 +1,8 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Entidades.CategoriaIngrediente;
+import com.example.demo.Security.CocineroOnly;
+import com.example.demo.Security.PublicEndpoint;
 import com.example.demo.Services.ImpCategoriaIngredienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/categoriaIngrediente")
 public class CategoriaIngredienteController extends GenericControllerImpl<CategoriaIngrediente,Long, ImpCategoriaIngredienteService> {
 
-
+    @PublicEndpoint
     @GetMapping("/subcategoria/{idCategoriaPadre}")
     public ResponseEntity<?> buscarSubCategoria(@PathVariable Long idCategoriaPadre) throws Exception {
         try {
@@ -22,6 +24,7 @@ public class CategoriaIngredienteController extends GenericControllerImpl<Catego
         }
     }
 
+    @PublicEndpoint
     @GetMapping("/padres")
     public ResponseEntity<?> buscarCategoriaPadres() throws Exception {
         try {
@@ -31,6 +34,7 @@ public class CategoriaIngredienteController extends GenericControllerImpl<Catego
         }
     }
 
+    @CocineroOnly
     @GetMapping("/padresConHijos")
     public ResponseEntity<?> buscarCategoriaPadresConHijos() throws Exception {
         try {

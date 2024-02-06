@@ -9,20 +9,21 @@ import com.example.demo.Repository.IngredienteRepository;
 import com.example.demo.Repository.ProductoRepository;
 import com.example.demo.Repository.UmRepository;
 import jakarta.transaction.Transactional;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.Logger;
 
 @Service
 public class ImpIngredienteService extends GenericServiceImpl<Ingrediente,Long> implements IngredienteService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ImpIngredienteService.class);
 
     @Autowired
      private IngredienteRepository repositorio;
@@ -47,12 +48,14 @@ public class ImpIngredienteService extends GenericServiceImpl<Ingrediente,Long> 
     @Override
     public double findCosto(RequestWrapper ingrediente) throws Exception{
         try{
+            logger.warn("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             Long idIng = ingrediente.getIdIngrediente();
             double cantidad = ingrediente.getCantidad();
             Long idMedida = ingrediente.getIdMedida();
+            logger.warn("Ingrediente: {}", ingrediente);
 
-
-            float costo = repositorio.findCosto(idIng);
+            double costo = repositorio.findCosto(idIng);
+            logger.warn("Costo devuelto: {}", costo);
             Optional<Ingrediente> ing = repositorio.findById(idIng);
             Optional<UnidadDeMedida> medida = medidaRepository.findById(idMedida);
 

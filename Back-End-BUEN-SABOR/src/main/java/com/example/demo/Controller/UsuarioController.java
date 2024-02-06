@@ -2,6 +2,8 @@ package com.example.demo.Controller;
 
 import com.example.demo.Config.ApiAuth0.Auth0Api;
 import com.example.demo.Entidades.Usuario;
+import com.example.demo.Security.AdminOnly;
+import com.example.demo.Security.PublicEndpoint;
 import com.example.demo.Services.ImpUsuarioService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +21,7 @@ import java.util.Map;
 @RequestMapping(path = "/usuario")
 public class UsuarioController extends GenericControllerImpl<Usuario,String, ImpUsuarioService> {
 
+    @AdminOnly
     @GetMapping("/traerEmpleados")
     public ResponseEntity<?> traerEmpleados(  @RequestParam(defaultValue = "0") Integer page,
                                               @RequestParam(defaultValue = "5") Integer size){
@@ -34,6 +37,8 @@ public class UsuarioController extends GenericControllerImpl<Usuario,String, Imp
         }
     }
     Auth0Api api = new Auth0Api();
+
+    @AdminOnly
     @PostMapping("/AgregarRol/{idAuth0}")
     public ResponseEntity<?> prueba(@PathVariable String idAuth0,  @RequestBody Map<String, String> requestBody){
         try {
@@ -54,12 +59,14 @@ public class UsuarioController extends GenericControllerImpl<Usuario,String, Imp
         }
     }
 
-
+    @AdminOnly
     @GetMapping("/ObtenerToken")
     public ResponseEntity<?> ObtenerToken(){
         api.Token();
         return ResponseEntity.status(HttpStatus.OK).body("token");
     }
+
+    @AdminOnly
     @PostMapping("/BorrarRol/{idAuth0}")
     public ResponseEntity<?> borrarRol(@PathVariable String idAuth0,@RequestBody Map<String, String> requestBody){
         try {

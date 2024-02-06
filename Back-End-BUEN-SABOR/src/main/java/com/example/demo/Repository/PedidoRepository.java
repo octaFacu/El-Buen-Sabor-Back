@@ -30,6 +30,9 @@ public interface PedidoRepository extends GenericRepository<Pedido, Long> {
     @Query(value = "SELECT ped FROM PedidoHasProducto ped WHERE ped.pedido.id = :id")
     List<PedidoHasProducto> buscarPedidoProductos(@Param("id") Long idPedido);
 
+    @Query(value = "SELECT * FROM pedido WHERE estado LIKE 'EnDelivery' AND delivery_id LIKE :idDelivery", nativeQuery = true)
+    List<Pedido> buscarPedidoPorDelivery(@Param("idDelivery") String idDelivery);
+
 
     @Query(value = "SELECT pedido_has_producto.pedido_id, " +
             "producto.id AS producto_id, producto.denominacion, " +
@@ -41,7 +44,7 @@ public interface PedidoRepository extends GenericRepository<Pedido, Long> {
 
     @Query(value ="SELECT factura.id,factura.numero_factura, pedido.es_envio, pedido.numero_pedido_dia, pedido.precio_total, factura.tipo, " +
             "pedido.fecha_pedido, usuario.nombre, usuario.apellido FROM factura INNER JOIN pedido ON pedido.id = :idPedido " +
-            "INNER JOIN cliente ON pedido.cliente_id = cliente.id_cliente INNER JOIN usuario ON cliente.usuario_id = usuario.id WHERE factura.pedido_id = :idPedido" ,nativeQuery = true)
+    "INNER JOIN cliente ON pedido.cliente_id = cliente.id_cliente INNER JOIN usuario ON cliente.usuario_id = usuario.id WHERE factura.pedido_id = :idPedido LIMIT 1" ,nativeQuery = true)
     ProyeccionDatosFactura getDatosFactura(@Param("idPedido") long idPedido);
 
     //@Query(value = "SELECT p FROM Pedido p WHERE p.cliente = :idCliente ORDER BY p.id DESC LIMIT 1")

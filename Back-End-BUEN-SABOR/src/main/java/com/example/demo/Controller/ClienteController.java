@@ -3,6 +3,8 @@ package com.example.demo.Controller;
 import com.example.demo.Entidades.Cliente;
 import com.example.demo.Entidades.Proyecciones.ProyeccionEstadisticaClienteTotalPedidos;
 import com.example.demo.Entidades.Proyecciones.ProyeccionHistorialPedidoUsuario;
+import com.example.demo.Security.AdminOnly;
+import com.example.demo.Security.PublicEndpoint;
 import com.example.demo.Services.ImpClienteService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +24,7 @@ import java.util.Map;
 public class ClienteController extends GenericControllerImpl<Cliente,Long, ImpClienteService> {
 
 
+    @PublicEndpoint
     @GetMapping("/v1/{id_usuario}")
     public ResponseEntity<Long> buscarFavoritoPorUsuario(@PathVariable String id_usuario) throws Exception {
         try {
@@ -33,6 +36,7 @@ public class ClienteController extends GenericControllerImpl<Cliente,Long, ImpCl
     }
 
 
+    @PublicEndpoint
     @GetMapping("/historialPedidos/{idCliente}")
     public ResponseEntity<?>
     ProyeccionHistorialPedidos(@PathVariable Long idCliente,
@@ -53,7 +57,7 @@ public class ClienteController extends GenericControllerImpl<Cliente,Long, ImpCl
         }
     }
 
-
+    @AdminOnly
     @GetMapping("/obtener-estadisticas-pedido")
     public ResponseEntity<?> obtenerEstadisticasPedido(
             @RequestParam(required = false) Date fechaInicio,
@@ -78,6 +82,7 @@ public class ClienteController extends GenericControllerImpl<Cliente,Long, ImpCl
     }
 
     //El id del usuario es el id de Auth0
+    @PublicEndpoint
     @GetMapping("/clienteXUsuarioId/{id_usuario}")
     public ResponseEntity<?> getClienteXUsuarioId(@PathVariable String id_usuario) throws Exception{
 

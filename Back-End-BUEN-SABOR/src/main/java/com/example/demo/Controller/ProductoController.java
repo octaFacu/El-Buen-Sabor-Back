@@ -3,6 +3,9 @@ package com.example.demo.Controller;
 
 import com.example.demo.Entidades.Producto;
 
+import com.example.demo.Security.AdminOnly;
+import com.example.demo.Security.CocineroOnly;
+import com.example.demo.Security.PublicEndpoint;
 import com.example.demo.Services.ImpProductoService;
 
 import com.example.demo.Entidades.Proyecciones.*;
@@ -28,7 +31,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
 
     private static final Logger logger = LoggerFactory.getLogger(ProductoController.class);
 
-
+    @CocineroOnly
     @GetMapping("/ingredientes/{idProducto}")
     public ResponseEntity<?> buscarIngredientes(@PathVariable Long idProducto) throws Exception {
         try {
@@ -42,6 +45,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
 
 
     //Filtro por nombre de producto
+    @PublicEndpoint
     @GetMapping("/filtro")
     public ResponseEntity<?> filtro(
             @RequestParam(required = false) String filter
@@ -60,6 +64,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
     }
 
     //Filtro paginado por nombre de producto
+    @PublicEndpoint
     @GetMapping("/filtroPaginado")
     public ResponseEntity<?> filtroPaginado(
             @RequestParam(required = false) String filter,
@@ -81,6 +86,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
     }
 
     //Filtro paginado por CATEGORIA de producto
+    @PublicEndpoint
     @GetMapping("/filtroCategoriaPaginado")
     public ResponseEntity<?> filtroCategoriaPaginado(
             @RequestParam(required = false) Long filter,
@@ -102,6 +108,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
     }
 
     //Filtro por CATEGORIA de producto
+    @PublicEndpoint
     @GetMapping("/filtroCategoria")
     public ResponseEntity<?> filtroCategoria(
             @RequestParam(required = false) Long filter
@@ -120,6 +127,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
     }
 
 
+    @AdminOnly
     @GetMapping("/rankingProductos/comida")
     public ResponseEntity<?> rankingProductosComida(
             @RequestParam(required = false) Date fechaInicio,
@@ -137,6 +145,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
         }
     }
 
+    @AdminOnly
     @GetMapping("/rankingProductos/bebida")
     public ResponseEntity<?> rankingProductosBebidas(
             @RequestParam(required = false) Date fechaInicio,
@@ -154,6 +163,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
         }
     }
 
+    @AdminOnly
     @GetMapping("/informeGanancias/grafico")
     public ResponseEntity<?> generarGraficoInformeGanancias(@RequestParam(required = false) Date fechaInicio, @RequestParam(required = false) Date fechaFin){
         try {
@@ -165,6 +175,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
         }
     }
 
+    @AdminOnly
     @GetMapping("/informeGanancias/graficoRentabilidad")
     public ResponseEntity<?> generarGraficoRentabilidad(@RequestParam(required = false) Date fechaInicio, @RequestParam(required = false) Date fechaFin) throws Exception {
         try {
@@ -176,6 +187,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
         }
     }
 
+    @AdminOnly
     @GetMapping("/informeGanancias/graficoGananciaMes")
     public ResponseEntity<?> generarInformeGananciasPorMes() throws Exception {
         try {
