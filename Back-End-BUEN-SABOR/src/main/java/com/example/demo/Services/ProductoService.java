@@ -26,5 +26,6 @@ public interface ProductoService extends GenericService<Producto, Long> {
     List<ProyeccionInformeConPorcentaje> graficicoInfomeGanancia(Date fechaInicio, Date fechaFin) throws Exception;
     List<ProyeccionInformeRentabilidad> graficoRentabilidad(Date fechaInicio, Date fechaFin) throws Exception;
     List<ProyeccionGananciaMes> graficoGananciasMes() throws Exception;
+    List<Producto> findMasVendidos() throws Exception;
 
 }

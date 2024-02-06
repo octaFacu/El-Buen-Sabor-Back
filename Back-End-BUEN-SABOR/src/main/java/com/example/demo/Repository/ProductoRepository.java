@@ -86,5 +86,17 @@ public interface ProductoRepository extends GenericRepository<Producto, Long> {
             " GROUP BY fecha ORDER BY fecha;", nativeQuery = true)
     List<ProyeccionGananciaMes> graficoGananciasAnio();
 
+    @Query(value = "SELECT p.* " +
+            "FROM producto p " +
+            "JOIN " +
+            "(SELECT producto_id, COUNT(producto_id) AS repeticiones " +
+            "FROM pedido_has_producto " +
+            "GROUP BY producto_id " +
+            "ORDER BY repeticiones DESC " +
+            "LIMIT 3) " +
+            "subconsulta ON p.id = subconsulta.producto_id;"
+            , nativeQuery = true)
+    List<Producto> buscarMasVendidos();
+
 
 }
