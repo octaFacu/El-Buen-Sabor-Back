@@ -19,7 +19,7 @@ public class ReporteExcelInformeGanancias {
     private ProductoRepository repository;
 
     private ReporteGananciasParteProductos productos = new ReporteGananciasParteProductos();
-    private ReporteGananciasParteDiasMesesAños gananciasDiasMesesAños = new ReporteGananciasParteDiasMesesAños();
+    private ReporteGananciasParteDiasMesesAños gananciasDiasMesesAnios = new ReporteGananciasParteDiasMesesAños();
 
     public XSSFWorkbook crearLibro() throws Exception {
         try {
@@ -27,8 +27,8 @@ public class ReporteExcelInformeGanancias {
             Sheet hoja = libro.createSheet("Ganancias Restaurante");
             Sheet hoja2 = libro.createSheet("Rentabilidad de Comidas");
 
-            gananciasDiasMesesAños.CrearCabeceraHojaGanancias(hoja);
-            gananciasDiasMesesAños.llenarDatosGananciaRestaurante(hoja, repository);
+            gananciasDiasMesesAnios.CrearCabeceraHojaGanancias(hoja);
+            gananciasDiasMesesAnios.llenarDatosGananciaRestaurante(hoja, repository);
 
             productos.crearCabeceraRentabilidadComida(hoja2);
             productos.llenarDatosRentabilidadProductos(hoja2, repository);

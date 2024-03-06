@@ -109,23 +109,33 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
         }
     }
 
-    public Page<ProyeccionRankingProductos> rankingProductosComida(Date fechaInicio, Date fechaFin, String campoDireccion,  Pageable pageable) throws Exception{
+    public Page<ProyeccionRankingProductos> rankingProductosComida(Date fechaInicio, Date fechaFin, String campoDireccion,  Pageable pageable) throws Exception {
         List<ProyeccionRankingProductos> resultados = repository.rankingProductosComida(fechaInicio, fechaFin, campoDireccion);
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), resultados.size());
+
+        //  índice de inicio no exceda el tamaño de la lista de resultados
+        start = Math.min(start, resultados.size());
+
+        //  el índice de fin no sea menor que el índice de inicio
+        end = Math.max(start, end);
 
         Page<ProyeccionRankingProductos> page = new PageImpl<>(resultados.subList(start, end), pageable, resultados.size());
 
         return page;
     }
 
+
     public Page<ProyeccionRankingProductos> rankingProductosBebida(Date fechaInicio, Date fechaFin, String campoDireccion,  Pageable pageable) throws Exception{
         List<ProyeccionRankingProductos> resultados = repository.rankingProductosBebidas(fechaInicio, fechaFin, campoDireccion);
         int start = (int) pageable.getOffset();
-        int resultadoTotal = resultados.size();
-
-
         int end = Math.min((start + pageable.getPageSize()), resultados.size());
+
+        //  índice de inicio no exceda el tamaño de la lista de resultados
+        start = Math.min(start, resultados.size());
+
+        //  el índice de fin no sea menor que el índice de inicio
+        end = Math.max(start, end);
 
         Page<ProyeccionRankingProductos> page = new PageImpl<>(resultados.subList(start, end), pageable, resultados.size());
 

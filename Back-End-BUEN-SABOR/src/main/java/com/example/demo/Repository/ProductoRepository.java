@@ -54,10 +54,12 @@ public interface ProductoRepository extends GenericRepository<Producto, Long> {
     List<ProyeccionGraficoInfomeGanancias> graficoInformeGanancias(@Param("fechaInicio") Date fechaInicio,
                                                                    @Param("fechaFin") Date fechaFin);
 
-    @Query(value = "SELECT SUM(IF((:fechaInicio IS NULL AND :fechaFin IS NULL) " +
-            "OR (pedido.fecha_pedido BETWEEN :fechaInicio AND :fechaFin), " +
-            "producto.precio_total - producto.costo_total, 0)) AS ganancia, producto.denominacion FROM producto LEFT JOIN pedido_has_producto " +
-            "ON producto.id = pedido_has_producto.producto_id LEFT JOIN pedido ON pedido_has_producto.pedido_id = pedido.id GROUP BY producto.denominacion;"
+    @Query(value = "SELECT SUM(IF((:fechaInicio IS NULL AND :fechaFin IS NULL) OR (pedido.fecha_pedido IS NOT NULL AND pedido.fecha_pedido " +
+            "BETWEEN :fechaInicio AND :fechaFin)," +
+            "IFNULL(pedido_has_producto.cantidad, 0) * (producto.precio_total - producto.costo_total), 0)) AS ganancia, " +
+            "producto.denominacion FROM producto LEFT JOIN pedido_has_producto ON producto.id = pedido_has_producto.producto_id" +
+            " LEFT JOIN pedido ON pedido_has_producto.pedido_id = pedido.id " +
+            "GROUP BY producto.denominacion;"
             , nativeQuery = true)
     List<ProyeccionInformeRentabilidad> graficoRentabilidad(@Param("fechaInicio") Date fechaInicio,
                                                             @Param("fechaFin") Date fechaFin);
