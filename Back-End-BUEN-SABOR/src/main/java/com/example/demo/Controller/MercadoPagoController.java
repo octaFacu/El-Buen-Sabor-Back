@@ -63,7 +63,7 @@ public class MercadoPagoController {
     //@Value("${MP_TEST_ACCESS_TOKEN}")
     //private String accessToken;
 
-    @ClienteOnly
+    @PublicEndpoint
     @PostMapping("/checkout")
     public ResponseEntity<?> crearCheckout(@RequestBody RequestDataMP requestData) {
         //System.out.println("Entro al controlador");
@@ -124,7 +124,7 @@ public class MercadoPagoController {
                     .backUrls(backUrls)
                     .autoReturn("approved")
                     .marketplace("El Buen Sabor")
-                    .notificationUrl("https://7f95-2803-9800-9846-3eb-753b-a26a-1258-8f8c.ngrok-free.app/mp/notificacionPago/"+requestData.getUsuario().getIdCliente())
+                    .notificationUrl("https://3c2d-138-117-17-144.ngrok-free.app/mp/notificacionPago/"+requestData.getUsuario().getIdCliente())
                     .build();
 
             PreferenceClient client = new PreferenceClient();
@@ -144,7 +144,7 @@ public class MercadoPagoController {
     }
 
     //Estre controlador siempre devuelver ResponseEntity.status(HttpStatus.OK).body("ok"); porque mercado pago a esta notificacion solo pide una respuesta status 200
-    @ClienteOnly
+    @PublicEndpoint
     @PostMapping("/notificacionPago/{idCliente}")
     public ResponseEntity<?> notificacionDelPago(@PathVariable Long idCliente, @RequestBody String notificationData) {
 

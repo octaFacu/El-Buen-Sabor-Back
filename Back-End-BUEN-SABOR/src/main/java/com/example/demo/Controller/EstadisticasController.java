@@ -27,7 +27,7 @@ public class EstadisticasController {
 
     @Autowired
     private ReporteExcelInformeGanancias servicioPrueba;
-    @AdminOnly
+    @PublicEndpoint
     @GetMapping("/generar-informeClientes")
     public ResponseEntity<byte[]> generarInformeExcel() throws Exception {
 
@@ -45,7 +45,7 @@ public class EstadisticasController {
         return new ResponseEntity<>(bytes, headers, org.springframework.http.HttpStatus.OK);
     }
 
-    @AdminOnly
+    @PublicEndpoint
     @GetMapping("/generar-informeProductos")
     public ResponseEntity<byte[]> generarInformeExcelProducto() throws Exception {
 
@@ -63,7 +63,7 @@ public class EstadisticasController {
         return new ResponseEntity<>(bytes, headers, org.springframework.http.HttpStatus.OK);
     }
 
-    @AdminOnly
+    @PublicEndpoint
     @GetMapping("/generar-informeGanancias")
     public ResponseEntity<?> generarExcelInformeGanancias() throws Exception {
 

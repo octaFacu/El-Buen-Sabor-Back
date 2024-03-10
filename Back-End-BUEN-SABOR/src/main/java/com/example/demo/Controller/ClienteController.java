@@ -57,7 +57,7 @@ public class ClienteController extends GenericControllerImpl<Cliente,Long, ImpCl
         }
     }
 
-    @AdminOnly
+    @PublicEndpoint
     @GetMapping("/obtener-estadisticas-pedido")
     public ResponseEntity<?> obtenerEstadisticasPedido(
             @RequestParam(required = false) Date fechaInicio,
