@@ -21,7 +21,7 @@ import java.util.Map;
 @RequestMapping(path = "/usuario")
 public class UsuarioController extends GenericControllerImpl<Usuario,String, ImpUsuarioService> {
 
-    @AdminOnly
+    @PublicEndpoint
     @GetMapping("/traerEmpleados")
     public ResponseEntity<?> traerEmpleados(  @RequestParam(defaultValue = "0") Integer page,
                                               @RequestParam(defaultValue = "5") Integer size){
@@ -38,7 +38,7 @@ public class UsuarioController extends GenericControllerImpl<Usuario,String, Imp
     }
     Auth0Api api = new Auth0Api();
 
-    @AdminOnly
+    @PublicEndpoint
     @PostMapping("/AgregarRol/{idAuth0}")
     public ResponseEntity<?> prueba(@PathVariable String idAuth0,  @RequestBody Map<String, String> requestBody){
         try {
@@ -59,7 +59,7 @@ public class UsuarioController extends GenericControllerImpl<Usuario,String, Imp
         }
     }
 
-    @AdminOnly
+    @PublicEndpoint
     @GetMapping("/ObtenerToken")
     public ResponseEntity<?> ObtenerToken(){
         api.Token();

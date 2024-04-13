@@ -31,7 +31,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
 
     private static final Logger logger = LoggerFactory.getLogger(ProductoController.class);
 
-    @CocineroOnly
+    @PublicEndpoint
     @GetMapping("/ingredientes/{idProducto}")
     public ResponseEntity<?> buscarIngredientes(@PathVariable Long idProducto) throws Exception {
         try {

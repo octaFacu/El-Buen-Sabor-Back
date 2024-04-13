@@ -125,6 +125,7 @@ public class ImpFacturaService extends GenericServiceImpl<Factura,Long> implemen
             //Asigno el pedido a la factura
             factura.setPedido(pedido);
 
+
             //Asigno si es que hay monto de descuento
             if (!pedido.getEsEnvio()){
                 factura.setMontoDescuento((pedido.getPrecioTotal() * 10) / 90);

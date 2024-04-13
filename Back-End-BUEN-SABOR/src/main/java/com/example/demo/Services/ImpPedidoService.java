@@ -41,6 +41,7 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
     public ImpPedidoService(WebSocketService notificationService) {
         this.notificationService = notificationService;
     }
+
     @Override
     @Transactional
     public Pedido save(Pedido pedido){
@@ -57,6 +58,17 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
         logger.severe("I'm about to send a message. "+ attributeValue);
         notificationService.sendNotification("/topic/pedidos", attributeValue);
         logger.severe("I sent the message and now i'm saving the pedido.");
+        return repository.save(pedido);
+    }
+
+    @Override
+    @Transactional
+    public Pedido update(Long Id, Pedido pedido){
+
+        String attributeValue = pedido.getEstado(); // Replace with the actual attribute value
+        logger.severe("I'm about to send a message. "+ attributeValue);
+        notificationService.sendNotification("/topic/pedidos", attributeValue);
+        logger.severe("I sent the message and now i'm updating the pedido.");
         return repository.save(pedido);
     }
 
@@ -168,7 +180,9 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
             pedidoEntrante.getPedido().setHoraEstimada(tiempoEstimado);
 
             //Guardo el pedido completado sin sus productos
-            Pedido pedidoCliente = repository.save(pedidoEntrante.getPedido());
+            //Cambiar la llamada al repositorio por una llamada intermedia al servicio del save?
+            //Pedido pedidoCliente = repository.save(pedidoEntrante.getPedido());
+            Pedido pedidoCliente = save(pedidoEntrante.getPedido());
 
             //Asigo el pedido a los productos para persistirlos
             for (int i = 0; i < pedidoHasProducto.size(); i++){

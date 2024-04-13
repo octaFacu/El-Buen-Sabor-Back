@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 import com.example.demo.Entidades.IngredientesDeProductos;
 import com.example.demo.Entidades.Wrapper.RequestWrapper;
 import com.example.demo.Security.CocineroOnly;
+import com.example.demo.Security.PublicEndpoint;
 import com.example.demo.Services.ImpIngredienteDeProductoService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/ingredienteProd")
 public class IngredienteDeProductoController extends GenericControllerImpl<IngredientesDeProductos, Long, ImpIngredienteDeProductoService> {
 
-    @CocineroOnly
+    @PublicEndpoint
     @PostMapping("/save")
     @Transactional
     public ResponseEntity<?> updateIngredientes(@RequestBody RequestWrapper request) {
