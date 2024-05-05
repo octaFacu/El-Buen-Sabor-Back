@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface UsuarioRepository extends GenericRepository<Usuario, String> {
 
-    @Query(value ="SELECT * FROM usuario where email LIKE \"%@BuenSabor.com.ar\"",nativeQuery = true)
+    @Query(value ="SELECT * FROM usuario where email LIKE \"%@buensabor.com.ar\"",nativeQuery = true)
     Page<Usuario> traerEmpleados(Pageable pageable);
 
 }

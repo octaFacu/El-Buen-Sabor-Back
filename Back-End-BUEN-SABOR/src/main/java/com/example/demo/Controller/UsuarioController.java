@@ -66,7 +66,7 @@ public class UsuarioController extends GenericControllerImpl<Usuario,String, Imp
         return ResponseEntity.status(HttpStatus.OK).body("token");
     }
 
-    @AdminOnly
+    @PublicEndpoint
     @PostMapping("/BorrarRol/{idAuth0}")
     public ResponseEntity<?> borrarRol(@PathVariable String idAuth0,@RequestBody Map<String, String> requestBody){
         try {
