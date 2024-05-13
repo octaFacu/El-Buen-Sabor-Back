@@ -24,4 +24,8 @@ public interface IngredienteDeProductoRepository extends GenericRepository<Ingre
 
     @Query(value = "SELECT * FROM ingredientes_de_productos WHERE ingrediente_id = :idIngrediente", nativeQuery = true)
     List<IngredientesDeProductos> findByIngredientePorId(@Param("idIngrediente") Long idIngrediente);
+
+    @Query(value = "SELECT * FROM ingredientes_de_productos WHERE producto_id = :idProducto", nativeQuery = true)
+    List<IngredientesDeProductos> findIngredientesPorProductoId(@Param("idProducto") Long idProducto);
+
 }

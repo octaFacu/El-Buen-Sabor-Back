@@ -1,13 +1,10 @@
 package com.example.demo.Services;
 
-import com.example.demo.Entidades.Pedido;
+import com.example.demo.Entidades.*;
 
-import com.example.demo.Entidades.PedidoHasProducto;
 import com.example.demo.Entidades.Proyecciones.ProyeccionDatosFactura;
 import com.example.demo.Entidades.Wrapper.RequestPedido;
-import com.example.demo.Repository.PedidoHasProductoRepository;
-import com.example.demo.Repository.PedidoRepository;
-import com.example.demo.Repository.ProductoRepository;
+import com.example.demo.Repository.*;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductosDePedido;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,9 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
 
     @Autowired
     ProductoRepository productoRepository;
+
+    @Autowired
+    IngredienteDeProductoRepository ingredienteDeProductoRepository;
 
     private final WebSocketService notificationService;
 
@@ -109,6 +109,60 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
     public List<ProyeccionProductosDePedido> getProductosDePedido(long idPedido) throws Exception {
         try{
             return repository.getProductosDePedido(idPedido);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public boolean validoStockPedido(RequestPedido pedido) throws Exception {
+        System.out.println("Entro a validar stock");
+        try{
+
+            //Utilizo Set porque no permite elementos repetidos
+            boolean terminoValidacion = true;
+            Set<Ingrediente> ingredientesActuales = new HashSet<>();
+
+            //Primero busco el total de los ingredientes
+            for (PedidoHasProducto pedidoHasProducto : pedido.getPedidoHasProducto()) {
+                Producto producto = pedidoHasProducto.getProducto();
+
+                List<IngredientesDeProductos> ingredientesDeProducto = ingredienteDeProductoRepository.findIngredientesPorProductoId(producto.getId());
+
+                for (IngredientesDeProductos ingrediente : ingredientesDeProducto) {
+                    ingredientesActuales.add(ingrediente.getIngrediente());
+                }
+            }
+
+            //PARA CADA PRODUCTO CON SU CANTIDAD
+            for (PedidoHasProducto pedidoHasProducto : pedido.getPedidoHasProducto()) {
+
+                int cantidad = pedidoHasProducto.getCantidad();
+                Producto producto = pedidoHasProducto.getProducto();
+
+                List<IngredientesDeProductos> ingredientesDeProducto = ingredienteDeProductoRepository.findIngredientesPorProductoId(producto.getId());
+
+                //PARA CADA INGREDIENTE DE EL PRODUCTO, CALCULO CUANTO STOCK HAY QUE RESTAR
+                for (IngredientesDeProductos ingredienteDeProducto : ingredientesDeProducto) {
+
+                    double stockARestar = cantidad * (ingredienteDeProducto.getCantidad() / 1000);               //Lo paso a kilos
+
+                    //PARA CADA INGREDIENTE CON SU STOCK, LE RESTO "stockARestar"
+                    for (Ingrediente i : ingredientesActuales) {
+                        if (i.getId() == ingredienteDeProducto.getIngrediente().getId()) {
+                            System.out.println("Valido " + i.getNombre() + " con " + ingredienteDeProducto.getIngrediente().getNombre() + " para " + producto.getDenominacion() + " en stock");
+                            double stockRestado = i.getStockActual() - stockARestar;
+                            i.setStockActual(stockRestado);
+                            if(stockRestado == 0 || stockRestado < 0) {
+                                terminoValidacion = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return terminoValidacion;
+
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

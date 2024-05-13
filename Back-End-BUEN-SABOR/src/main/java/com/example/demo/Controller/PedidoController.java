@@ -99,6 +99,17 @@ public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPed
         }
     }
 
+    @PublicEndpoint
+    @PostMapping("/validoStockPedido")
+    public ResponseEntity<?> validoStockPedido(@RequestBody RequestPedido pedido) throws Exception {
+        try {
+            boolean validacion = service.validoStockPedido(pedido);
+            return ResponseEntity.ok(validacion);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
 
     /*@GetMapping("/findUltimoPedidoByClienteId/{idCliente}")
     public ResponseEntity<?> getUltimoPedidoByClienteId(@PathVariable("idCliente") long idCliente) throws Exception {

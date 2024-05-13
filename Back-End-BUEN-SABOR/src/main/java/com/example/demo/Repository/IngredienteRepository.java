@@ -16,4 +16,7 @@ public interface IngredienteRepository extends GenericRepository<Ingrediente,Lon
     @Query(value = "SELECT precio_compra FROM ingrediente WHERE id = :idIngrediente", nativeQuery = true)
     double findCosto(@Param("idIngrediente") Long idIngrediente);
 
+    @Query(value = "SELECT precio_compra FROM ingrediente WHERE id = :idIngrediente", nativeQuery = true)
+    double findIngredientesPorP(@Param("idIngrediente") Long idIngrediente);
+
 }
