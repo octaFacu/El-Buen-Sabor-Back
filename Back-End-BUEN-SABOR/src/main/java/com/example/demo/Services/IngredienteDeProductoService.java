@@ -9,4 +9,6 @@ public interface IngredienteDeProductoService extends GenericService<Ingrediente
 
     public void saveIngredientes(RequestWrapper request) throws Exception;
     public List<IngredientesDeProductos> getByIngredientes(Long idIngrediente) throws Exception;
+
+    public String UpdateStockIngredientesPedido(int idPedido) throws Exception;
 }

@@ -127,7 +127,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
     }
 
 
-    @PublicEndpoint
+    @AdminOnly
     @GetMapping("/rankingProductos/comida")
     public ResponseEntity<?> rankingProductosComida(
             @RequestParam(required = false) Date fechaInicio,
@@ -145,7 +145,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
         }
     }
 
-    @PublicEndpoint
+    @AdminOnly
     @GetMapping("/rankingProductos/bebida")
     public ResponseEntity<?> rankingProductosBebidas(
             @RequestParam(required = false) Date fechaInicio,
@@ -163,7 +163,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
         }
     }
 
-    @PublicEndpoint
+    @AdminOnly
     @GetMapping("/informeGanancias/grafico")
     public ResponseEntity<?> generarGraficoInformeGanancias(@RequestParam(required = false) Date fechaInicio, @RequestParam(required = false) Date fechaFin){
         try {
@@ -175,7 +175,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
         }
     }
 
-    @PublicEndpoint
+    @AdminOnly
     @GetMapping("/informeGanancias/graficoRentabilidad")
     public ResponseEntity<?> generarGraficoRentabilidad(@RequestParam(required = false) Date fechaInicio, @RequestParam(required = false) Date fechaFin) throws Exception {
         try {
@@ -187,7 +187,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
         }
     }
 
-    @PublicEndpoint
+    @AdminOnly
     @GetMapping("/informeGanancias/graficoGananciaMes")
     public ResponseEntity<?> generarInformeGananciasPorMes() throws Exception {
         try {

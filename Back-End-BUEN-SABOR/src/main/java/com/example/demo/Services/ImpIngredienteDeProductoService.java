@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 public class ImpIngredienteDeProductoService  extends GenericServiceImpl<IngredientesDeProductos,Long> implements IngredienteDeProductoService{
 
+
     @Autowired
     private IngredienteDeProductoRepository repository;
 
@@ -44,6 +45,20 @@ public class ImpIngredienteDeProductoService  extends GenericServiceImpl<Ingredi
         }
 
         return ingProducto;
+    }
+
+
+    @Override
+    @Transactional
+    public String UpdateStockIngredientesPedido(int idPedido) throws Exception {
+        String respuesta = "";
+        try{
+            respuesta = repository.UpdateStockIngredientesPedido(idPedido);
+
+        }catch(Exception e){
+            respuesta = "Hubo un error al actualizar el stock del pedido. ID DEL PEDIDO: "+idPedido + " -- "+e.getMessage();
+        }
+        return respuesta;
     }
 
 

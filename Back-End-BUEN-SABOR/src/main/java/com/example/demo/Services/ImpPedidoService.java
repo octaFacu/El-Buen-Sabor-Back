@@ -144,7 +144,15 @@ public class ImpPedidoService extends GenericServiceImpl<Pedido,Long> implements
                 //PARA CADA INGREDIENTE DE EL PRODUCTO, CALCULO CUANTO STOCK HAY QUE RESTAR
                 for (IngredientesDeProductos ingredienteDeProducto : ingredientesDeProducto) {
 
-                    double stockARestar = cantidad * (ingredienteDeProducto.getCantidad() / 1000);               //Lo paso a kilos
+                    double stockARestar = 0;
+
+                    //Chequear tipo de medida -- si tiene padre, calcular dividido unidades para padre
+                    if(ingredienteDeProducto.getUnidadmedida().getId() != ingredienteDeProducto.getIngrediente().getUnidadmedida().getId()){
+                        stockARestar = cantidad * (ingredienteDeProducto.getCantidad() / ingredienteDeProducto.getUnidadmedida().getUnidadesParaPadre());
+                    }else{
+                        stockARestar = cantidad * ingredienteDeProducto.getCantidad();
+                    }
+
 
                     //PARA CADA INGREDIENTE CON SU STOCK, LE RESTO "stockARestar"
                     for (Ingrediente i : ingredientesActuales) {

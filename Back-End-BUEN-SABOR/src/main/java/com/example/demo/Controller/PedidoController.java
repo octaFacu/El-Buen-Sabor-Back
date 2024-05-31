@@ -8,6 +8,7 @@ import com.example.demo.Entidades.Wrapper.RequestPedido;
 import com.example.demo.Helpers.InvoiceGenerator;
 import com.example.demo.Security.PublicEndpoint;
 import com.example.demo.Services.ImpFacturaService;
+import com.example.demo.Services.ImpIngredienteDeProductoService;
 import com.example.demo.Services.ImpPedidoService;
 
 import org.springframework.http.HttpStatus;
@@ -82,7 +83,12 @@ public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPed
     @PostMapping("/createPedidoAndProducto")
     public ResponseEntity<?> createPedidoAndPedidoHasProdcuto(@RequestBody RequestPedido pedido) throws Exception{
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(service.savePedidoAndPedidoHasProdcuto(pedido));
+            ImpIngredienteDeProductoService servicioIng = new ImpIngredienteDeProductoService();
+
+            RequestPedido pedidoTerminado = service.savePedidoAndPedidoHasProdcuto(pedido);
+            String respuesta = servicioIng.UpdateStockIngredientesPedido(pedidoTerminado.getPedido().getId());
+            return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

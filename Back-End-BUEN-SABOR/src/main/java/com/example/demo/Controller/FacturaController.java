@@ -5,6 +5,7 @@ import com.example.demo.Entidades.Factura;
 import com.example.demo.Entidades.Favorito;
 import com.example.demo.Entidades.Pedido;
 import com.example.demo.Helpers.InvoiceGenerator;
+import com.example.demo.Security.AdminOnly;
 import com.example.demo.Security.PublicEndpoint;
 import com.example.demo.Services.ImpFacturaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class FacturaController extends GenericControllerImpl<Factura,Long, ImpFa
         }
     }
 
-    @PublicEndpoint
+    @AdminOnly
     @GetMapping("/notaCredito/{idFactura}")
     public ResponseEntity<?> createNotaCreditoPDF(@PathVariable("idFactura") long idFc) throws Exception {
 

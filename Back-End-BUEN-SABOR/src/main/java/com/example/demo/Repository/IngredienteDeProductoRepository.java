@@ -28,4 +28,9 @@ public interface IngredienteDeProductoRepository extends GenericRepository<Ingre
     @Query(value = "SELECT * FROM ingredientes_de_productos WHERE producto_id = :idProducto", nativeQuery = true)
     List<IngredientesDeProductos> findIngredientesPorProductoId(@Param("idProducto") Long idProducto);
 
+
+    @Modifying
+    @Transactional
+    @Query(value = "CALL BajarStockPedido(:idPedido);", nativeQuery = true)
+    String UpdateStockIngredientesPedido(@Param("idPedido") int idPedido);
 }

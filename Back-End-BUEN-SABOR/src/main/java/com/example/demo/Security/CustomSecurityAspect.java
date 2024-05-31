@@ -41,7 +41,7 @@ public class CustomSecurityAspect {
         String role = request.getHeader("X-Role");
 
         if (!admin.equals(role)) {
-            throw new AccessDeniedException("Acceso denegado.");
+            throw new AccessDeniedException("Acceso denegado de ADMIN ONLY, ROL PASADO: "+role+", ROL QUE DEBE SER: "+admin);
         }
     }
 
@@ -51,7 +51,7 @@ public class CustomSecurityAspect {
         String role = request.getHeader("X-Role");
 
         if (!cocinero.equals(role) && !admin.equals(role)) {
-            throw new AccessDeniedException("Acceso denegado.");
+            throw new AccessDeniedException("Acceso denegado de COCINERO ONLY, ROL PASADO: "+role+", ROL QUE DEBE SER: "+cocinero);
         }
     }
 
@@ -61,7 +61,7 @@ public class CustomSecurityAspect {
         String role = request.getHeader("X-Role");
 
         if (!delivery.equals(role) && !admin.equals(role)) {
-            throw new AccessDeniedException("Acceso denegado.");
+            throw new AccessDeniedException("Acceso denegado de DELIVERY ONLY, ROL PASADO: "+role+", ROL QUE DEBE SER: "+delivery);
         }
     }
 
@@ -71,7 +71,7 @@ public class CustomSecurityAspect {
         String role = request.getHeader("X-Role");
 
         if (!cajero.equals(role) && !admin.equals(role)) {
-            throw new AccessDeniedException("Acceso denegado.");
+            throw new AccessDeniedException("Acceso denegado de CAJERO ONLY, ROL PASADO: "+role+", ROL QUE DEBE SER: "+cajero);
         }
     }
 
@@ -81,7 +81,7 @@ public class CustomSecurityAspect {
         String role = request.getHeader("X-Role");
 
         if (!cliente.equals(role) && !admin.equals(role)) {
-            throw new AccessDeniedException("Acceso denegado.");
+            throw new AccessDeniedException("Acceso denegado de cliente ONLY, ROL PASADO: "+role+", ROL QUE DEBE SER: "+cliente);
         }
     }
 }
