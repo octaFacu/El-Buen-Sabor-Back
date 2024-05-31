@@ -5,6 +5,7 @@ import com.example.demo.Entidades.Wrapper.RequestWrapper;
 import com.example.demo.Repository.IngredienteDeProductoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -47,18 +48,21 @@ public class ImpIngredienteDeProductoService  extends GenericServiceImpl<Ingredi
         return ingProducto;
     }
 
-
     @Override
-    @Transactional
     public String UpdateStockIngredientesPedido(int idPedido) throws Exception {
-        String respuesta = "";
-        try{
-            respuesta = repository.UpdateStockIngredientesPedido(idPedido);
+        return null;
+    }
 
-        }catch(Exception e){
-            respuesta = "Hubo un error al actualizar el stock del pedido. ID DEL PEDIDO: "+idPedido + " -- "+e.getMessage();
+
+    @Transactional
+    public List<String> updateStockIngredientesPedido(int idPedido) throws Exception {
+        List<String> traces = new ArrayList<>();
+        try {
+            traces = repository.updateStockIngredientesPedido(idPedido);
+        } catch (Exception e) {
+            traces.add("Hubo un error al actualizar el stock del pedido. ID DEL PEDIDO: " + idPedido + " -- " + e.getMessage());
         }
-        return respuesta;
+        return traces;
     }
 
 

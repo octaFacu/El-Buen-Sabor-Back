@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Time;
@@ -16,6 +18,8 @@ import java.util.Collection;
 
 @Data
 @Entity
+@Getter
+@Setter
 @Table(name = "pedido")
 public class Pedido {
 

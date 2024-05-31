@@ -32,5 +32,5 @@ public interface IngredienteDeProductoRepository extends GenericRepository<Ingre
     @Modifying
     @Transactional
     @Query(value = "CALL BajarStockPedido(:idPedido);", nativeQuery = true)
-    String UpdateStockIngredientesPedido(@Param("idPedido") int idPedido);
+    List<String> updateStockIngredientesPedido(@Param("idPedido") int idPedido);
 }

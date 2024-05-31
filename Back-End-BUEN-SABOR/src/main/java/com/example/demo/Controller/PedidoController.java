@@ -11,6 +11,7 @@ import com.example.demo.Services.ImpFacturaService;
 import com.example.demo.Services.ImpIngredienteDeProductoService;
 import com.example.demo.Services.ImpPedidoService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,10 @@ import java.util.List;
 @RequestMapping(path = "/pedido")
 
 public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPedidoService> {
+
+
+    @Autowired
+    private ImpIngredienteDeProductoService servicioIng;
 
     @PublicEndpoint
     @GetMapping("/estado/{estadoProducto}")
@@ -49,8 +54,6 @@ public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPed
     public ResponseEntity<?> createEntity(@RequestBody Pedido pedido) throws Exception{
         try{
             return ResponseEntity.status(HttpStatus.OK).body(service.save(pedido));
-
-
 
         }catch (Exception e){
             throw new Exception(e.getMessage());
@@ -81,18 +84,16 @@ public class PedidoController extends GenericControllerImpl<Pedido, Long, ImpPed
 
     @PublicEndpoint
     @PostMapping("/createPedidoAndProducto")
-    public ResponseEntity<?> createPedidoAndPedidoHasProdcuto(@RequestBody RequestPedido pedido) throws Exception{
-        try{
-            ImpIngredienteDeProductoService servicioIng = new ImpIngredienteDeProductoService();
-
+    public ResponseEntity<?> createPedidoAndPedidoHasProdcuto(@RequestBody RequestPedido pedido) throws Exception {
+        try {
             RequestPedido pedidoTerminado = service.savePedidoAndPedidoHasProdcuto(pedido);
-            String respuesta = servicioIng.UpdateStockIngredientesPedido(pedidoTerminado.getPedido().getId());
+            List<String> respuesta = servicioIng.updateStockIngredientesPedido(pedidoTerminado.getPedido().getId());
             return ResponseEntity.status(HttpStatus.OK).body(respuesta);
-
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
+
 
     @PublicEndpoint
     @GetMapping("getDatoFactura/{idPedido}")
