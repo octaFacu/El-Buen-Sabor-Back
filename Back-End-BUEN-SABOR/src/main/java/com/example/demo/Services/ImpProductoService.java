@@ -1,24 +1,25 @@
 package com.example.demo.Services;
 
 
+import com.example.demo.Entidades.Ingrediente;
 import com.example.demo.Entidades.IngredientesDeProductos;
+import com.example.demo.Entidades.PedidoHasProducto;
 import com.example.demo.Entidades.Producto;
 import com.example.demo.Entidades.Proyecciones.*;
+import com.example.demo.Entidades.Wrapper.RequestPedido;
+import com.example.demo.Repository.IngredienteDeProductoRepository;
 import com.example.demo.Repository.PedidoHasProductoRepository;
 import com.example.demo.Repository.ProductoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Date;
-
-import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -28,6 +29,9 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
 
     @Autowired
     private ProductoRepository repository;
+
+    @Autowired
+    IngredienteDeProductoRepository ingredienteDeProductoRepository;
 
     @Autowired
     private PedidoHasProductoRepository PHPrepository;
@@ -188,6 +192,54 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
         try{
             return repository.buscarMasVendidos();
         }  catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public int TraerStockProducto(Producto producto) throws Exception {
+        System.out.println("Entro a recuperar stock de un producto");
+        try{
+            int cantidadPosible = -1;
+            Set<Ingrediente> ingredientesActuales = new HashSet<>();
+
+            //Primero busco el total de los ingredientes
+
+                List<IngredientesDeProductos> ingredientesDeProducto = ingredienteDeProductoRepository.findIngredientesPorProductoId(producto.getId());
+
+                for (IngredientesDeProductos ingrediente : ingredientesDeProducto) {
+                    ingredientesActuales.add(ingrediente.getIngrediente());
+                }
+
+
+                //PARA CADA INGREDIENTE DE EL PRODUCTO, CALCULO CUANTOS PRODUCTOS SE PUEDEN COCINAR CON EL STOCK ACTUAL
+                for (IngredientesDeProductos ingredienteDeProducto : ingredientesDeProducto) {
+
+                    double cantidadNecesariaUnidad = 0;
+
+                    //Chequear tipo de medida -- si tiene padre, calcular dividido unidades para padre
+                    if(ingredienteDeProducto.getUnidadmedida().getId() != ingredienteDeProducto.getIngrediente().getUnidadmedida().getId()){
+                        cantidadNecesariaUnidad = (ingredienteDeProducto.getCantidad() / ingredienteDeProducto.getUnidadmedida().getUnidadesParaPadre());
+                    }else{
+                        cantidadNecesariaUnidad = ingredienteDeProducto.getCantidad();
+                    }
+
+
+                    //PARA CADA INGREDIENTE CON SU STOCK, LE RESTO "stockARestar"
+                    for (Ingrediente i : ingredientesActuales) {
+                        if (i.getId() == ingredienteDeProducto.getIngrediente().getId()) {
+                            System.out.println("Valido " + i.getNombre() + " con " + ingredienteDeProducto.getIngrediente().getNombre() + " para " + producto.getDenominacion() + " en stock");
+                            double stockExacto = i.getStockActual() / cantidadNecesariaUnidad;
+                            int cantidadPosibleIngrediente = (int) stockExacto;
+                            if(cantidadPosibleIngrediente < cantidadPosible || cantidadPosible == -1) {
+                                cantidadPosible = cantidadPosibleIngrediente;
+                            }
+                        }
+                    }
+                }
+            return cantidadPosible;
+
+        }catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }

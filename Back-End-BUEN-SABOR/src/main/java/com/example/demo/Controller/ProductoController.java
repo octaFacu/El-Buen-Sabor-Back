@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Entidades.Producto;
 
+import com.example.demo.Entidades.Wrapper.RequestPedido;
 import com.example.demo.Security.AdminOnly;
 import com.example.demo.Security.CocineroOnly;
 import com.example.demo.Security.PublicEndpoint;
@@ -126,6 +127,17 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
         }
     }
 
+    @PublicEndpoint
+    @GetMapping("/stockProducto")
+    public ResponseEntity<?> StockProducto(@RequestBody Producto producto){
+        try{
+            int stockPosible = service.TraerStockProducto(producto);
+
+            return ResponseEntity.status(HttpStatus.OK).body(stockPosible);
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, por favor intente mas tarde\"}");
+        }
+    }
 
     @AdminOnly
     @GetMapping("/rankingProductos/comida")
