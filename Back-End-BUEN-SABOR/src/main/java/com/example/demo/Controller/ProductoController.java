@@ -128,7 +128,7 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
     }
 
     @PublicEndpoint
-    @GetMapping("/stockProducto")
+    @PostMapping("/stockProducto")
     public ResponseEntity<?> StockProducto(@RequestBody Producto producto){
         try{
             int stockPosible = service.TraerStockProducto(producto);
