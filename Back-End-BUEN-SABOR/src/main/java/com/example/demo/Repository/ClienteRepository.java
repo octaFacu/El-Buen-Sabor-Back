@@ -30,7 +30,7 @@ public interface ClienteRepository extends GenericRepository<Cliente,Long>, JpaS
             "COUNT(pedido_has_producto.pedido_id) AS total_pedidos " +
             "FROM pedido LEFT JOIN pedido_has_producto ON pedido.id = pedido_has_producto.pedido_id WHERE pedido.cliente_id = :id_cliente " +
             "AND (DATE(pedido.fecha_pedido) BETWEEN :fechaInicio AND :fechaFin OR (:fechaInicio IS NULL AND :fechaFin IS NULL)) GROUP BY pedido_has_producto.pedido_id, pedido.id " +
-            "ORDER BY pedido.fecha_pedido ASC;", nativeQuery = true)
+            "ORDER BY pedido.fecha_pedido DESC;", nativeQuery = true)
     Page<ProyeccionHistorialPedidoUsuario> historialPedidoUsuario(@Param("id_cliente") Long id_cliente,
                                                                   Pageable pageable,
                                                                   @Param("fechaInicio") Date fechaInicio,
@@ -40,7 +40,7 @@ public interface ClienteRepository extends GenericRepository<Cliente,Long>, JpaS
     @Query(value = "SELECT pedido.id AS pedido_id ,pedido.es_envio, precio_total, pedido.fecha_pedido, " +
             "COUNT(pedido_has_producto.pedido_id) AS total_pedidos FROM pedido " +
             "LEFT JOIN pedido_has_producto ON pedido.id = pedido_has_producto.pedido_id WHERE pedido.cliente_id = :id_cliente " +
-            "GROUP BY pedido_has_producto.pedido_id, pedido.id ORDER BY pedido.fecha_pedido ASC",nativeQuery = true)
+            "GROUP BY pedido_has_producto.pedido_id, pedido.id ORDER BY pedido.fecha_pedido DESC",nativeQuery = true)
     List<ProyeccionHistorialPedidoUsuario> historialPedidoUsuarioSinPage(@Param("id_cliente") Long id_cliente);
 
 
