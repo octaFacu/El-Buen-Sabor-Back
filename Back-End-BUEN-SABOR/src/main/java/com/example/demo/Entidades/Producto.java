@@ -47,6 +47,10 @@ public class Producto {
     @Column(nullable = false)
     private Boolean activo;
 
+    //13062024 - PF - Añadido stock para no Manufacturados
+    @Column(nullable = false)
+    private int stock;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_producto_id", referencedColumnName = "id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
