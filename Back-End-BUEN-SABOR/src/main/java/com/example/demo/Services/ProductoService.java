@@ -13,6 +13,7 @@ public interface ProductoService extends GenericService<Producto, Long> {
 
     public List<IngredientesDeProductos> findIngredientes(Long idProducto) throws Exception;
 
+    public int UpdateProducto(Producto producto) throws Exception;
     public int TraerStockProducto(Producto producto) throws Exception;
     public Producto saveProducto(Producto producto) throws Exception;
     List<Producto> filtro(String filtro) throws Exception;

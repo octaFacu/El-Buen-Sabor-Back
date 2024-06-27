@@ -1,12 +1,10 @@
 package com.example.demo.Repository;
 
-import com.example.demo.Entidades.Ingrediente;
-import com.example.demo.Entidades.IngredientesDeProductos;
-import com.example.demo.Entidades.Producto;
+import com.example.demo.Entidades.*;
 import com.example.demo.Entidades.Proyecciones.*;
-import com.example.demo.Entidades.UnidadDeMedida;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -17,6 +15,60 @@ import java.util.List;
 public interface ProductoRepository extends GenericRepository<Producto, Long> {
     @Query("SELECT ing FROM IngredientesDeProductos ing WHERE ing.producto.id = :idProducto")
     List<IngredientesDeProductos> findByIdProducto(@Param("idProducto") Long idProducto);
+
+    @Modifying
+    @Query("UPDATE Producto p SET " +
+            "p.denominacion = :denominacion, " +
+            "p.esManufacturado = :esManufacturado, " +
+            "p.tiempoCocina = :tiempoCocina, " +
+            "p.descripcion = :descripcion, " +
+            "p.receta = :receta, " +
+            "p.costoTotal = :costoTotal, " +
+            "p.imagen = :imagen, " +
+            "p.precioTotal = :precioTotal, " +
+            "p.activo = :activo, " +
+            "p.stock = :stock, " +
+            "p.categoriaProducto = :categoriaProducto " +
+            "WHERE p.id = :id")
+    int updateProductoWithImage(
+            @Param("id") Long id,
+            @Param("denominacion") String denominacion,
+            @Param("esManufacturado") Boolean esManufacturado,
+            @Param("tiempoCocina") String tiempoCocina,
+            @Param("descripcion") String descripcion,
+            @Param("receta") String receta,
+            @Param("costoTotal") Double costoTotal,
+            @Param("imagen") String imagen,
+            @Param("precioTotal") Double precioTotal,
+            @Param("activo") Boolean activo,
+            @Param("stock") int stock,
+            @Param("categoriaProducto") CategoriaProducto categoriaProducto);
+
+    @Modifying
+    @Query("UPDATE Producto p SET " +
+            "p.denominacion = :denominacion, " +
+            "p.esManufacturado = :esManufacturado, " +
+            "p.tiempoCocina = :tiempoCocina, " +
+            "p.descripcion = :descripcion, " +
+            "p.receta = :receta, " +
+            "p.costoTotal = :costoTotal, " +
+            "p.precioTotal = :precioTotal, " +
+            "p.activo = :activo, " +
+            "p.stock = :stock, " +
+            "p.categoriaProducto = :categoriaProducto " +
+            "WHERE p.id = :id")
+    int updateProductoWithoutImage(
+            @Param("id") Long id,
+            @Param("denominacion") String denominacion,
+            @Param("esManufacturado") Boolean esManufacturado,
+            @Param("tiempoCocina") String tiempoCocina,
+            @Param("descripcion") String descripcion,
+            @Param("receta") String receta,
+            @Param("costoTotal") Double costoTotal,
+            @Param("precioTotal") Double precioTotal,
+            @Param("activo") Boolean activo,
+            @Param("stock") int stock,
+            @Param("categoriaProducto") CategoriaProducto categoriaProducto);
 
 
     //Filtro por NOMBRE de producto y por ACTIVO para LANDING

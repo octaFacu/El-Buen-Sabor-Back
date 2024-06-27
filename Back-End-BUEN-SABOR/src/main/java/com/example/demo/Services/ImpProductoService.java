@@ -19,6 +19,7 @@ import java.util.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.logging.Logger;
 
@@ -242,6 +243,54 @@ public class ImpProductoService extends GenericServiceImpl<Producto,Long> implem
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
+    }
+
+    @Override
+    @Transactional
+    public int UpdateProducto(Producto producto) throws Exception{
+        try {
+            int updatedRows;
+            if (producto.getImagen() == null || producto.getImagen().isEmpty()) {
+                updatedRows = repository.updateProductoWithoutImage(
+                        producto.getId(),
+                        producto.getDenominacion(),
+                        producto.getEsManufacturado(),
+                        producto.getTiempoCocina(),
+                        producto.getDescripcion(),
+                        producto.getReceta(),
+                        producto.getCostoTotal(),
+                        producto.getPrecioTotal(),
+                        producto.getActivo(),
+                        producto.getStock(),
+                        producto.getCategoriaProducto()
+                );
+            } else {
+                updatedRows = repository.updateProductoWithImage(
+                        producto.getId(),
+                        producto.getDenominacion(),
+                        producto.getEsManufacturado(),
+                        producto.getTiempoCocina(),
+                        producto.getDescripcion(),
+                        producto.getReceta(),
+                        producto.getCostoTotal(),
+                        producto.getImagen(),
+                        producto.getPrecioTotal(),
+                        producto.getActivo(),
+                        producto.getStock(),
+                        producto.getCategoriaProducto()
+                );
+            }
+
+            if (updatedRows == 0) {
+                throw new Exception("Producto no encontrado y/o no actualizado");
+            }
+
+            return updatedRows;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
+
     }
 
 }

@@ -42,6 +42,17 @@ public class ProductoController extends GenericControllerImpl<Producto,Long, Imp
         }
     }
 
+    @CocineroOnly
+    @PostMapping("/update")
+    public ResponseEntity<?> updateProducto(@RequestBody Producto producto){
+        try{
+            int actualizado = service.UpdateProducto(producto);
+
+            return ResponseEntity.status(HttpStatus.OK).body(actualizado);
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, por favor intente mas tarde - "+e.getMessage()+"\"}");
+        }
+    }
 
 
 
