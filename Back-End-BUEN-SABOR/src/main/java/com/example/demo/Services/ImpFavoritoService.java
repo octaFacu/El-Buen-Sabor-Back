@@ -3,6 +3,7 @@ package com.example.demo.Services;
 import com.example.demo.Entidades.Cliente;
 import com.example.demo.Entidades.Favorito;
 import com.example.demo.Entidades.Producto;
+import com.example.demo.Entidades.Proyecciones.ProyeccionProducto;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductoFavorito;
 import com.example.demo.Repository.ClienteRepository;
 import com.example.demo.Repository.FavoritoRepository;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -61,6 +63,23 @@ public class ImpFavoritoService extends GenericServiceImpl<Favorito,Long> implem
             throw new Exception(e.getMessage());
         }
     }
+/*
+    public Object[] traerProductoFavorito(long id) throws Exception {
+        try {
+            Object[] result = repository.traerProducto(id);
+            System.out.println(Arrays.toString(result)); // Imprimir el resultado para depuración
+            return result;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    } */
 
+    public ProyeccionProducto traerProductoFavorito(long id) throws Exception {
+        try {
+            return repository.traerProducto(id);
 
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 }

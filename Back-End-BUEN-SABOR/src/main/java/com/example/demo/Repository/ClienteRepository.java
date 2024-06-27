@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -55,4 +56,7 @@ public interface ClienteRepository extends GenericRepository<Cliente,Long>, JpaS
     @Query(value = "SELECT * FROM cliente WHERE usuario_id LIKE :id_usuario",nativeQuery = true)
     Cliente findClienteXUsuarioId(@Param("id_usuario") String id_usuario);
 
+    @Modifying
+    @Query(value = "DELETE FROM cliente WHERE usuario_id = :id_usuario", nativeQuery = true)
+    void BorrarClientePorUsuarioID(@Param("id_usuario") String idUsuario);
 }

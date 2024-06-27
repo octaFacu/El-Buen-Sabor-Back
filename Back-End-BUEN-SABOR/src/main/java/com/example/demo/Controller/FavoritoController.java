@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Entidades.Favorito;
 import com.example.demo.Entidades.Producto;
+import com.example.demo.Entidades.Proyecciones.ProyeccionProducto;
 import com.example.demo.Entidades.Proyecciones.ProyeccionProductoFavorito;
 import com.example.demo.Security.PublicEndpoint;
 import com.example.demo.Services.ImpFavoritoService;
@@ -46,6 +47,32 @@ public class FavoritoController  extends GenericControllerImpl<Favorito,Long, Im
             throw new Exception(e.getMessage());
         }
     }
+  /*
+    @PublicEndpoint
+    @GetMapping("/getProductoFavorito/{id}")
+    public ResponseEntity<Object[]> getProductoFavorito(@PathVariable long id) throws Exception {
+        try {
+            Object[] producto = service.traerProductoFavorito(id);
+            Producto prod = new Producto();
+            return ResponseEntity.ok(producto);
+        } catch (Exception e) {
+            e.printStackTrace(); // Imprimir el stack trace para depuración
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    } */
+
+    @PublicEndpoint
+    @GetMapping("/getProductoFavorito/{id}")
+    public ResponseEntity<ProyeccionProducto> getProductoFavorito(@PathVariable long id) throws Exception {
+        try {
+            ProyeccionProducto producto = service.traerProductoFavorito(id);
+            return ResponseEntity.ok(producto);
+        } catch (Exception e) {
+            e.printStackTrace(); // Imprimir el stack trace para depuración
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 
     @PublicEndpoint
     @PostMapping("/saveFavorito/{id_usuario}")

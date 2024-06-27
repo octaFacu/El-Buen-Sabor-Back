@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -84,4 +85,13 @@ public class ImpClienteService extends GenericServiceImpl<Cliente, Long> impleme
         }
     }
 
+
+    @Transactional
+    public void deleteByUsuarioId(String idUsuario) throws Exception {
+        try {
+            repositorio.BorrarClientePorUsuarioID(idUsuario);
+        } catch (Exception e) {
+            throw new Exception("Error al borrar el cliente por ID de usuario: " + e.getMessage());
+        }
+    }
 }

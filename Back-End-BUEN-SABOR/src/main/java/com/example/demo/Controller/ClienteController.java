@@ -95,5 +95,14 @@ public class ClienteController extends GenericControllerImpl<Cliente,Long, ImpCl
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ocurrió un error al procesar la solicitud.");
         }
     }
+    @DeleteMapping("/usuario/{id_usuario}") // URL completa será /cliente/usuario/{id_usuario}
+    public ResponseEntity<Void> deleteByUsuarioId(@PathVariable("id_usuario") String idUsuario) throws Exception {
+        try {
+            service.deleteByUsuarioId(idUsuario);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            throw new Exception("Error al intentar eliminar el cliente: " + e.getMessage());
+        }
+    }
 
 }
